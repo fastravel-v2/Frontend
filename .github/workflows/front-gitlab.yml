@@ -1,0 +1,27 @@
+name: front to gitlab
+
+on:
+  push:
+    branches:
+      - frontend
+
+jobs:
+  push-to-gitlab:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "신창엽"
+          git config user.email "schy2504@naver.com"
+
+      - name: Push to GitLab frontend branch
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+        run: |
+          git remote add gitlab https://oauth2:$GITLAB_TOKEN@lab.ssafy.com/s10-bigdata-recom-sub2/S10P22D204.git
+          git push gitlab frontend:frontend --force

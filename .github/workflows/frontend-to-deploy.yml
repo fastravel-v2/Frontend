@@ -1,0 +1,28 @@
+name: frontend to deploy branch
+
+on:
+  push:
+    branches:
+      - frontend
+
+jobs:
+  push-to-deploy-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "신창엽"
+          git config user.email "schy2504@naver.com"
+
+      - name: Push to deploy branch
+        run: |
+          git fetch
+          git checkout deploy || git checkout -b deploy
+          git merge origin/frontend --no-edit --allow-unrelated-histories
+          git push origin deploy --force
