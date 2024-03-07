@@ -16,12 +16,18 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "신창엽"
-          git config user.email "schy2504@naver.com"
+          git config user.name "이우성"
+          git config user.email "useong1996@gmail.com"
 
       - name: Push to GitLab frontend branch
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
+          git checkout frontend
+          git pull origin frontend
+          git checkout -b temp-frontend
+          git filter-branch --force --prune-empty --index-filter "git rm -rf --cached --ignore-unmatch .github" HEAD
           git remote add gitlab https://oauth2:$GITLAB_TOKEN@lab.ssafy.com/s10-bigdata-recom-sub2/S10P22D204.git
-          git push gitlab frontend:frontend --force
+          git push gitlab temp-frontend:frontend --force
+          git checkout frontend
+          git branch -D temp-frontend
