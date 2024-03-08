@@ -1,0 +1,28 @@
+{
+  "name": "fasttravel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier frontend/src --check",
+    "format:fix": "prettier frontend/src --write",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint --fix frontend/src",
+    "stylelint": "stylelint \"frontend/src/**/*.{css,js,jsx,tsx}\"",
+    "stylelint:fix": "npm run stylelint --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2"
+  },
+  "lint-staged": {
+    "src/**/*.{tsx,ts,jsx,js}": [
+      "yarn lint:fix",
+      "yarn format:fix"
+    ],
+    "src/**/*.css": "yarn stylelint:fix"
+  }
+}
