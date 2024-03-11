@@ -24,5 +24,6 @@
       "yarn format:fix"
     ],
     "src/**/*.css": "yarn stylelint:fix"
-  }
+  },
+  "dependencies": {}
 }
