@@ -31,6 +31,11 @@ const routerData: RouterElement[] = [
 		label: 'login',
 	},
 	{
+		path: '/login/:loginType',
+		element: <Login />,
+		label: 'login',
+	},
+	{
 		path: '/mypage',
 		element: <Profile />,
 		label: 'profile',

@@ -22,13 +22,14 @@
 
 		/* Type path */
 		// click-to-react-component 사용을 위한 type 경로 설정
-		"baseUrl": ".",
 		"paths": {
 			"click-to-react-component": [
 				"./node_modules/click-to-react-component/src/types.d.ts"
-			]
+			],
+			"src/*": ["./src/*"]
 		}
+		// "baseUrl": "./"
 	},
-	"include": ["src"],
+	"include": ["src", "**/*.ts", "**/*.tsx"],
 	"references": [{ "path": "./tsconfig.node.json" }]
 }
