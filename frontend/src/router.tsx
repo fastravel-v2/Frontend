@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import Main from './pages/Main'
 import Login from './pages/Login'
-import MyPage from './pages/MyPage'
 import Profile from './pages/MyPage/Profile'
 import EditProfile from './pages/MyPage/EditProfile'
 import Alarm from './pages/Alerm'
@@ -23,7 +22,7 @@ interface IRouterBase {
 // Ex : type RouterElement = UserAccessibleRouterElement | AdminAccessibleRouterElement | NoneUserOnlyAccessibleRouterElement
 type RouterElement = IRouterBase
 
-// // 라우터와 관련된 모든 데이터를 관리하는 배열
+// 라우터와 관련된 모든 데이터를 관리하는 배열
 const routerData: RouterElement[] = [
 	{ path: '/', element: <Main />, label: 'main' },
 	{
@@ -33,20 +32,13 @@ const routerData: RouterElement[] = [
 	},
 	{
 		path: '/mypage',
-		element: <MyPage />,
-		label: 'myPage',
-		children: [
-			{
-				path: '',
-				element: <Profile />,
-				label: 'editProfile',
-			},
-			{
-				path: 'edit',
-				element: <EditProfile />,
-				label: 'editProfile',
-			},
-		],
+		element: <Profile />,
+		label: 'profile',
+	},
+	{
+		path: '/mypage/edit',
+		element: <EditProfile />,
+		label: 'editProfile',
 	},
 	{
 		path: '/alarm',
@@ -57,13 +49,11 @@ const routerData: RouterElement[] = [
 		path: '/search',
 		element: <Search />,
 		label: 'search',
-		children: [
-			{
-				path: '/add-place',
-				element: <AddPlace />,
-				label: 'addPlace',
-			},
-		],
+	},
+	{
+		path: '/search/add-place',
+		element: <AddPlace />,
+		label: 'addPlace',
 	},
 	{ path: '*', element: <NotFound />, label: 'notFound' },
 ]
