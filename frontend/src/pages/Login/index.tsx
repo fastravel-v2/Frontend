@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router-dom'
 
 import { doLogin } from './service'
 import { isLoginTokenType } from 'src/utility/utils/typefilter'
-import ServiceLogo from './components/ServiceLogo'
+import MainLogo from './components/MainLogo'
 import LoginButtonContainer from './components/LoginButtonContainer'
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
 
 	return (
 		<section className="flex flex-col justify-center h-screen px-5">
-			<ServiceLogo />
+			<MainLogo />
 			<LoginButtonContainer />
 		</section>
 	)

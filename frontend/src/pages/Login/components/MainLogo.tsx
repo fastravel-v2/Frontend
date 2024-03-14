@@ -1,4 +1,4 @@
-const ServiceLogo = () => {
+const MainLogo = () => {
 	return (
 		<h1 className="text-green1 mb-36">
 			<p className="text-lg">여행이 쉬워지다.</p>
@@ -7,4 +7,4 @@ const ServiceLogo = () => {
 	)
 }
 
-export default ServiceLogo
+export default MainLogo
