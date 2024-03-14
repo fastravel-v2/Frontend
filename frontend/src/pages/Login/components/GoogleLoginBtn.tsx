@@ -15,7 +15,7 @@ const GoogleLoginBtn = () => {
 	return (
 		<a
 			href={GOOGLE_URL}
-			className="flex flex-row items-center justify-center gap-2 py-4 font-bold text-black border-2 rounded border-lightGray1"
+			className="flex flex-row items-center self-stretch justify-center gap-2 py-4 font-bold text-black border-2 rounded border-lightGray1"
 		>
 			<GoogleLogo />
 			<p>구글 계정으로 로그인</p>
