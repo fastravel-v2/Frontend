@@ -1,20 +1,14 @@
-import { useEffect } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 
-import { doLogin } from './service'
-import { isLoginTokenType } from 'src/utility/utils/typefilter'
 import MainLogo from './components/MainLogo'
 import LoginButtonContainer from './components/LoginButtonContainer'
+import { useDoLogin } from './hooks/useLogin'
 
 const Login = () => {
 	const { loginType } = useParams()
 	const code = new URLSearchParams(useLocation().search).get('code')
 
-	useEffect(() => {
-		if (loginType && code && isLoginTokenType(loginType)) {
-			doLogin(loginType, code)
-		}
-	}, [loginType])
+	useDoLogin(loginType, code)
 
 	return (
 		<section className="flex flex-col justify-center h-screen px-5">
