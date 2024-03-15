@@ -8,11 +8,12 @@ import axios, {
 const baseConfig = {
 	baseURL: import.meta.env.VITE_BASE_URL,
 	timeout: 10 * 1000,
-	withCredentials: true,
 }
 
 const instance = axios.create(baseConfig)
+const tokenInstance = axios.create(baseConfig)
 const multipartInstance = axios.create(baseConfig)
+const tokenMultipartInstance = axios.create(baseConfig)
 
 // :: interceptor setting
 // 1. request
@@ -21,7 +22,15 @@ const requestPrev = (
 	config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'application/json'
+
+	return config
+}
+const tokenReqPrev = (
+	config: InternalAxiosRequestConfig
+): InternalAxiosRequestConfig => {
+	config.headers['Content-Type'] = 'application/json'
 	config.headers['Authorization'] = `Bearer ${import.meta.env.VITE_USER1_TOKEN}`
+	config.withCredentials = true
 
 	return config
 }
@@ -29,7 +38,15 @@ const multipartReqPrev = (
 	config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'multipart/form-data'
+
+	return config
+}
+const tokenMultipartReqPrev = (
+	config: InternalAxiosRequestConfig
+): InternalAxiosRequestConfig => {
+	config.headers['Content-Type'] = 'multipart/form-data'
 	config.headers['Authorization'] = `Bearer ${import.meta.env.VITE_USER1_TOKEN}`
+	config.withCredentials = true
 
 	return config
 }
@@ -55,9 +72,24 @@ instance.interceptors.response.use(resolveResponse, responseError)
 multipartInstance.interceptors.request.use(multipartReqPrev, requestError)
 multipartInstance.interceptors.response.use(resolveResponse, responseError)
 
+tokenInstance.interceptors.request.use(tokenReqPrev, requestError)
+tokenInstance.interceptors.response.use(resolveResponse, responseError)
+
+tokenMultipartInstance.interceptors.request.use(
+	tokenMultipartReqPrev,
+	requestError
+)
+tokenMultipartInstance.interceptors.response.use(resolveResponse, responseError)
+
 // :: axios Error 여부 판단
 const isAxiosError = <E>(err: unknown | AxiosError<E>): err is AxiosError => {
 	return axios.isAxiosError(err)
 }
 
-export { instance, multipartInstance, isAxiosError }
+export {
+	instance,
+	tokenInstance,
+	multipartInstance,
+	tokenMultipartInstance,
+	isAxiosError,
+}
