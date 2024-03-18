@@ -1,4 +1,4 @@
-import Profile from '../components/Profile'
+import Profile from './components/Profile'
 import { IMenu, IMenuFunc } from 'src/types/layout'
 import { useRouter } from 'src/hooks/useRouter'
 import DefaultLayout from 'src/components/layout/DefaultLayout'

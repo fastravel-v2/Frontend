@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import Main from './pages/Main'
 import Login from './pages/Login'
-import MyPage from './pages/MyPage/MyPage'
+import MyPage from './pages/MyPage'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
