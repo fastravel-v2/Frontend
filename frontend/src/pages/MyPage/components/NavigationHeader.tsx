@@ -30,33 +30,31 @@ const NavigationHeader = ({ headerData }: NavigationHeaderProps) => {
 	}, [currentPath])
 
 	return (
-		<div className="flex items-center justify-between">
-			<ul className={`flex gap-[2px]`}>
-				{headerData.map((headerItem, index) => {
-					return (
-						<li key={`header-${index}`} className={`w-16 relative`}>
-							<NavLink
-								to={headerItem.path}
-								className={
-									'inline-block w-full text-center py-2' +
-									(selectedIndex === index
-										? ' text-[#454645] font-[700]'
-										: ' text-[#D9D9D9]   ')
-								}
-							>
-								{headerItem.name}
-							</NavLink>
-							{selectedIndex === index && (
-								<motion.div
-									layoutId="underline"
-									className="absolute h-[1px] bottom-1 w-full bg-black"
-								/>
-							)}
-						</li>
-					)
-				})}
-			</ul>
-		</div>
+		<ul className={`flex justify-around w-full py-1 mb-7`}>
+			{headerData.map((headerItem, index) => {
+				return (
+					<li key={`header-${index}`} className={`w-20 relative`}>
+						<NavLink
+							to={headerItem.path}
+							className={
+								'inline-block w-full text-center ' +
+								(selectedIndex === index
+									? ' text-black font-bold'
+									: ' text-lightGray2')
+							}
+						>
+							{headerItem.name}
+						</NavLink>
+						{selectedIndex === index && (
+							<motion.div
+								layoutId="underline"
+								className="absolute h-[2px] -bottom-1 w-full bg-black"
+							/>
+						)}
+					</li>
+				)
+			})}
+		</ul>
 	)
 }
 
