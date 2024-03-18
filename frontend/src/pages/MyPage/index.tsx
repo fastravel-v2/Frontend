@@ -3,6 +3,8 @@ import { IMenu, IMenuFunc } from 'src/types/layout'
 import { useRouter } from 'src/hooks/useRouter'
 import DefaultLayout from 'src/components/layout/DefaultLayout'
 import MyPageHeader from 'src/components/header/MyPageHeader'
+import MyPageContent from './components/MyPageContent/MyPageContent'
+import { myPageHeaderData } from 'src/router'
 
 const MyPage = () => {
 	const { routeTo } = useRouter()
@@ -21,11 +23,14 @@ const MyPage = () => {
 		right_func: handleRightFunc,
 	}
 
+	// :: NavigationHeader data
+
 	// :: Rendering
 	return (
 		<DefaultLayout>
 			<MyPageHeader menu={headerMenu} func={headerFunc} />
 			<Profile />
+			<MyPageContent headerData={myPageHeaderData} />
 		</DefaultLayout>
 	)
 }
