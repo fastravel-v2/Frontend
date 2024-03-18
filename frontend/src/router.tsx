@@ -3,11 +3,12 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import Main from './pages/Main'
 import Login from './pages/Login'
-import MyPage from './pages/MyPage'
+import MyPage from './pages/MyPage/MyPage'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
 import NotFound from './pages/NotFound'
+import EditMyPage from './pages/MyPage/EditMyPage'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -41,7 +42,7 @@ const routerData: RouterElement[] = [
 	},
 	{
 		path: '/mypage/edit',
-		element: <MyPage />,
+		element: <EditMyPage />,
 		label: 'editProfile',
 	},
 	{
