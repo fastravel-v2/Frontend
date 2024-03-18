@@ -7,6 +7,7 @@ import MyPage from './pages/MyPage'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
+import LocationDetail from './pages/LocationDetail'
 import NotFound from './pages/NotFound'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
@@ -58,6 +59,11 @@ const routerData: RouterElement[] = [
 		path: '/search/add-place',
 		element: <AddPlace />,
 		label: 'addPlace',
+	},
+	{
+		path: '/location/:id',
+		element: <LocationDetail />,
+		label: 'locationDetail'
 	},
 	{ path: '*', element: <NotFound />, label: 'notFound' },
 ]
