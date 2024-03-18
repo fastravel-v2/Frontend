@@ -21,6 +21,7 @@ const EditMyPage = () => {
 		right_func: undefined,
 	}
 
+	// :: Rendering
 	return (
 		<WithHeaderLayout headerMenu={headerMenu} headerFunc={headerFunc}>
 			<EditProfile />

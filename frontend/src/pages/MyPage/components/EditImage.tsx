@@ -13,7 +13,6 @@ const EditImage = () => {
 		const selectedFile = (fileInput.files as FileList)[0]
 
 		if (!isValidImageFile(selectedFile)) {
-			fileInput.value = ''
 			return
 		}
 
