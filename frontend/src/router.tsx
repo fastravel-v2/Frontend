@@ -3,8 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import Main from './pages/Main'
 import Login from './pages/Login'
-import Profile from './pages/MyPage/Profile'
-import EditProfile from './pages/MyPage/EditProfile'
+import MyPage from './pages/MyPage'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
@@ -37,12 +36,12 @@ const routerData: RouterElement[] = [
 	},
 	{
 		path: '/mypage',
-		element: <Profile />,
+		element: <MyPage />,
 		label: 'profile',
 	},
 	{
 		path: '/mypage/edit',
-		element: <EditProfile />,
+		element: <MyPage />,
 		label: 'editProfile',
 	},
 	{

@@ -10,7 +10,7 @@ const SVGIcon = ({
 	size = 24,
 	width,
 	height,
-	color = '#0464b9',
+	color,
 	...restProps
 }: SVGIconProps) => {
 	const iconStyles = { width: width ?? size, height: height ?? size, color }
