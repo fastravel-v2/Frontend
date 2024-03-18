@@ -1,29 +1,29 @@
 import { useState } from 'react'
 import { IoIosCloseCircle } from 'react-icons/io'
 
-const EditNickname = () => {
-	const [nickname, setNickname] = useState('')
+const EditProfileName = () => {
+	const [name, setName] = useState('')
 
-	const handleChangeNickname = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.currentTarget
-		setNickname(value)
+		setName(value)
 	}
-	const handleClickButton = () => {
-		setNickname('')
+	const handleClickEraseButton = () => {
+		setName('')
 	}
 
 	return (
 		<div className="relative">
 			<input
 				type="text"
-				name="nickname"
-				id="nickname"
-				value={nickname}
-				onChange={handleChangeNickname}
+				name="profile-name"
+				id="profile-name"
+				value={name}
+				onChange={handleChangeName}
 				className="w-full px-10 py-3 text-2xl font-bold text-center text-black border-b-2 px- border-lightGray2 focus:outline-none"
 			/>
-			{nickname.length > 0 && (
-				<button type="button" onClick={handleClickButton}>
+			{name.length > 0 && (
+				<button type="button" onClick={handleClickEraseButton}>
 					<IoIosCloseCircle
 						size={32}
 						color="#C4C4C4"
@@ -35,4 +35,4 @@ const EditNickname = () => {
 	)
 }
 
-export default EditNickname
+export default EditProfileName

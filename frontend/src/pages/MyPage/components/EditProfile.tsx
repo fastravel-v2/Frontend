@@ -1,9 +1,9 @@
 import { FormEvent, useState } from 'react'
-import EditNickname from './EditNickname'
+import EditProfileName from './EditProfileName'
+import EditImage from './EditProfileImage'
+import { useRouter } from 'src/hooks/useRouter'
 import { getNameStatus } from '../util'
 import { NameMessageType } from '../type'
-import { useRouter } from 'src/hooks/useRouter'
-import EditImage from './EditImage'
 
 enum NameMessage {
 	'empty' = '닉네임이 비어있습니다.',
@@ -41,7 +41,7 @@ const EditProfile = () => {
 	return (
 		<form className="flex flex-col" onSubmit={handleSubmit}>
 			<EditImage />
-			<EditNickname />
+			<EditProfileName />
 			<button
 				type="submit"
 				className="py-4 mb-3 text-white rounded bg-green1 mt-9"

@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { isValidImageFile } from '../util'
 import { useFileToUrl } from '../hooks/useFileToUrl'
+import { isValidImageFile } from '../util'
 
-const EditImage = () => {
+const EditProfileImage = () => {
 	const [imageFile, setImageFile] = useState<File | null>(null) // 서버 전송용 imageFile
 	const imageUrl = useFileToUrl(imageFile)
 
@@ -37,4 +37,4 @@ const EditImage = () => {
 	)
 }
 
-export default EditImage
+export default EditProfileImage
