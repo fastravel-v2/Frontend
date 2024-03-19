@@ -41,7 +41,7 @@ jobs:
 
       - name: Build Frontend Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/ggumtle-frontend ./frontend
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend ./frontend
           
       - name: Push Frontend Docker Image
         run: |

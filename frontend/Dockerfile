@@ -1,9 +1,10 @@
 # 빌드 스테이지
 FROM node:14 AS build
 WORKDIR /app
-COPY frontend/package*.json ./
+RUN ls -al
+COPY package*.json ./
 RUN npm install
-COPY frontend/ ./
+COPY ./ ./
 RUN npm run build
 
 # 서브 스테이지
