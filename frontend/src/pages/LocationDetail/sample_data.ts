@@ -31,19 +31,19 @@ const sampleData: LocationDetailType = {
     "long": "128.4161841816",
     "name": "김춘수 유품전시관",
     "properties": {
+        "tel": "055-650-2670",
+        "address": "경상남도 통영시 해평5길 142-16",
         "location": "http://data.visitkorea.or.kr/resource/CATEGORY:361713",
         "category": "http://data.visitkorea.or.kr/resource/A02060300",
         "scale": "지상4층 중 1,2층 (부지 695㎡, 연면적 334㎡)",
         "creditCard": "불가능",
-        "tel": "055-650-2670",
         "babyEquipmentRental": "불가능",
-        "address": "경상남도 통영시 해평5길 142-16",
         "petsAvailable": "불가능",
         "fee": "무료",
         "postalCode": "53072",
         "timeAvailable": "09:00~18:00",
         "closedForTheDay": "매주 월요일, 1월 1일, 설날 및 추석 연휴",
-        "parking": "있음"
+        "parking": "있음",
     },
     "type": [
         "장소",
