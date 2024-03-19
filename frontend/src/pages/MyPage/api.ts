@@ -1,5 +1,5 @@
 // import { tokenInstance } from 'src/utility/apis/axios'
-import { MyTravelItem } from './type'
+import { MyTravel } from './type'
 
 const dummyData = {
 	data: [
@@ -38,7 +38,7 @@ const dummyData = {
 	],
 }
 
-export const getMyTravel = async (): Promise<MyTravelItem[]> => {
+export const getMyTravel = async (): Promise<MyTravel[]> => {
 	// :: after api is ready
 	// const myTravelRes = await tokenInstance.post('user/travel')
 	// return myTravelRes.data
