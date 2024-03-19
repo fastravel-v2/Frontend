@@ -24,4 +24,9 @@ export default defineConfig({
 			src: '/src',
 		},
 	},
+	server: {
+		hmr: {
+			clientPort: 5173,
+		},
+	},
 })
