@@ -10,7 +10,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint --fix frontend/src",
     "stylelint": "stylelint \"frontend/src/**/*.{css,js,jsx,tsx}\"",
-    "stylelint:fix": "npm run stylelint --fix"
+    "stylelint:fix": "npm run stylelint --fix",
+    "prepare": "husky"
   },
   "author": "",
   "license": "ISC",
