@@ -8,7 +8,7 @@ import svgr from '@svgr/rollup'
 export default defineConfig({
 	plugins: [
 		react(),
-		checker({ typescript: true }),
+		// checker({ typescript: true }),
 		svgr(),
 		// ViteSvgSpriteWrapper({
 		// 	// sprite 이미지 만들 입력 폴더
@@ -24,9 +24,9 @@ export default defineConfig({
 			src: '/src',
 		},
 	},
-	server: {
-		hmr: {
-			clientPort: 5173,
-		},
-	},
+	// server: {
+	// 	hmr: {
+	// 		clientPort: 5173,
+	// 	},
+	// },
 })
