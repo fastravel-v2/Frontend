@@ -13,17 +13,17 @@ export interface LocationDetailType {
 }
 
 export interface LocationDetailPropertiesType {
-    location?: string;
-    category?: string;
-    scale?: string;
-    creditCard?: string;
-    tel?: string;
-    babyEquipmentRental?: string;
-    address?: string;
-    petsAvailable?: string;
-    fee?: string;
-    postalCode?: string;
-    timeAvailable?: string;
-    closedForTheDay?: string;
-    parking?: string;
+    location: string | null;
+    category: string | null;
+    scale: string | null;
+    creditCard: string | null;
+    tel: string | null;
+    babyEquipmentRental: string | null;
+    address: string | null;
+    petsAvailable: string | null;
+    fee: string | null;
+    postalCode: string | null;
+    timeAvailable: string | null;
+    closedForTheDay: string | null;
+    parking: string | null;
 }
