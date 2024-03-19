@@ -30,7 +30,9 @@ const NavigationHeader = ({ headerData }: NavigationHeaderProps) => {
 	}, [currentPath])
 
 	return (
-		<ul className={`flex justify-around w-full py-1 mb-7`}>
+		<ul
+			className={`flex justify-around w-full py-1 pb-7 sticky top-20 bg-white`}
+		>
 			{headerData.map((headerItem, index) => {
 				return (
 					<li key={`header-${index}`} className={`w-20 relative`}>

@@ -29,8 +29,11 @@ const MyPage = () => {
 	return (
 		<DefaultLayout>
 			<MyPageHeader menu={headerMenu} func={headerFunc} />
+
 			<Profile />
 			<MyPageContent headerData={myPageHeaderData} />
+			{/* <div className="sticky top-20">sticky sticky</div> */}
+			{/* <div className="h-80">height for sticky</div> */}
 		</DefaultLayout>
 	)
 }

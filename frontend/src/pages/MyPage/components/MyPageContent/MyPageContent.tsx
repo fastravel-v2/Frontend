@@ -8,10 +8,10 @@ interface IMyPageContentProps {
 
 const MyPageContent = ({ headerData }: IMyPageContentProps) => {
 	return (
-		<div className="">
+		<>
 			<NavigationHeader headerData={headerData} />
 			<Outlet />
-		</div>
+		</>
 	)
 }
 
