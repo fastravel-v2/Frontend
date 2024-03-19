@@ -8,8 +8,7 @@
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"lint:fix": "eslint --fix src",
-		"prepare": "cd ../ && husky install frontend/.husky"
+		"lint:fix": "eslint --fix src"
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.7.18",
