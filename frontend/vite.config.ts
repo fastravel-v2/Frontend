@@ -26,7 +26,7 @@ export default defineConfig({
 	},
 	server: {
 		watch: {
-		  ignored: ['**/node_modules/**', './vite.config.ts'] // 상대 경로 사용
+		  ignored: ['**', './vite.config.ts'] // 상대 경로 사용
 		}
 	  }
 })
