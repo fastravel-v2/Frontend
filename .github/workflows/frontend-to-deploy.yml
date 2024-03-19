@@ -26,3 +26,44 @@ jobs:
           git checkout deploy || git checkout -b deploy
           git merge origin/frontend --no-edit --allow-unrelated-histories
           git push origin deploy --force
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      
+      - name: Push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./frontend
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/frontend
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker stop frontend || true
+            docker rm frontend || true
+            docker run --name frontend -d \
+            -p 8081:8081 \
+            --network=bridge \
+            --restart unless-stopped \
+            ${{ secrets.DOCKERHUB_USERNAME }}/frontend
+            docker container prune -f
+            docker image prune -f

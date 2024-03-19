@@ -8,8 +8,7 @@
     "format": "prettier frontend/src --check",
     "format:fix": "prettier frontend/src --write",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint --fix frontend/src",
-    "prepare": "husky"
+    "lint:fix": "eslint --fix frontend/src"
   },
   "author": "",
   "license": "ISC",
