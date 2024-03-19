@@ -1,15 +1,10 @@
-# Build stage
-FROM node:alpine as builder
+# 가져올 이미지를 정의
+FROM node:latest
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install
+COPY package.json .
+RUN npm install
 COPY . .
-RUN yarn build
 
-# Serve stage
-FROM nginx:alpine
-COPY --from=builder /app/build /usr/share/nginx/html
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 5173
+
+CMD ["npm", "start"]
