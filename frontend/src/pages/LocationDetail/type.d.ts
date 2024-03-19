@@ -9,21 +9,39 @@ export interface LocationDetailType {
     long: string;
     name: string;
     properties: LocationDetailPropertiesType
-    type: string[];
+    category: string[];
+    address: string;
 }
 
 export interface LocationDetailPropertiesType {
-    location: string | null;
-    category: string | null;
-    scale: string | null;
-    creditCard: string | null;
     tel: string | null;
-    babyEquipmentRental: string | null;
-    address: string | null;
-    petsAvailable: string | null;
-    fee: string | null;
-    postalCode: string | null;
-    timeAvailable: string | null;
-    closedForTheDay: string | null;
+    creditCard: string | null;
     parking: string | null;
+    openTime: string | null;
+    petsAvailable: string | null;
+    babyEquipmentRental: string | null;
+    closedForTheDay: string | null;
+    playAreaForChildren: string | null;
+    bestMenu: string | null;
+    restDate: string | null;
+    timeAvailable: string | null;
+    saleItems: string | null;
+    takeOut: string | null;
+    fairDay: string | null;
+    smokingSectionAvailable: string | null;
+    reservation: string | null;
+    fee: string | null;
+    occupancy: string | null;
+    ageLimit: string | null;
+    scale: string | null;
+    startDate: string | null;
+    endDate: string | null;
+    showTime: string | null;
+    parkingFee: string | null;
+    travelTime: string | null;
+    discount: string | null;
+    ageAvailable: string | null;
+    seasons: string | null;
+    timeRequired: string | null;
+    program: string | null;
 }

@@ -16,14 +16,14 @@ const LocationDetail = () => {
 
   return (
     <DefaultLayout>
-      <Header name={sampleData.name} properties={sampleData.properties} />
+      <Header name={sampleData.name} address={sampleData.address} />
       <CarouselComponent images={sampleData.depiction} />
       <div className="flex justify-between">
         <LikeButton />
         <AddToPlanButton />
       </div>
       <Description description={sampleData.description} />
-      <Properties properties={sampleData.properties} />
+      <Properties properties={sampleData.properties} address={sampleData.address}/>
     </DefaultLayout>
   )
 }

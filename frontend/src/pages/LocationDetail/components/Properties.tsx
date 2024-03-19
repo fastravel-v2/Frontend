@@ -4,12 +4,14 @@ import PropertyItem from "./PropertyItem"
 import { keyToString } from "../util"
 
 interface PropertiesProps {
-    properties: LocationDetailPropertiesType
+    address: string;
+    properties: LocationDetailPropertiesType;
 }
 
-const Properties: React.FC<PropertiesProps> = ({properties}) => {
+const Properties: React.FC<PropertiesProps> = ({address, properties}) => {
     return (
         <div className="mb-5">
+            <PropertyItem key="address" title="주소" content={address}/>
             {Object.entries(properties).map(([key, value]) => {
                 if (value && key !== "location" && key !== "category") {
                     return <PropertyItem key={key} title={keyToString(key)} content={value} />

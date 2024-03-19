@@ -23,13 +23,13 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({images}) => {
     }
 
     return (
-        <div className='relative'>
-            <div className='h-5 absolute top-2 right-3 px-3 z-10 rounded-full text-white bg-darkGray1 flex justify-center items-center'>
+        <div className='relative rounded-xl px-1 h-44 w-80'>
+            <div className='h-5 absolute top-2 right-4 px-3 z-10 rounded-full text-white bg-darkGray1 flex justify-center items-center'>
                 <p className='text-xs font-light '>{currentSlide + 1} / {images.length}</p>
             </div>
             <Slider {...settings}>
                 {images.map((image, index) => (
-                    <div key={index}>
+                    <div key={index} className='outline-none focus:outline-none'>
                         <img src={image} alt={`image number ${index + 1}`} className='rounded-xl px-1 h-44 w-80' /> 
                     </div>
                 ))}
