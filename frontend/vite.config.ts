@@ -26,7 +26,11 @@ export default defineConfig({
 	},
 	server: {
 		hmr: {
-			clientPort: 5173,
+		  clientPort: 5173,
 		},
-	},
+		watch: {
+		  ignored: ['node_modules', 'vite.config.ts']
+		  // 무시할 파일이나 디렉토리의 경로 또는 패턴을 배열로 지정
+		}
+	}
 })
