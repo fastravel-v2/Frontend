@@ -1,5 +1,5 @@
 # Nginx 이미지를 기반으로 한다.
-FROM nginx:20
+FROM nginx:alpine
 
 # /usr/share/nginx/html 디렉토리의 기존 파일을 삭제한다.
 RUN rm -rf /usr/share/nginx/html/*
