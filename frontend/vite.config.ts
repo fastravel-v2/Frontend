@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import checker from 'vite-plugin-checker'
+// import checker from 'vite-plugin-checker'
 import react from '@vitejs/plugin-react'
 import svgr from '@svgr/rollup'
 // import ViteSvgSpriteWrapper from 'vite-svg-sprite-wrapper'
