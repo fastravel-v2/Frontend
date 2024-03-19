@@ -2,6 +2,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { AiOutlineMore } from 'react-icons/ai'
 import { useParams } from 'react-router'
 import { useRouter } from 'src/hooks/useRouter'
+import { deleteMyTravel } from 'src/pages/MyPage/api'
 
 interface MyTravelMoreBtnProps {
 	// Define your props here
@@ -20,10 +21,11 @@ const MyTravelMoreBtn: React.FC<MyTravelMoreBtnProps> = () => {
 			return
 		}
 
-		// const deleteRes = await deleteMyTravel(travelId)
-		// if (deleteRes === 'success') {
-		// 	routeTo('/mypage')
-		// }
+		// TODO: API 연결할 때는 매개변수로 travelId를 받아서 해당 여행을 삭제하도록 수정
+		const deleteRes = await deleteMyTravel()
+		if (deleteRes === 'success') {
+			routeTo('/mypage')
+		}
 	}
 
 	return (

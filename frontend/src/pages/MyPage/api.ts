@@ -47,3 +47,14 @@ export const getMyTravel = async (): Promise<MyTravel[]> => {
 		resolve(dummyData.data)
 	})
 }
+
+// TODO: API 연결할 때는 매개변수로 travelId를 받아서 해당 여행을 삭제하도록 수정
+export const deleteMyTravel = async (): Promise<'success' | 'fail'> => {
+	// :: after api is ready
+	// const deleteRes = await tokenInstance.delete(`user/travel/${travelId}`)
+	// return deleteRes.data
+
+	return new Promise((resolve) => {
+		resolve('success')
+	})
+}
