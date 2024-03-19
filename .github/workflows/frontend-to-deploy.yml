@@ -1,4 +1,4 @@
-name: frontend to deploy branch
+name: frontend to deploy branch and deploy to EC2
 
 on:
   push:
