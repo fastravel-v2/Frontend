@@ -1,18 +1,26 @@
-# Nginx 이미지를 기반으로 한다.
-FROM nginx:alpine
+# nginx 이미지를 사용. 뒤에 tag가 없으면 latest 를 사용.
+FROM nginx
 
-# /usr/share/nginx/html 디렉토리의 기존 파일을 삭제한다.
-RUN rm -rf /usr/share/nginx/html/*
+# root 에 app 폴더를 생성
+RUN mkdir /app
 
-# dist 디렉토리의 내용을 /usr/share/nginx/html로 복사한다.
-# 이 디렉토리는 Nginx가 정적 파일을 서빙하는 기본 디렉토리이다.
-COPY dist/ /usr/share/nginx/html/
+# work dir 고정
+WORKDIR /app
 
-# Nginx 설정 파일을 복사한다. (아래에서 설명)
-COPY nginx.conf /etc/nginx/nginx.conf
+# work dir 에 build 폴더 생성 /app/build
+RUN mkdir ./build
 
-# 80 포트를 열어 웹 애플리케이션에 접근할 수 있도록 한다.
+# host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
+ADD ./build ./build
+
+# nginx 의 default.conf 를 삭제
+RUN rm /etc/nginx/conf.d/default.conf
+
+# host pc 의 nginx.conf 를 아래 경로에 복사
+COPY ./nginx.conf /etc/nginx/conf.d/nginx.conf
+
+# 80 포트 오픈
 EXPOSE 80
 
-# Nginx 서버를 실행한다.
+# container 실행 시 자동으로 실행할 command. nginx 시작함
 CMD ["nginx", "-g", "daemon off;"]
