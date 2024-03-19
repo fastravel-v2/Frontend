@@ -2,7 +2,7 @@
 FROM node:20
 
 # 애플리케이션 디렉토리 생성
-WORKDIR .
+WORKDIR /app
 
 # 애플리케이션 의존성 설치
 COPY package*.json ./
@@ -18,8 +18,11 @@ ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
 # React 앱 빌드
 RUN yarn build
 
+# Serve 설치
+RUN yarn global add serve
+
 # 애플리케이션이 사용할 포트 설정
 EXPOSE 5173
 
 # 애플리케이션 실행
-CMD ["yarn", "dev"]
+CMD ["serve", "-s", "build", "-l", "5173"]
