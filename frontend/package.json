@@ -50,5 +50,8 @@
 	"description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
 	"main": "index.js",
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"overrides": {
+		"fsevents": "^2.3.3"
+	  }
 }

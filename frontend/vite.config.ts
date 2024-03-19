@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-// import checker from 'vite-plugin-checker'
+import checker from 'vite-plugin-checker'
 import react from '@vitejs/plugin-react'
 import svgr from '@svgr/rollup'
 // import ViteSvgSpriteWrapper from 'vite-svg-sprite-wrapper'
@@ -8,7 +8,7 @@ import svgr from '@svgr/rollup'
 export default defineConfig({
 	plugins: [
 		react(),
-		// checker({ typescript: true }),
+		checker({ typescript: true }),
 		svgr(),
 		// ViteSvgSpriteWrapper({
 		// 	// sprite 이미지 만들 입력 폴더
@@ -24,9 +24,9 @@ export default defineConfig({
 			src: '/src',
 		},
 	},
-	// server: {
-	// 	hmr: {
-	// 		clientPort: 5173,
-	// 	},
-	// },
+	server: {
+		hmr: {
+			clientPort: 5173,
+		},
+	},
 })
