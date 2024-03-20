@@ -1,4 +1,5 @@
 import { debounce } from 'lodash'
+import { useEffect, useRef } from 'react'
 import { IoIosCloseCircle } from 'react-icons/io'
 
 interface EditProfileNameProps {
@@ -7,6 +8,12 @@ interface EditProfileNameProps {
 }
 
 const EditProfileName = ({ name, setName }: EditProfileNameProps) => {
+	const nameRef = useRef<HTMLInputElement>(null)
+	useEffect(() => {
+		if (nameRef.current === null) return
+		nameRef.current.value = name
+	}, [name])
+
 	const setNameWithDebounce = debounce(
 		(currentName) => setName(currentName),
 		200
@@ -24,6 +31,7 @@ const EditProfileName = ({ name, setName }: EditProfileNameProps) => {
 	return (
 		<div className="relative">
 			<input
+				ref={nameRef}
 				type="text"
 				name="profile-name"
 				id="profile-name"
