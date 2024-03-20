@@ -1,25 +1,26 @@
-import { useEffect } from 'react'
-import { useCurrentNameStatus } from '../hooks/useCurrentNameStatus'
 import { NameMessageInfo } from './EditProfile'
+import { useNameStatusQuery } from '../query'
 
 interface NameMessageProps {
 	name: string
 }
 const NameMessage = ({ name }: NameMessageProps) => {
-	const nameStatus = useCurrentNameStatus(name)
-
-	useEffect(() => {
-		console.log(nameStatus)
-	}, [name])
+	const { nameStatus, isLoading } = useNameStatusQuery(name)
 
 	return (
-		<p
-			className={`text-xs text-darkGray1 ${
-				nameStatus !== 'valid' && 'text-red'
-			}`}
-		>
-			{NameMessageInfo[nameStatus]}
-		</p>
+		<>
+			{isLoading || !nameStatus ? (
+				<p className={`text-xs text-darkGray1`}>{NameMessageInfo['valid']}</p>
+			) : (
+				<p
+					className={`text-xs text-darkGray1 ${
+						nameStatus !== 'valid' && 'text-red'
+					}`}
+				>
+					{NameMessageInfo[nameStatus]}
+				</p>
+			)}
+		</>
 	)
 }
 

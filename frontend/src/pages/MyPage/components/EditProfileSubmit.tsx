@@ -1,13 +1,17 @@
 import { useMemo } from 'react'
-import { useCurrentNameStatus } from '../hooks/useCurrentNameStatus'
+import { useNameStatusQuery } from '../query'
 
 interface EditProfileSubmitProps {
 	name: string
 }
 const EditProfileSubmit = ({ name }: EditProfileSubmitProps) => {
-	const nameStatus = useCurrentNameStatus(name)
-	const isDisabled = useMemo(() => nameStatus !== 'valid', [nameStatus])
+	const { nameStatus, isLoading } = useNameStatusQuery(name)
+	const isDisabled = useMemo(
+		() => nameStatus !== 'valid' || isLoading,
+		[nameStatus, isLoading]
+	)
 
+	// :: Rendering
 	return (
 		<button
 			type="submit"

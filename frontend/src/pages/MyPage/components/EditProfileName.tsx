@@ -1,21 +1,11 @@
-import { useEffect } from 'react'
 import { IoIosCloseCircle } from 'react-icons/io'
 
 interface EditProfileNameProps {
-	currentUsername: string
 	name: string
 	setName: React.Dispatch<React.SetStateAction<string>>
 }
 
-const EditProfileName = ({
-	currentUsername,
-	name,
-	setName,
-}: EditProfileNameProps) => {
-	useEffect(() => {
-		setName(currentUsername)
-	}, [])
-
+const EditProfileName = ({ name, setName }: EditProfileNameProps) => {
 	const handleChangeName = async (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {

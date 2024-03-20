@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import EditProfileName from './EditProfileName'
 import EditImage from './EditProfileImage'
 // import { useRouter } from 'src/hooks/useRouter'
@@ -29,6 +29,9 @@ const EditProfile = () => {
 	// const { routeTo } = useRouter()
 	const { data: currentUser, isLoading } = useCurrentUser()
 	const [name, setName] = useState('')
+	useEffect(() => {
+		currentUser && setName(currentUser.username)
+	}, [isLoading])
 
 	// :: Event handler
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -46,7 +49,6 @@ const EditProfile = () => {
 				<form className="flex flex-col" onSubmit={handleSubmit}>
 					<EditImage currentUserProfileUrl={currentUser.profileImage} />
 					<EditProfileName
-						currentUsername={currentUser.username}
 						name={name}
 						setName={setName}
 					/>
