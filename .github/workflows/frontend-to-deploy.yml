@@ -60,6 +60,7 @@ jobs:
           script: |
             docker stop frontend || true
             docker rm frontend || true
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
             docker run --name frontend -d \
             -p 5173:5173 \
             --network=bridge \
