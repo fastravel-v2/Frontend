@@ -10,6 +10,7 @@ import MyUrlInfo from './pages/MyPage/components/MyPageContent/MyUrlInfo'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
+import LocationDetail from './pages/LocationDetail'
 import NotFound from './pages/NotFound'
 import { ContentTypeInfo } from './pages/MyPage/type'
 
@@ -90,6 +91,11 @@ const routerData: RouterElement[] = [
 		path: '/search/add-place',
 		element: <AddPlace />,
 		label: 'addPlace',
+	},
+	{
+		path: '/location/:id',
+		element: <LocationDetail />,
+		label: 'locationDetail'
 	},
 	{ path: '*', element: <NotFound />, label: 'notFound' },
 ]
