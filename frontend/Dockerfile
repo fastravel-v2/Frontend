@@ -6,7 +6,7 @@ COPY package*.json ./
 RUN npm install
 COPY ./ ./
 RUN npm run build
-RUN ls -al /app/build
+RUN ls -al /app
 
 # 서브 스테이지
 FROM nginx:alpine
