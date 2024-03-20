@@ -29,6 +29,7 @@ const EditProfile = () => {
 	// const { routeTo } = useRouter()
 	const { data: currentUser, isLoading } = useCurrentUser()
 	const [name, setName] = useState('')
+
 	useEffect(() => {
 		currentUser && setName(currentUser.username)
 	}, [isLoading])
@@ -48,10 +49,7 @@ const EditProfile = () => {
 			) : (
 				<form className="flex flex-col" onSubmit={handleSubmit}>
 					<EditImage currentUserProfileUrl={currentUser.profileImage} />
-					<EditProfileName
-						name={name}
-						setName={setName}
-					/>
+					<EditProfileName name={name} setName={setName} />
 					<EditProfileSubmit name={name} />
 					<NameMessage name={name} />
 				</form>

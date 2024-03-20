@@ -5,10 +5,10 @@ interface EditProfileSubmitProps {
 	name: string
 }
 const EditProfileSubmit = ({ name }: EditProfileSubmitProps) => {
-	const { nameStatus, isLoading } = useNameStatusQuery(name)
+	const { nameStatus, isLoading, isFetching } = useNameStatusQuery(name)
 	const isDisabled = useMemo(
-		() => nameStatus !== 'valid' || isLoading,
-		[nameStatus, isLoading]
+		() => nameStatus !== 'valid' || isLoading || isFetching,
+		[nameStatus, isLoading, isFetching]
 	)
 
 	// :: Rendering

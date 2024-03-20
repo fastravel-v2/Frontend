@@ -1,3 +1,4 @@
+import { debounce } from 'lodash'
 import { IoIosCloseCircle } from 'react-icons/io'
 
 interface EditProfileNameProps {
@@ -6,11 +7,15 @@ interface EditProfileNameProps {
 }
 
 const EditProfileName = ({ name, setName }: EditProfileNameProps) => {
+	const setNameWithDebounce = debounce(
+		(currentName) => setName(currentName),
+		200
+	)
 	const handleChangeName = async (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
 		const currentName = event.currentTarget.value
-		setName(currentName)
+		setNameWithDebounce(currentName)
 	}
 	const handleClickEraseButton = () => {
 		setName('')
@@ -22,7 +27,6 @@ const EditProfileName = ({ name, setName }: EditProfileNameProps) => {
 				type="text"
 				name="profile-name"
 				id="profile-name"
-				value={name}
 				onChange={handleChangeName}
 				className="w-full px-10 py-3 text-2xl font-bold text-center text-black border-b-2 px- border-lightGray2 focus:outline-none"
 			/>
