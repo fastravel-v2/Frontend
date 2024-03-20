@@ -1,7 +1,4 @@
 export interface LocationDetailType {
-    _id: {
-        $oid: string;
-    };
     spot_id: string;
     depiction: string[];
     description: string;

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { PiNote } from "react-icons/pi";
 import MemoModal from "./MemoModal";
 
@@ -7,7 +7,7 @@ interface HeaderProps {
   address: string;
 }
 
-const Header: React.FC<HeaderProps> = ({name, address}) => {
+const Header = ({name, address}: HeaderProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const openModal = () => {

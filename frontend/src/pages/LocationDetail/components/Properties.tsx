@@ -1,4 +1,3 @@
-import React from "react"
 import { LocationDetailPropertiesType } from "../type"
 import PropertyItem from "./PropertyItem"
 import { keyToString } from "../util"
@@ -8,9 +7,9 @@ interface PropertiesProps {
     properties: LocationDetailPropertiesType;
 }
 
-const Properties: React.FC<PropertiesProps> = ({address, properties}) => {
+const Properties = ({address, properties}:PropertiesProps) => {
     return (
-        <div className="mb-5">
+        <div className="mt-4 mb-5">
             <PropertyItem key="address" title="주소" content={address}/>
             {Object.entries(properties).map(([key, value]) => {
                 if (value && key !== "location" && key !== "category") {

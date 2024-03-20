@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Slider, {Settings} from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
@@ -7,7 +7,7 @@ interface CarouselComponentProps {
     images: string[];
 }
 
-const CarouselComponent: React.FC<CarouselComponentProps> = ({images}) => {
+const CarouselComponent = ({images}: CarouselComponentProps) => {
     const [currentSlide, setCurrentSlide] = useState(0)
 
     const settings: Settings = {

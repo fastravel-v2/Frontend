@@ -1,11 +1,9 @@
-import React from "react";
-
 interface MemoModalProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
-const MemoModal: React.FC<MemoModalProps> = ({ isOpen, onClose }) => {
+const MemoModal = ({ isOpen, onClose }: MemoModalProps) => {
     if (!isOpen) return null;
   
     return (
