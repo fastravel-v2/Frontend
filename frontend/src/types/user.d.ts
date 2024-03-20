@@ -1,4 +1,4 @@
 interface UserInfo {
-	nickname: string
-	profile: string
+	username: string
+	profileImage: string | null
 }
