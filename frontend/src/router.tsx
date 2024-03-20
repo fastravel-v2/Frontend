@@ -12,6 +12,7 @@ import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
 import NotFound from './pages/NotFound'
 import { ContentTypeInfo } from './pages/MyPage/type'
+import Recommend from './pages/Recommend'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -34,10 +35,16 @@ const routerData: RouterElement[] = [
 		element: <Login />,
 		label: 'login',
 	},
+	// Route for OAuth login
 	{
 		path: '/login/:loginType',
 		element: <Login />,
 		label: 'login',
+	},
+	{
+		path: '/recommend',
+		element: <Recommend />,
+		label: 'recommend',
 	},
 	{
 		path: '/mypage',
