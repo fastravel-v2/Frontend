@@ -8,7 +8,7 @@ const NameMessage = ({ nameStatus }: NameMessageProps) => {
 	return (
 		<p
 			className={`text-xs text-darkGray1 ${
-				nameStatus !== 'valid' && 'text-red'
+				nameStatus !== 'valid' && nameStatus !== 'loading' && 'text-red'
 			}`}
 		>
 			{NameMessageInfo[nameStatus]}
