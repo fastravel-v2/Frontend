@@ -26,7 +26,9 @@ const EditProfileImage = ({ currentUserProfileUrl }: EditProfileImageProps) => {
 	return (
 		<label className="self-center">
 			<img
-				src={profileUrl ? profileUrl : '/src/assets/svgs/defaultProfile.svg'}
+				src={
+					profileUrl ? profileUrl : '/src/assets/svgs/defaultProfile1234.svg'
+				}
 				alt="프로필 이미지"
 				className="w-20 h-20 rounded-full"
 			/>

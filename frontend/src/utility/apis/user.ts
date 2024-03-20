@@ -3,7 +3,7 @@
 const dummyUserInfo = {
 	data: {
 		username: '이우성',
-		profileImage: '/src/asstes/svgs/defaultProfile',
+		profileImage: '/src/assets/svgs/defaultProfile.svg',
 	},
 }
 

@@ -1,5 +1,3 @@
-import { NameMessageType } from './type'
-
 const ALLOW_EXTENSION_LIST = ['jpg', 'jpeg', 'png', 'gif']
 const FILE_SIZE_MAX_LIMIT = 1 * 1024 * 1024 // 1MB
 
@@ -54,20 +52,4 @@ export const checkFileSizeIsValid = (fileSize: number): boolean => {
 	if (fileSize > FILE_SIZE_MAX_LIMIT) return false
 
 	return true
-}
-
-export const getNameStatus = (nickname: string): NameMessageType => {
-	const tooLongPwReg = /^.{10,}$/
-	// eslint-disable-next-line no-useless-escape
-	const validCharReg = /^[a-z0-9_.ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+$/g // 공백이나 유효하지 않은 문자가 포함된 경우
-
-	if (nickname.length === 0) {
-		return 'empty'
-	}
-	if (tooLongPwReg.test(nickname)) {
-		return 'tooLong'
-	} else if (!validCharReg.test(nickname)) {
-		return 'invalidChar'
-	}
-	return 'valid'
 }
