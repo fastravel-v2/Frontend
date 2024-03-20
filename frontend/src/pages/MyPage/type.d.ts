@@ -3,4 +3,5 @@ export type NameMessageType =
 	| 'tooLong'
 	| 'invalidChar'
 	| 'duplicate'
+	| 'loading'
 	| 'valid'

@@ -1,15 +1,11 @@
 import { useMemo } from 'react'
-import { useNameStatusQuery } from '../query'
+import { NameMessageType } from '../type'
 
 interface EditProfileSubmitProps {
-	name: string
+	nameStatus: NameMessageType
 }
-const EditProfileSubmit = ({ name }: EditProfileSubmitProps) => {
-	const { nameStatus, isLoading, isFetching } = useNameStatusQuery(name)
-	const isDisabled = useMemo(
-		() => nameStatus !== 'valid' || isLoading || isFetching,
-		[nameStatus, isLoading, isFetching]
-	)
+const EditProfileSubmit = ({ nameStatus }: EditProfileSubmitProps) => {
+	const isDisabled = useMemo(() => nameStatus !== 'valid', [nameStatus])
 
 	// :: Rendering
 	return (

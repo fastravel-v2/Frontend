@@ -7,9 +7,6 @@ export const getNameIsDuplicated = async (
 	// return res.data
 
 	await new Promise((resolve) => setTimeout(resolve, 2000)) // 2초 대기
-
-	console.log('suspense test') // 테스트 메시지 출력
-	console.log(name) // 입력받은 이름 출력
-
+	console.log(name)
 	return 'valid' // 현재는 테스트를 위해 항상 valid를 반환
 }

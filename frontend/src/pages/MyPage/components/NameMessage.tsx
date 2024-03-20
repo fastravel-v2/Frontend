@@ -1,26 +1,18 @@
+import { NameMessageType } from '../type'
 import { NameMessageInfo } from './EditProfile'
-import { useNameStatusQuery } from '../query'
 
 interface NameMessageProps {
-	name: string
+	nameStatus: NameMessageType
 }
-const NameMessage = ({ name }: NameMessageProps) => {
-	const { nameStatus, isLoading } = useNameStatusQuery(name)
-
+const NameMessage = ({ nameStatus }: NameMessageProps) => {
 	return (
-		<>
-			{isLoading || !nameStatus ? (
-				<p className={`text-xs text-darkGray1`}>{NameMessageInfo['valid']}</p>
-			) : (
-				<p
-					className={`text-xs text-darkGray1 ${
-						nameStatus !== 'valid' && 'text-red'
-					}`}
-				>
-					{NameMessageInfo[nameStatus]}
-				</p>
-			)}
-		</>
+		<p
+			className={`text-xs text-darkGray1 ${
+				nameStatus !== 'valid' && 'text-red'
+			}`}
+		>
+			{NameMessageInfo[nameStatus]}
+		</p>
 	)
 }
 
