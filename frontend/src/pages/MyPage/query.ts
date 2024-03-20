@@ -43,6 +43,7 @@ export const useNameStatusQuery = (name: string) => {
 	} = useQuery({
 		queryKey: ['duplicateInfo', name],
 		queryFn: () => validateName(name),
+		refetchOnWindowFocus: false,
 	})
 
 	return { nameStatus, isLoading, isFetching }
