@@ -1,11 +1,11 @@
-export interface LocationDetailType {
+export interface LocationDetailType extends LocationDetailPropertiesType {
     spot_id: string;
-    depiction: string[];
+    // image_url: string[];
+    image_url: string;
     description: string;
     lat: string;
     long: string;
     name: string;
-    properties: LocationDetailPropertiesType
     category: string[];
     address: string;
 }

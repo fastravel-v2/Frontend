@@ -5,7 +5,7 @@ import { getLocationDetail } from "./api"
 import { LocationDetailType } from "./type"
 import WithHeaderLayout from "src/components/layout/WithHeaderLayout"
 import Header from "./components/Header"
-import CarouselComponent from "./components/CarouselComponent"
+// import CarouselComponent from "./components/CarouselComponent"
 import LikeButton from "./components/LikeButton"
 import AddToPlanButton from "./components/AddToPlanButton"
 import Description from "./components/Description"
@@ -43,18 +43,36 @@ const LocationDetail = () => {
     return null
   }
 
+  const { tel, creditCard, parking, openTime, petsAvailable, babyEquipmentRental, closedForTheDay, playAreaForChildren, bestMenu, restDate, timeAvailable, saleItems, takeOut, fairDay, smokingSectionAvailable, reservation, fee, occupancy, ageLimit, scale, startDate, endDate, showTime, parkingFee, travelTime, discount, ageAvailable, seasons, timeRequired, program } = locationData
+  const properties = { tel, creditCard, parking, openTime, petsAvailable, babyEquipmentRental, closedForTheDay, playAreaForChildren, bestMenu, restDate, timeAvailable, saleItems, takeOut, fairDay, smokingSectionAvailable, reservation, fee, occupancy, ageLimit, scale, startDate, endDate, showTime, parkingFee, travelTime, discount, ageAvailable, seasons, timeRequired, program }
 
   return (
     <WithHeaderLayout headerMenu={headerMenu} headerFunc={headerFunc}>
       <Header name={locationData.name} address={locationData.address} />
-      <CarouselComponent images={locationData.depiction} />
+      {/* {locationData.image_url.length > 1
+        ? <CarouselComponent images={locationData.image_url} />
+        : locationData.image_url.length 
+          ? <div className='relative rounded-xl px-1 h-44 w-80'>
+              <div className='h-5 absolute top-2 right-4 px-3 z-10 rounded-full text-white bg-darkGray1 flex justify-center items-center'>
+                  <p className='text-xs font-light '>{1} / {1}</p>
+              </div>
+              <img src={locationData.image_url[0]} alt={`image number ${1}`} className='rounded-xl px-1 h-44 w-80' /> 
+          </div>
+          : <div></div>
+      } */}
+      <div className='relative rounded-xl px-1 h-44 w-80'>
+        <div className='h-5 absolute top-2 right-4 px-3 z-10 rounded-full text-white bg-darkGray1 flex justify-center items-center'>
+            <p className='text-xs font-light '>{1} / {1}</p>
+        </div>
+        <img src={locationData.image_url} alt={`image number ${1}`} className='rounded-xl px-1 h-44 w-80' /> 
+      </div>
       <div className="flex justify-between">
         <LikeButton />
         <AddToPlanButton />
       </div>
       <Description description={locationData.description} />
       <MapComponent lat={Number(locationData.lat)} long={Number(locationData.long)}/>
-      <Properties properties={locationData.properties} address={locationData.address}/>
+      <Properties properties={properties} address={locationData.address}/>
     </WithHeaderLayout>
   )
 }
