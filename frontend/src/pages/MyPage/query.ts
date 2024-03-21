@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { deleteMyTravel, getMyTravel } from './api'
+import { sortDatesBasedOnCurrent } from './service'
+import { useMemo } from 'react'
 
 export const useMyTravelListQuery = () => {
 	const { isLoading, data } = useQuery({
@@ -7,7 +9,12 @@ export const useMyTravelListQuery = () => {
 		queryFn: getMyTravel,
 	})
 
-	return { isLoading, data }
+	const sortedMyTravelList = useMemo(
+		() => sortDatesBasedOnCurrent(data || []),
+		[data]
+	)
+
+	return { isLoading, sortedMyTravelList }
 }
 
 // useMutation을 사용하여 여행 삭제 로직을 수행하는 Hook

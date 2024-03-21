@@ -7,32 +7,32 @@ const dummyData = {
 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
 			travelImage: '/src/assets/svgs/travelImage.svg',
 			travelName: '여수 여행',
-			startDate: new Date('2024.12.7'),
-			endDate: new Date('2024.12.7'),
+			startDate: '2024-03-16T19:20+01:00',
+			endDate: '2024-03-31T19:20+01:00',
 			numOfCity: 1,
 		},
 		{
 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
 			travelImage: '/src/assets/svgs/travelImage.svg',
 			travelName: '여수 여행',
-			startDate: new Date('2024.12.7'),
-			endDate: new Date('2024.12.7'),
+			startDate: '2024-03-13T19:20+01:00',
+			endDate: '2024-03-14T19:20+01:00',
 			numOfCity: 1,
 		},
 		{
 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
 			travelImage: '/src/assets/svgs/travelImage.svg',
 			travelName: '여수 여행',
-			startDate: new Date('2024.12.7'),
-			endDate: new Date('2024.12.7'),
+			startDate: '2024-03-01T19:20+01:00',
+			endDate: '2024-03-02T19:20+01:00',
 			numOfCity: 1,
 		},
 		{
 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
 			travelImage: '/src/assets/svgs/travelImage.svg',
 			travelName: '여수 여행',
-			startDate: new Date('2024.12.7'),
-			endDate: new Date('2024.12.7'),
+			startDate: '2024-04-16T19:20+01:00',
+			endDate: '2024-04-17T19:20+01:00',
 			numOfCity: 1,
 		},
 	],
