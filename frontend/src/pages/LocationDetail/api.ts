@@ -86,7 +86,6 @@ export const getLocationDetail = async (id: string):Promise<LocationDetailType> 
         console.error("error", error)
         throw error
     }
-
     // console.log(id)
     // return dummyData.data
 }
