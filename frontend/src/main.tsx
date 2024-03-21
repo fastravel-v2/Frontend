@@ -8,10 +8,12 @@ import { ClickToComponent } from 'click-to-react-component'
 const client = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
-		<QueryClientProvider client={client}>
-			<App />
-		</QueryClientProvider>
-		<ClickToComponent />
-	</React.StrictMode>
+	<>
+		<React.StrictMode>
+			<QueryClientProvider client={client}>
+				<App />
+			</QueryClientProvider>
+			<ClickToComponent />
+		</React.StrictMode>
+	</>
 )
