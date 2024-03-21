@@ -12,6 +12,7 @@ import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
 import LocationDetail from './pages/LocationDetail'
 import NotFound from './pages/NotFound'
+import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
@@ -74,7 +75,7 @@ const routerData: RouterElement[] = [
 	},
 	{
 		path: '/mypage/edit',
-		element: <MyPage />,
+		element: <EditMyPage />,
 		label: 'editProfile',
 	},
 	{
