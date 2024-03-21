@@ -3,16 +3,14 @@ import PropertyItem from "./PropertyItem"
 import { keyToString } from "../util"
 
 interface PropertiesProps {
-    address: string;
     properties: LocationDetailPropertiesType;
 }
 
-const Properties = ({address, properties}:PropertiesProps) => {
+const Properties = ({properties}:PropertiesProps) => {
     return (
         <div className="mt-4 mb-5">
-            <PropertyItem key="address" title="주소" content={address}/>
             {Object.entries(properties).map(([key, value]) => {
-                if (value && key !== "location" && key !== "category") {
+                if (value) {
                     return <PropertyItem key={key} title={keyToString(key)} content={value} />
                 }
                 return null

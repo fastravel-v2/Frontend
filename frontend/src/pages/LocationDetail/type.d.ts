@@ -1,7 +1,7 @@
 export interface LocationDetailType extends LocationDetailPropertiesType {
     spot_id: string;
     // image_url: string[];
-    image_url: string;
+    image_urls: string[] | [];
     description: string;
     lat: string;
     long: string;
@@ -12,33 +12,33 @@ export interface LocationDetailType extends LocationDetailPropertiesType {
 
 export interface LocationDetailPropertiesType {
     tel: string | null;
-    creditCard: string | null;
+    credit_card: string | null;
     parking: string | null;
-    openTime: string | null;
-    petsAvailable: string | null;
-    babyEquipmentRental: string | null;
-    closedForTheDay: string | null;
-    playAreaForChildren: string | null;
-    bestMenu: string | null;
-    restDate: string | null;
-    timeAvailable: string | null;
-    saleItems: string | null;
-    takeOut: string | null;
-    fairDay: string | null;
-    smokingSectionAvailable: string | null;
+    open_time: string | null;
+    pets_available: string | null;
+    baby_equipment_rental: string | null;
+    closed_for_the_day: string | null;
+    play_area_for_children: string | null;
+    best_menu: string | null;
+    rest_date: string | null;
+    time_available: string | null;
+    sale_items: string | null;
+    take_out: string | null;
+    fair_day: string | null;
+    smoking_section_available: string | null;
     reservation: string | null;
     fee: string | null;
     occupancy: string | null;
-    ageLimit: string | null;
+    age_limit: string | null;
     scale: string | null;
-    startDate: string | null;
-    endDate: string | null;
-    showTime: string | null;
-    parkingFee: string | null;
-    travelTime: string | null;
+    start_date: string | null;
+    end_date: string | null;
+    show_time: string | null;
+    parking_fee: string | null;
+    travel_time: string | null;
     discount: string | null;
-    ageAvailable: string | null;
+    age_available: string | null;
     seasons: string | null;
-    timeRequired: string | null;
+    time_required: string | null;
     program: string | null;
 }
