@@ -5,3 +5,7 @@ export type NameMessageType =
 	| 'duplicate'
 	| 'loading'
 	| 'valid'
+export interface ContentTypeInfo {
+	name: string
+	path: string
+}
