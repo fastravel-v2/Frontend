@@ -4,13 +4,15 @@ import { createBrowserRouter } from 'react-router-dom'
 import Main from './pages/Main'
 import Login from './pages/Login'
 import MyPage from './pages/MyPage'
-import MyTravelInfo from './pages/MyPage/components/MyPageContent/MyTravelInfo'
 import LikeLocationInfo from './pages/MyPage/components/MyPageContent/LikeLocation/LikeLocationInfo'
+import MyTravelInfo from './pages/MyPage/components/MyPageContent/MyTravel/MyTravelInfo'
 import MyUrlInfo from './pages/MyPage/components/MyPageContent/MyUrlInfo'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
+import LocationDetail from './pages/LocationDetail'
 import NotFound from './pages/NotFound'
+import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
@@ -73,7 +75,7 @@ const routerData: RouterElement[] = [
 	},
 	{
 		path: '/mypage/edit',
-		element: <MyPage />,
+		element: <EditMyPage />,
 		label: 'editProfile',
 	},
 	{
@@ -90,6 +92,11 @@ const routerData: RouterElement[] = [
 		path: '/search/add-place',
 		element: <AddPlace />,
 		label: 'addPlace',
+	},
+	{
+		path: '/location/:id',
+		element: <LocationDetail />,
+		label: 'locationDetail'
 	},
 	{ path: '*', element: <NotFound />, label: 'notFound' },
 ]

@@ -25,8 +25,8 @@ export default defineConfig({
 		},
 	},
 	server: {
-		hmr: {
-			clientPort: 5173,
-		},
-	},
+		watch: {
+		  ignored: ['node_modules', './vite.config.ts'] // 상대 경로 사용
+		}
+	  }
 })
