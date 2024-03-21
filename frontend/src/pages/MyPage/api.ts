@@ -1,5 +1,5 @@
 // import { tokenInstance } from 'src/utility/apis/axios'
-import { MyTravel } from './type'
+import { LikeLocation, MyTravel } from './type'
 // import { tokenMultipartInstance } from 'src/utility/apis/axios'
 import { NameMessageType } from './type'
 
@@ -58,6 +58,63 @@ export const deleteMyTravel = async (): Promise<'success' | 'fail'> => {
 
 	return new Promise((resolve) => {
 		resolve('success')
+	})
+}
+
+const dummyLikeData = {
+	data: [
+		{
+			locationId: 1,
+			locationImage: '/src/assets/svgs/travelImage.svg',
+			locationName: '홉히',
+			locationAddress: '제주 시내(제주)',
+			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
+		},
+		{
+			locationId: 1,
+			locationImage: '/src/assets/svgs/travelImage.svg',
+			locationName: '홉히',
+			locationAddress: '제주 시내(제주)',
+			locationMemo: null,
+		},
+		{
+			locationId: 1,
+			locationImage: '/src/assets/svgs/travelImage.svg',
+			locationName: '홉히',
+			locationAddress: '제주 시내(제주)',
+			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
+		},
+		{
+			locationId: 1,
+			locationImage: '/src/assets/svgs/travelImage.svg',
+			locationName: '홉히',
+			locationAddress: '제주 시내(제주)',
+			locationMemo: null,
+		},
+		{
+			locationId: 1,
+			locationImage: '/src/assets/svgs/travelImage.svg',
+			locationName: '홉히',
+			locationAddress: '제주 시내(제주)',
+			locationMemo: null,
+		},
+		{
+			locationId: 1,
+			locationImage: '/src/assets/svgs/travelImage.svg',
+			locationName: '홉히',
+			locationAddress: '제주 시내(제주)',
+			locationMemo: null,
+		},
+	],
+}
+
+export const getLikeLocation = async (): Promise<LikeLocation[]> => {
+	// :: after api is ready
+	// const myLikeRes = await tokenInstance.post('user/like')
+	// return myLikeRes.data
+
+	return new Promise((resolve) => {
+		resolve(dummyLikeData.data)
 	})
 }
 

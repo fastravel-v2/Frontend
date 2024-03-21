@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { deleteMyTravel, getMyTravel } from './api'
+import { deleteMyTravel, getLikeLocation, getMyTravel } from './api'
 import { sortDatesBasedOnCurrent } from './service'
 import { useMemo } from 'react'
 
@@ -30,4 +30,13 @@ export const useDeleteTravelMutation = () => {
 	})
 
 	return { mutate, status }
+}
+
+export const useLikeLocationListQuery = () => {
+	const { isLoading, data } = useQuery({
+		queryKey: ['likeLocation'],
+		queryFn: getLikeLocation,
+	})
+
+	return { isLoading, data }
 }
