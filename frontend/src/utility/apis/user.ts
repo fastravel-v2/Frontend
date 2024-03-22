@@ -12,4 +12,5 @@ export const getUserInfo = async (): Promise<UserInfo> => {
 	// return userInfoRes.data
 
 	return dummyUserInfo.data
+	// return null
 }
