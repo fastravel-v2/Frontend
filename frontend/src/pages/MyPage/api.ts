@@ -79,14 +79,14 @@ const dummyLikeData = {
 		},
 		{
 			locationId: 1,
-			locationImage: '/src/assets/svgs/travelImage.svg',
+			locationImage: '',
 			locationName: '홉히',
 			locationAddress: '제주 시내(제주)',
 			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
 		},
 		{
 			locationId: 1,
-			locationImage: '/src/assets/svgs/travelImage.svg',
+			locationImage: '',
 			locationName: '홉히',
 			locationAddress: '제주 시내(제주)',
 			locationMemo: null,
