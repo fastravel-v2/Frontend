@@ -1,5 +1,6 @@
 import { LocationIcon } from 'src/assets/svgs'
 import { LikeLocation } from 'src/pages/MyPage/type'
+import MemoButton from './MemoButton'
 
 interface ILikeLocationItemInfoProps {
 	locationInfo: LikeLocation
@@ -13,9 +14,13 @@ const LikeLocationItemInfo = ({ locationInfo }: ILikeLocationItemInfoProps) => {
 				<LocationIcon className="inline-block w-4 mr-[2px]" />
 				<span>{locationInfo.locationAddress}</span>
 			</p>
-			<p className="text-[10px] font-light text-darkGray1">
-				{locationInfo.locationMemo}
-			</p>
+			{locationInfo.locationMemo ? (
+				<p className="text-[10px] font-light text-darkGray1">
+					{locationInfo.locationMemo}
+				</p>
+			) : (
+				<MemoButton locationId={locationInfo.locationId} />
+			)}
 		</div>
 	)
 }

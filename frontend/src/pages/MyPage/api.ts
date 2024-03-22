@@ -138,3 +138,14 @@ export const putUserProfile = async (
 	console.log(profileFormData)
 	return 'success'
 }
+
+export const putMemoSave = async (
+	locationId: number,
+	memoText: string
+): Promise<'success' | 'fail'> => {
+	// const editRes = await tokenInstance.put(`/user/like/memo/${locationId}`, { memoText })
+	// return editRes.data
+
+	console.log(locationId, memoText)
+	return 'success'
+}
