@@ -16,6 +16,7 @@ import { UrlBook } from './pages/UrlBook'
 import UrlResult from './pages/UrlBook/components/UrlResult'
 import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
+import TravelDetail from './pages/TravelDetail'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -104,6 +105,11 @@ const routerData: RouterElement[] = [
 		path: '/urlbook/result',
 		element: <UrlResult />,
 		label: 'urlBook',
+	},
+	{
+		path: '/travel/:id',
+		element: <TravelDetail />,
+		label: 'travelDetail'
 	},
 	{
 		path: '/location/:id',
