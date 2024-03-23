@@ -15,7 +15,7 @@ const LikeLocationItemInfo = ({ locationInfo }: ILikeLocationItemInfoProps) => {
 				<span>{locationInfo.locationAddress}</span>
 			</p>
 			{locationInfo.locationMemo ? (
-				<p className="text-[10px] font-light text-darkGray1">
+				<p className="text-[10px] font-light text-darkGray1 truncate">
 					{locationInfo.locationMemo}
 				</p>
 			) : (
