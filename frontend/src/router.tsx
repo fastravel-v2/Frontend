@@ -4,9 +4,9 @@ import { createBrowserRouter } from 'react-router-dom'
 import Main from './pages/Main'
 import Login from './pages/Login'
 import MyPage from './pages/MyPage'
-import LikeLocationInfo from './pages/MyPage/components/MyPageContent/LikeLocation/LikeLocationInfo'
-import MyTravelInfo from './pages/MyPage/components/MyPageContent/MyTravel/MyTravelInfo'
-import MyUrlInfo from './pages/MyPage/components/MyPageContent/MyUrlInfo'
+import LikeLocationInfo from './pages/MyPage/components/myPageContent/LikeLocation/LikeLocationInfo'
+import MyTravelInfo from './pages/MyPage/components/myPageContent/MyTravel/MyTravelInfo'
+import MyUrlInfo from './pages/MyPage/components/myPageContent/MyUrlInfo'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
@@ -108,7 +108,7 @@ const routerData: RouterElement[] = [
 	{
 		path: '/location/:id',
 		element: <LocationDetail />,
-		label: 'locationDetail'
+		label: 'locationDetail',
 	},
 	{ path: '*', element: <NotFound />, label: 'notFound' },
 ]

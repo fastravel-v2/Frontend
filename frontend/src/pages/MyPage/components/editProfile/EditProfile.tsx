@@ -5,8 +5,8 @@ import { useRouter } from 'src/hooks/useRouter'
 import { useCurrentUser } from 'src/store/queries/useCurrentUser'
 import NameMessage from './NameMessage'
 import EditProfileSubmit from './EditProfileSubmit'
-import { NameMessageType } from '../type'
-import { putUserProfile } from '../api'
+import { NameMessageType } from '../../type'
+import { putUserProfile } from '../../api'
 
 export enum NameMessageInfo {
 	'empty' = '닉네임이 비어있습니다.',

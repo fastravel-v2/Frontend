@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { isValidImageFile } from '../util'
-import { useUserProfileImage } from '../hooks/useUserProfileImage'
+import { isValidImageFile } from '../../util'
+import { useUserProfileImage } from '../../hooks/useUserProfileImage'
 
 interface EditProfileImageProps {
 	currentUserProfileUrl: string | null
