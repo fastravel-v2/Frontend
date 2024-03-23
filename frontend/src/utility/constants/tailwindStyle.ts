@@ -22,6 +22,7 @@ const colorPalette = {
 	// Primary Colors
 	yellow: '#FFEB59',
 	red: '#EE4444',
+	pink: '#FC2B5D',
 }
 
 export default colorPalette
