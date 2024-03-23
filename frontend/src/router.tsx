@@ -4,14 +4,16 @@ import { createBrowserRouter } from 'react-router-dom'
 import Main from './pages/Main'
 import Login from './pages/Login'
 import MyPage from './pages/MyPage'
-import MyTravelInfo from './pages/MyPage/components/myPageContent/MyTravelInfo'
-import LikeLocationInfo from './pages/MyPage/components/myPageContent/LikeLocationInfo'
+import LikeLocationInfo from './pages/MyPage/components/myPageContent/LikeLocation/LikeLocationInfo'
+import MyTravelInfo from './pages/MyPage/components/myPageContent/MyTravel/MyTravelInfo'
 import MyUrlInfo from './pages/MyPage/components/myPageContent/MyUrlInfo'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
 import LocationDetail from './pages/LocationDetail'
 import NotFound from './pages/NotFound'
+import { UrlBook } from './pages/UrlBook'
+import UrlResult from './pages/UrlBook/components/UrlResult'
 import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
 
@@ -92,6 +94,16 @@ const routerData: RouterElement[] = [
 		path: '/search/add-place',
 		element: <AddPlace />,
 		label: 'addPlace',
+	},
+	{
+		path: '/urlbook',
+		element: <UrlBook />,
+		label: 'urlBook',
+	},
+	{
+		path: '/urlbook/result',
+		element: <UrlResult />,
+		label: 'urlBook',
 	},
 	{
 		path: '/location/:id',
