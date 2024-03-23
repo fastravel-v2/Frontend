@@ -71,35 +71,35 @@ const dummyLikeData = {
 			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
 		},
 		{
-			locationId: 1,
+			locationId: 2,
 			locationImage: '/src/assets/svgs/travelImage.svg',
 			locationName: '홉히',
 			locationAddress: '제주 시내(제주)',
 			locationMemo: null,
 		},
 		{
-			locationId: 1,
+			locationId: 3,
 			locationImage: '',
 			locationName: '홉히',
 			locationAddress: '제주 시내(제주)',
 			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
 		},
 		{
-			locationId: 1,
+			locationId: 4,
 			locationImage: '',
 			locationName: '홉히',
 			locationAddress: '제주 시내(제주)',
 			locationMemo: null,
 		},
 		{
-			locationId: 1,
+			locationId: 5,
 			locationImage: '/src/assets/svgs/travelImage.svg',
 			locationName: '홉히',
 			locationAddress: '제주 시내(제주)',
 			locationMemo: null,
 		},
 		{
-			locationId: 1,
+			locationId: 6,
 			locationImage: '/src/assets/svgs/travelImage.svg',
 			locationName: '홉히',
 			locationAddress: '제주 시내(제주)',
@@ -147,5 +147,25 @@ export const putMemoSave = async (
 	// return editRes.data
 
 	console.log(locationId, memoText)
+	return 'success'
+}
+
+export const deleteLikeLocation = async (
+	locationId: number
+): Promise<'success' | 'fail'> => {
+	// const deleteRes = await tokenInstance.delete(`user/like/${locationId}`)
+	// return deleteRes.data
+
+	console.log(locationId)
+	return 'success'
+}
+
+export const postLikeLocation = async (
+	locationId: number
+): Promise<'success' | 'fail'> => {
+	// const postRes = await tokenInstance.post('user/like', locationId)
+	// return postRes.data
+
+	console.log(locationId)
 	return 'success'
 }
