@@ -3,7 +3,7 @@ import { IMenu, IMenuFunc } from 'src/types/layout'
 import { useRouter } from 'src/hooks/useRouter'
 import DefaultLayout from 'src/components/layout/DefaultLayout'
 import MyPageHeader from 'src/components/header/MyPageHeader'
-import MyPageContent from './components/myPageContent/MyPageContent'
+import MyPageContent from './components/myPageContent1/MyPageContent'
 import { myPageHeaderData } from 'src/router'
 
 const MyPage = () => {
