@@ -1,4 +1,5 @@
 import DefaultLayout from 'src/components/layout/DefaultLayout'
+import RecommendList from './component/RecommendList'
 
 const Recommend = () => {
 	return (
@@ -15,35 +16,9 @@ const Recommend = () => {
 			</h2>
 			{/* 한 종류 당 1라인 씩 보여줄지, 다 섞어서 한번에 보여줄지 모두 대비해서 개발 */}
 			<ul className="grid grid-cols-4 gap-2 pt-8 pb-24">
-				<li>
-					<img
-						src="/src/assets/svgs/likeLocation.svg"
-						alt=""
-						className="w-full rounded"
-					/>
-				</li>
-				<li>
-					<img
-						src="/src/assets/svgs/likeLocation.svg"
-						alt=""
-						className="w-full rounded"
-					/>
-				</li>
-				<li>
-					<img
-						src="/src/assets/svgs/likeLocation.svg"
-						alt=""
-						className="w-full rounded"
-					/>
-				</li>
-				<li>
-					<img
-						src="/src/assets/svgs/likeLocation.svg"
-						alt=""
-						className="w-full rounded"
-					/>
-				</li>
+				<RecommendList />
 			</ul>
+
 			<button className="absolute py-4 bottom-6 w-[calc(100%-40px)] text-white rounded bottom bottompy-3 bg-green1">
 				선택 완료
 			</button>
