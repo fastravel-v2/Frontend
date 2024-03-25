@@ -1,5 +1,6 @@
 import { LikeLocation } from 'src/pages/MyPage/type'
 import LikeLocationItemInfo from './LikeLocationItemInfo'
+import { DefaultLocation } from 'src/assets/svgs'
 
 interface ILikeLocationItemProps {
 	locationInfo: LikeLocation
@@ -8,13 +9,16 @@ interface ILikeLocationItemProps {
 const LikeLocationItem = ({ locationInfo }: ILikeLocationItemProps) => {
 	return (
 		<>
-			<img src={locationInfo.locationImage} alt={locationInfo.locationName} />
+			{locationInfo.locationImage ? (
+				<img
+					src={locationInfo.locationImage}
+					alt={locationInfo.locationName}
+					className="w-full rounded-sm"
+				/>
+			) : (
+				<DefaultLocation className="w-full rounded-lg" />
+			)}
 			<LikeLocationItemInfo locationInfo={locationInfo} />
-			<div>
-				<p>{locationInfo.locationName}</p>
-				<p>{locationInfo.locationAddress}</p>
-				<p>{locationInfo.locationMemo}</p>
-			</div>
 		</>
 	)
 }

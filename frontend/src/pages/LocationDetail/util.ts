@@ -8,6 +8,7 @@ export const keyToString = (key: string): string => {
         pets_available: '애완동물가능여부',
         baby_equipment_rental: '유모차 대여',
         closed_for_the_day: '휴일',
+        play_area_for_children: '어린이놀이방여부',
         best_menu: '대표메뉴',
         rest_date: '쉬는날',
         time_available: '이용시간',
