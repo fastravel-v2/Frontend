@@ -41,7 +41,7 @@ jobs:
 
       - name: .env setting
         run: |
-          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> frontend/.env
+          echo "VITE_DEPLOY_BASE_URL=${{ secrets.VITE_DEPLOY_BASE_URL }}" >> frontend/.env
           echo "VITE_GOOGLE_CLIENT_ID=${{ secrets.VITE_GOOGLE_CLIENT_ID }}" >> frontend/.env
           echo "VITE_GOOGLE_REDIRECT_URI=${{ secrets.VITE_GOOGLE_REDIRECT_URI }}" >> frontend/.env
           echo "VITE_KAKAO_REST_API_KEY=${{ secrets.VITE_KAKAO_REST_API_KEY }}" >> frontend/.env
