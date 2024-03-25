@@ -1,80 +1,104 @@
-// src/pages/UrlBook/components/AddUrlModal.tsx
-import React, { useState, useRef, useEffect } from 'react'; // useRef, useEffect 추가
-import { useUrlStore } from '../store';
+import React, { useState, useRef, useEffect } from 'react'
+import { useUrlStore } from '../store'
 
-const UrlAddModal: React.FC<{ doCloseModal: () => void }> = ({ doCloseModal }) => {
-  // const [memo, setMemo] = useState('');
-  const [url, setUrl] = useState(''); // Add this line
-  const addUrl = useUrlStore((state) => state.addUrl);
+const UrlAddModal: React.FC<{ doCloseModal: () => void }> = ({
+	doCloseModal,
+}) => {
+	const [url, setUrl] = useState('') // useState에 초기값을 설정해야 합니다.
+	const addUrl = useUrlStore((state) => state.addUrl)
+	const [isInvalidUrl, setIsInvalidUrl] = useState(false)
+	const urlInputRef = useRef<HTMLTextAreaElement>(null)
 
-  const urlInputRef = useRef<HTMLTextAreaElement>(null); // textarea 엘리먼트에 대한 참조 생성
+	useEffect(() => {
+		if (urlInputRef.current) {
+			urlInputRef.current.focus()
+		}
+	}, [])
 
-  useEffect(() => {
-    // 모달이 열릴 때 포커스를 메모 입력창으로 이동
-    if (urlInputRef.current) {
-      urlInputRef.current.focus();
-    }
-  }, []); // []로 빈 배열을 전달하여 한 번만 실행되도록 설정
+	const isValidUrl = (urlString: string) => {
+		const pattern = new RegExp(
+			'^(https?:\\/\\/)?' +
+				'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
+				'((\\d{1,3}\\.){3}\\d{1,3}))' +
+				'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
+				'(\\?[;&a-z\\d%_.~+=-]*)?' +
+				'(\\#[-a-z\\d_]*)?$',
+			'i'
+		)
+		return !!pattern.test(urlString)
+	}
 
-  const handleSubmit = () => {
-    addUrl(url);
-    doCloseModal();
-  };
+	const handleSubmit = () => {
+		let formattedUrl = url
+		if (!formattedUrl.startsWith('https://')) {
+			formattedUrl = `https://${formattedUrl}`
+		}
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit();
-    }
-  };
-  
+		if (isValidUrl(formattedUrl)) {
+			addUrl(formattedUrl)
+			doCloseModal()
+		} else {
+			setIsInvalidUrl(true)
+		}
+	}
 
-  return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full">
-      <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-        <div className="mt-3 text-center">
-          <h3 className="text-lg leading-6 font-medium text-gray-900">URL 입력</h3>
-          <div className="mt-2 px-7 py-3">
-            <textarea
-              ref={urlInputRef} 
-              className="resize-none border rounded-md w-72 mt-2 text-center"
-              placeholder="URL 입력"
-              value={url}
-              onKeyDown={handleKeyDown}
-              rows={1}
-              onChange={(e) => setUrl(e.target.value)}
-            />
-          </div>
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+		if (e.key === 'Enter' && !e.shiftKey) {
+			e.preventDefault()
+			handleSubmit()
+		}
+	}
 
-          <div className='flex justify-center'>
-            <div className="items-center px-4 py-3">
-              <button
-                className="px-4 py-2 bg-green-700 text-white text-base 
+	return (
+		<div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full z-50">
+			<div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+				<div className="mt-3 text-center">
+					<h3 className="text-lg leading-6 font-medium text-gray-900">
+						URL 입력
+					</h3>
+					<div className="mt-2 px-7 py-3">
+						<textarea
+							ref={urlInputRef}
+							className="resize-none border rounded-md w-72 mt-2 text-center"
+							placeholder="URL 입력"
+							value={url}
+							onKeyDown={handleKeyDown}
+							rows={1}
+							onChange={(e) => {
+								setUrl(e.target.value)
+								setIsInvalidUrl(false)
+							}}
+						/>
+						{isInvalidUrl && (
+							<p className="text-red-500">올바른 URL 주소가 아닙니다.</p>
+						)}
+					</div>
+					<div className="flex justify-center">
+						<div className="items-center px-4 py-3">
+							<button
+								className="px-4 py-2 bg-green-700 text-white text-base 
                   font-medium rounded-md w-full shadow-sm hover:bg-blue-700 
                   focus:outline-none focus:ring-2 focus:ring-blue-300"
-                onClick={handleSubmit}
-              >
-                Add
-              </button>
-            </div>
-
-            <div className="items-center px-4 py-3">
-              <button
-                className="px-4 py-2 bg-white text-base 
+								onClick={handleSubmit}
+							>
+								Add
+							</button>
+						</div>
+						<div className="items-center px-4 py-3">
+							<button
+								className="px-4 py-2 bg-white text-base 
                 font-medium rounded-md w-full shadow-sm hover:bg-gray-100 
                 focus:outline-none focus:ring-2 focus:ring-blue-300"
-                onClick={doCloseModal}
-              >
-                Cancel
-              </button>
-            </div>
+								onClick={doCloseModal}
+							>
+								Cancel
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	)
+}
 
-          </div>
-
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default UrlAddModal;
+export default UrlAddModal
