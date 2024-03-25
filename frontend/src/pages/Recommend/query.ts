@@ -1,6 +1,6 @@
-import { useQueries, useQueryClient } from '@tanstack/react-query'
+import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getRecommendList } from './api'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 const categoryInfo = {
 	'자연 및 야외 활동': 1,
@@ -24,6 +24,40 @@ const checkEveryLocationHasImage = (recommendData: RecommendItemResInfo[]) => {
 	)
 }
 
+export const useRecommendListQuery = () => {
+	const { data } = useQuery({
+		queryKey: ['recommendList', 1],
+		queryFn: getRecommendList,
+	})
+
+	useEffect(() => {
+		console.log(data)
+	}, [data])
+
+	const recommendsList = useMemo(() => {
+		if (!data) {
+			return []
+		}
+
+		return data.reduce(
+			(prev: RecommendItemInfo[], locationInfo: RecommendItemResInfo) => {
+				return [
+					...prev,
+					{
+						id: locationInfo.spot_id,
+						name: locationInfo.name,
+						address: locationInfo.address,
+						image: locationInfo.image_url,
+					} as RecommendItemInfo,
+				]
+			},
+			[] as RecommendItemInfo[]
+		)
+	}, [data])
+
+	return { recommendsList }
+}
+
 // :: 받아오는 데이터에 image_url에 없다면 새롭게 데이터를 받아온다. (refresh 기능)
 export const useRefreshRecommendList = (
 	categoryId: number,
@@ -33,42 +67,6 @@ export const useRefreshRecommendList = (
 
 	if (!isNeededRefresh) return
 	queryClient.refetchQueries({ queryKey: ['recommendList', categoryId] })
-}
-
-export const useRecommendListHasImage = (
-	categoryId: number,
-	data: RecommendItemResInfo[] | undefined
-) => {
-	const [isValidData, setIsValidData] = useState(false)
-
-	// :: 모두 이미지를 가지고 있는지 검사 & 이미지가 없는게 있다면 해당 query 재요청
-	useEffect(() => {
-		if (data && checkEveryLocationHasImage(data)) {
-			setIsValidData(true)
-		} else {
-			setIsValidData(false)
-		}
-	}, [data])
-	useRefreshRecommendList(categoryId, !isValidData)
-
-	// :: 이미지가 있는 데이터 반환
-	// - 이미지가 없는 데이터거나 데이터가 비었다면 빈 배열 반환
-	const recommendListWithImage = useMemo(() => {
-		if (!isValidData || !data) {
-			return []
-		}
-
-		const result = data.map((locationInfo) => ({
-			id: locationInfo.spot_id,
-			name: locationInfo.name,
-			address: locationInfo.address,
-			image: locationInfo.image_url,
-		}))
-
-		return result
-	}, [isValidData, data])
-
-	return recommendListWithImage
 }
 
 export const useRecommendCategoryList = () => {
@@ -95,9 +93,9 @@ export const useRecommendCategoryList = () => {
 	useEffect(() => {
 		recommendListQueriesResults.forEach((result, index) => {
 			const categoryId = Object.values(categoryInfo)[index]
-			if (result.isSuccess && result.data.some((item) => !item.image_url)) {
+			if (result.data && checkEveryLocationHasImage(result.data)) {
 				queryClient.refetchQueries({ queryKey: ['recommendList', categoryId] })
-			} else if (result.isSuccess) {
+			} else if (result.data) {
 				everyRecommendListInfo[categoryId] = result.data
 			}
 		})
@@ -114,13 +112,22 @@ export const useRecommendCategoryList = () => {
 			return []
 		}
 
-		const result = Object.values(everyRecommendListInfo).map((recommendList) =>
-			recommendList.map((locationInfo) => ({
-				id: locationInfo.spot_id,
-				name: locationInfo.name,
-				address: locationInfo.address,
-				image: locationInfo.image_url,
-			}))
+		const result = Object.values(everyRecommendListInfo).reduce(
+			(prev: RecommendItemInfo[], recommendList: RecommendItemResInfo[]) => {
+				return [
+					...prev,
+					...recommendList.map(
+						(locationInfo: RecommendItemResInfo) =>
+							({
+								id: locationInfo.spot_id,
+								name: locationInfo.name,
+								address: locationInfo.address,
+								image: locationInfo.image_url,
+							} as RecommendItemInfo)
+					),
+				]
+			},
+			[] as RecommendItemInfo[]
 		)
 
 		return result

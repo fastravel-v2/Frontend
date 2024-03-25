@@ -36,7 +36,9 @@ export const getRecommendList = async ({
 	queryKey,
 }: QueryFunctionContext): Promise<RecommendItemResInfo[]> => {
 	const [, categoryId] = queryKey
-	const recommendRes = await instance.get(`recommend/${categoryId}`)
+	const recommendRes = await instance.get(
+		`survey/random_spot?category=${categoryId}&count=4`
+	)
 
 	return recommendRes.data
 }
