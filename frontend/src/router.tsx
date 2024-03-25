@@ -4,8 +4,8 @@ import { createBrowserRouter } from 'react-router-dom'
 import Main from './pages/Main'
 import Login from './pages/Login'
 import MyPage from './pages/MyPage'
-import LikeLocationInfo from './pages/MyPage/components/myPageContent/LikeLocation/LikeLocationInfo'
-import MyTravelInfo from './pages/MyPage/components/myPageContent/MyTravel/MyTravelInfo'
+import LikeLocationInfo from './pages/MyPage/components/myPageContent/likeLocation/LikeLocationInfo'
+import MyTravelInfo from './pages/MyPage/components/myPageContent/myTravel/MyTravelInfo'
 import MyUrlInfo from './pages/MyPage/components/myPageContent/MyUrlInfo'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
@@ -16,6 +16,7 @@ import { UrlBook } from './pages/UrlBook'
 import UrlResult from './pages/UrlBook/components/UrlResult'
 import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
+import Chat from './pages/Chat'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -109,6 +110,11 @@ const routerData: RouterElement[] = [
 		path: '/location/:id',
 		element: <LocationDetail />,
 		label: 'locationDetail',
+	},
+	{
+		path: '/chat',
+		element: <Chat />,
+		label: 'chat',
 	},
 	{ path: '*', element: <NotFound />, label: 'notFound' },
 ]
