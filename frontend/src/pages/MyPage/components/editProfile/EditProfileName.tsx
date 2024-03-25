@@ -1,8 +1,8 @@
 import { debounce } from 'lodash'
 import { IoIosCloseCircle } from 'react-icons/io'
-import { NameMessageType } from '../type'
-import { getNameIsDuplicated } from '../api'
-import { useEffect, useRef, useState } from 'react'
+import { NameMessageType } from '../../type'
+import { getNameIsDuplicated } from '../../api'
+import { useRef } from 'react'
 
 const validateNameWithoutDuplicate = (name: string): NameMessageType => {
 	// :: 정규식
@@ -32,14 +32,10 @@ const EditProfileName = ({
 	setName,
 	setNameStatus,
 }: EditProfileNameProps) => {
-	const [isDisabled, setIsDisabled] = useState(true)
 	const nameRef = useRef<string>(name) // 비동기 중복 검사로 인해 nameStatus 값이 덮어씌워지는 것을 방지하기 위한 ref
 
-	useEffect(() => {
-		console.log(isDisabled, name)
-	}, [isDisabled])
-
 	const getNameStatusWithDebounce = debounce(async (currentName) => {
+		console.log('checking...')
 		let currentStatus
 
 		// :: 유효성 검사
@@ -59,19 +55,17 @@ const EditProfileName = ({
 	const handleChangeName = async (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
-		// setIsDisabled(true) // 입력이 있는 동안은
-
 		const currentName = event.currentTarget.value
 		nameRef.current = currentName
 		setName(currentName)
 		setNameStatus('loading')
 		await getNameStatusWithDebounce(currentName)
-
-		setIsDisabled(false)
 	}
 	const handleClickEraseButton = async () => {
+		console.log('erase')
 		setName('')
-		await getNameStatusWithDebounce('')
+		nameRef.current = ''
+		await getNameStatusWithDebounce(nameRef.current)
 	}
 
 	return (
@@ -85,11 +79,7 @@ const EditProfileName = ({
 				className="w-full px-10 py-3 text-2xl font-bold text-center text-black border-b-2 px- border-lightGray2 focus:outline-none"
 			/>
 			{name.length > 0 && (
-				<button
-					type="button"
-					onClick={handleClickEraseButton}
-					disabled={isDisabled}
-				>
+				<button type="button" onClick={handleClickEraseButton}>
 					<IoIosCloseCircle
 						size={32}
 						color="#C4C4C4"

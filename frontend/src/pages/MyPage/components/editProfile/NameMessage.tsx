@@ -1,4 +1,4 @@
-import { NameMessageType } from '../type'
+import { NameMessageType } from '../../type'
 import { NameMessageInfo } from './EditProfile'
 
 interface NameMessageProps {

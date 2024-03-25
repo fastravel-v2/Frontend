@@ -1,15 +1,6 @@
-// import { tokenInstance } from './axios'
-
-const dummyUserInfo = {
-	data: {
-		username: '이우성',
-		profileImage: '/src/assets/svgs/defaultProfile.svg',
-	},
-}
+import { tokenInstance } from './axios'
 
 export const getUserInfo = async (): Promise<UserInfo> => {
-	// const userInfoRes = await tokenInstance.get('/user')
-	// return userInfoRes.data
-
-	return dummyUserInfo.data
+	const userInfoRes = await tokenInstance.get('/profile/')
+	return userInfoRes.data
 }

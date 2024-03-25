@@ -10,8 +10,15 @@ interface IMyTravelItemInfoProps {
 const MyTravelItemInfo = ({ travelInfo }: IMyTravelItemInfoProps) => {
 	return (
 		<Link to={`/travel/${travelInfo.travelId}`} className="flex grow">
-			{/* <img src={travelInfo.travelImage} alt="여행지 이미지" className="mr-4" /> */}
-			<TravelImage className="mr-4" />
+			{travelInfo.travelImage ? (
+				<img
+					src={travelInfo.travelImage}
+					alt="여행지 이미지"
+					className="mr-4"
+				/>
+			) : (
+				<TravelImage className="mr-4" />
+			)}
 			<div className="flex flex-col">
 				<h3 className="text-sm font-semibold text-black mb-[6px]">
 					{travelInfo.travelName}

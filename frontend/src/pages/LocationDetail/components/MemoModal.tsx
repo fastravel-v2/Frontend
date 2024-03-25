@@ -1,10 +1,8 @@
 interface MemoModalProps {
-    isOpen: boolean;
     onClose: () => void;
 }
 
-const MemoModal = ({ isOpen, onClose }: MemoModalProps) => {
-    if (!isOpen) return null;
+const MemoModal = ({ onClose }: MemoModalProps) => {
   
     return (
       <div className="fixed inset-0 z-[110] flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none">
