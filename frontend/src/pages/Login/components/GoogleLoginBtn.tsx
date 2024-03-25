@@ -7,7 +7,7 @@ const GOOGLE_URL = `${GOOGLE_AUTH_BASE_URL}
 						?client_id=${CLIENT_ID}
 						&redirect_uri=${REDIRECT_URI}
 						&response_type=code
-						&scope=profile
+						&scope=profile email
 					`
 
 const GoogleLoginBtn = () => {
