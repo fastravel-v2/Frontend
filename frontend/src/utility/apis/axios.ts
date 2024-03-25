@@ -32,7 +32,7 @@ const tokenReqPrev = (
 	config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'application/json'
-	config.headers['INTERNAL_ID_HEADER'] = 'dbc4e91c-4390-4875-80ea-c42451695908'
+	config.headers['INTERNAL_ID_HEADER'] = '8b5b03b7-ae9f-458e-a2b9-558eac541629'
 	config.baseURL = import.meta.env.VITE_CORE_BASE_URL
 	config.withCredentials = true
 
