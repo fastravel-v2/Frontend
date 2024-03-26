@@ -12,7 +12,6 @@ export interface UrlDummyResult {
 
 const dummyData: UrlDummyResult = {
 	'OG TITLE 1': [
-		// 오픈그래프를 서버에서 처리해서 넘겨준다면
 		{
 			name: '무릉 자전거 도로(환상자전거길 3구간)',
 			address: '제주특별자치도 제주시 구좌읍 구좌해안로 237',

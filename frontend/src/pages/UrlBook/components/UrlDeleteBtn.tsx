@@ -1,3 +1,5 @@
+//src/pages/UrlBook/components/UrlDeleteBtn.tsx
+
 import { useUrlStore } from '../store'
 
 const UrlDeleteBtn = () => {

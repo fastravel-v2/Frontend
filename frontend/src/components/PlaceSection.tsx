@@ -17,7 +17,7 @@ const PlaceSection: React.FC<PlaceSectionProps> = ({ urlKey, places }) => {
 			<div className="flex pb-12 overflow-x-auto">
 				{places.map((place, index) => (
 					<div key={index} className="flex-shrink-0 w-24 h-24 mr-4">
-						{place.img ? (
+						{place.img ? ( 
 							<img
 								src={place.img}
 								alt={place.name}

@@ -1,10 +1,13 @@
+//src/pages/UrlBook/components/UrlAddModalts
+
 import React, { useState, useRef, useEffect } from 'react'
 import { useUrlStore } from '../store'
 
+//수정: isOpen을 여기서 지정해야 더 좋은 코드인가 ?
 const UrlAddModal: React.FC<{ doCloseModal: () => void }> = ({
 	doCloseModal,
 }) => {
-	const [url, setUrl] = useState('') // useState에 초기값을 설정해야 합니다.
+	const [url, setUrl] = useState('')
 	const addUrl = useUrlStore((state) => state.addUrl)
 	const [isInvalidUrl, setIsInvalidUrl] = useState(false)
 	const urlInputRef = useRef<HTMLTextAreaElement>(null)
@@ -27,15 +30,13 @@ const UrlAddModal: React.FC<{ doCloseModal: () => void }> = ({
 		)
 		return !!pattern.test(urlString)
 	}
-
 	const handleSubmit = () => {
 		let formattedUrl = url
 		if (!formattedUrl.startsWith('https://')) {
 			formattedUrl = `https://${formattedUrl}`
 		}
-
 		if (isValidUrl(formattedUrl)) {
-			addUrl(formattedUrl)
+			addUrl(formattedUrl) // repositoryId 없이 URL 추가
 			doCloseModal()
 		} else {
 			setIsInvalidUrl(true)

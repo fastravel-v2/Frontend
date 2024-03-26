@@ -57,13 +57,24 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
 						isUserMessage ? 'flex-row-reverse' : ''
 					} items-end w-full`}
 				>
-					<div
-						className={`break-words max-w-64 rounded-lg p-2 shadow ${
-							isUserMessage ? 'bg-blue-100' : 'bg-white'
-						}`}
-					>
-						{message.content}
-					</div>
+					{/* 메시지 타입에 따라 텍스트 혹은 이미지를 표시 */}
+					{message.type === 'image' ? (
+						// 이미지 메시지인 경우 이미지 태그를 사용하여 표시
+						<img
+							src={message.content}
+							alt="Uploaded"
+							className="max-w-60 h-auto rounded-lg"
+						/>
+					) : (
+						// 텍스트 메시지인 경우 기존 로직을 유지
+						<div
+							className={`break-words max-w-64 rounded-lg p-2 shadow ${
+								isUserMessage ? 'bg-blue-100' : 'bg-white ml-2'
+							}`}
+						>
+							{message.content}
+						</div>
+					)}
 					{showTime && (
 						<div
 							className={`text-xs font-light text-gray-400 mx-2 whitespace-no-wrap`}
