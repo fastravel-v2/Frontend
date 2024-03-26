@@ -1,6 +1,6 @@
 import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getRecommendList } from './api'
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const categoryInfo = {
 	'자연 및 야외 활동': 1,
@@ -17,11 +17,22 @@ const categoryInfo = {
 }
 
 // 모든 장소 데이터에 이미지가 있는지 확인해주는 함수
-const checkEveryLocationHasImage = (recommendData: RecommendItemResInfo[]) => {
-	return recommendData.every(
-		(recommendLocation) =>
-			recommendLocation.image_url && recommendLocation.image_url?.length > 0
-	)
+// const checkEveryLocationHasImage = (recommendData: RecommendItemResInfo[]) => {
+// 	return recommendData.every(
+// 		(recommendLocation) =>
+// 			recommendLocation.image_url && recommendLocation.image_url?.length > 0
+// 	)
+// }
+
+// :: 받아오는 데이터에 image_url에 없다면 새롭게 데이터를 받아온다. (refresh 기능)
+export const useRefreshRecommendList = (
+	categoryId: number,
+	isNeededRefresh: boolean
+) => {
+	const queryClient = useQueryClient() // React Query Client 인스턴스를 가져옴
+
+	if (!isNeededRefresh) return
+	queryClient.refetchQueries({ queryKey: ['recommendList', categoryId] })
 }
 
 export const useRecommendListQuery = () => {
@@ -58,21 +69,8 @@ export const useRecommendListQuery = () => {
 	return { recommendsList }
 }
 
-// :: 받아오는 데이터에 image_url에 없다면 새롭게 데이터를 받아온다. (refresh 기능)
-export const useRefreshRecommendList = (
-	categoryId: number,
-	isNeededRefresh: boolean
-) => {
-	const queryClient = useQueryClient() // React Query Client 인스턴스를 가져옴
-
-	if (!isNeededRefresh) return
-	queryClient.refetchQueries({ queryKey: ['recommendList', categoryId] })
-}
-
-export const useRecommendCategoryList = () => {
-	const queryClient = useQueryClient() // React Query Client 인스턴스를 가져옴
-
-	const everyRecommendListInfo = useMemo(() => {
+export const useRecommendListQueries = () => {
+	const getInitialRecommendListInfo = useCallback(() => {
 		const result: Record<number, RecommendItemResInfo[]> = {}
 		Object.values(categoryInfo).forEach((categoryId) => {
 			result[categoryId] = []
@@ -80,27 +78,36 @@ export const useRecommendCategoryList = () => {
 
 		return result
 	}, [])
+	const [everyRecommendListInfo, setEveryRecommendListInfo] = useState(
+		getInitialRecommendListInfo()
+	)
+	// const queryClient = useQueryClient() // React Query Client 인스턴스를 가져옴
 
 	const recommendListQueriesResults = useQueries({
 		queries: Object.values(categoryInfo).map((categoryId) => {
 			return {
 				queryKey: ['recommendList', categoryId],
 				queryFn: getRecommendList,
+				refetchOnWindowFocus: false,
 			}
 		}),
 	})
 
 	useEffect(() => {
+		console.log('useEffect 동작 중', recommendListQueriesResults)
 		recommendListQueriesResults.forEach((result, index) => {
 			const categoryId = Object.values(categoryInfo)[index]
-			if (result.data && checkEveryLocationHasImage(result.data)) {
-				queryClient.refetchQueries({ queryKey: ['recommendList', categoryId] })
-			} else if (result.data) {
-				everyRecommendListInfo[categoryId] = result.data
+			if (result.data) {
+				setEveryRecommendListInfo((prev) => ({
+					...prev,
+					[categoryId]: result.data,
+				}))
 			}
 		})
-	}, [recommendListQueriesResults, categoryInfo, queryClient])
+	}, [])
 
+	// Todo: useQueries의 result 값은 dependency 배열에 넣어 사용하고 있는데, 이게 맞는 방법인지 확인 필요
+	// Todo: Queries 중 한개의 Query가 값을 받아올 때 이 result 값이 바뀌는 것인지 확인 필요(github 코드를 확인해보자.)
 	// :: 이미지가 있는 데이터 반환
 	// - 이미지가 없는 데이터거나 데이터가 비었다면 빈 배열 반환
 	const recommendListWithImage = useMemo(() => {

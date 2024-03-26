@@ -1,11 +1,21 @@
-import { useRecommendListQuery } from '../query'
+// import { useRecommendListQuery} from '../query'
+
+import { useEffect } from 'react'
+import { useRecommendListQueries } from '../query'
 
 const RecommendList = () => {
-	const { recommendsList } = useRecommendListQuery()
+	// :: Query version
+	// const { recommendsList } = useRecommendListQuery()
+
+	// :: Queries version
+	const { recommendListWithImage } = useRecommendListQueries()
+	useEffect(() => {
+		console.log(recommendListWithImage)
+	}, [recommendListWithImage])
 
 	return (
 		<ul className="grid grid-cols-4 gap-2 pt-8 pb-24">
-			{recommendsList.map((location, index) => (
+			{recommendListWithImage.map((location, index) => (
 				<li key={`recommend-${index}`}>
 					<img
 						src={location.image}
