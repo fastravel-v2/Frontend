@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useSurveyItems } from '../store'
+import { FaCheck } from 'react-icons/fa'
 
 interface RecommendItemProps {
 	location: RecommendItemInfo
@@ -38,7 +39,10 @@ const RecommendItem = ({ location }: RecommendItemProps) => {
 					className="w-full h-24 rounded"
 				/>
 				{isSelectedSurveyItem(location.id) && (
-					<div className="absolute top-0 right-0 bg-black">clicked</div>
+					<div className="absolute top-0 right-0 flex flex-col items-center justify-center w-full h-full bg-lightGray2 opacity-80">
+						<FaCheck color="#454645" size={30} />
+						<p className="font-bold text-black">선택 완료</p>
+					</div>
 				)}
 			</li>
 		</>
