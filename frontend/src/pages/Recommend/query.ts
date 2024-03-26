@@ -52,6 +52,7 @@ export const useRecommendListQueries = () => {
 				queryKey: ['recommendList', categoryId],
 				queryFn: getRecommendList,
 				refetchOnWindowFocus: false,
+				refetchOnMount: false,
 			}
 		}),
 	})

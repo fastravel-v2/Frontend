@@ -1,6 +1,7 @@
 // import { useRecommendListQuery} from '../query'
 
 import { useEffect } from 'react'
+import RecommendItem from './RecommendItem'
 import { useRecommendListQueries } from '../query'
 
 // Todo: 이미지 최적화 작업 필요
@@ -15,13 +16,7 @@ const RecommendList = () => {
 	return (
 		<ul className="grid grid-cols-4 gap-2 pt-8 pb-24">
 			{recommendListWithImage.map((location, index) => (
-				<li key={`recommend-${index}`}>
-					<img
-						src={location.image}
-						alt={`${location.name}의 이미지`}
-						className="w-full h-24 rounded"
-					/>
-				</li>
+				<RecommendItem key={`recommend-${index}`} location={location} />
 			))}
 		</ul>
 	)
