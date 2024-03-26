@@ -1,38 +1,29 @@
-// 여기서 선택했을 때 어떻게 넘겨주는게 맞을까..?
-// 어짜피 넘겨주는 정보를 이용해서 좋아요에도 추가를 할 거니까.. id만 넘겨주면 되나?
-// 좋아요 요청을 프론트에서 보내는게 맞을까..?
+// import { useRecommendListQuery} from '../query'
+
+import { useEffect } from 'react'
+import { useRecommendListQueries } from '../query'
+
+// Todo: 이미지 최적화 작업 필요
+// - 이미지가 느리게 받아와지는 문제 때문에 이미지 최적화 작업이 필요하다.
 const RecommendList = () => {
+	// :: Queries version
+	const { recommendListWithImage } = useRecommendListQueries()
+	useEffect(() => {
+		console.log('final data', recommendListWithImage)
+	}, [recommendListWithImage])
+
 	return (
-		<>
-			<li>
-				<img
-					src="/src/assets/svgs/likeLocation.svg"
-					alt=""
-					className="w-full rounded"
-				/>
-			</li>
-			<li>
-				<img
-					src="/src/assets/svgs/likeLocation.svg"
-					alt=""
-					className="w-full rounded"
-				/>
-			</li>
-			<li>
-				<img
-					src="/src/assets/svgs/likeLocation.svg"
-					alt=""
-					className="w-full rounded"
-				/>
-			</li>
-			<li>
-				<img
-					src="/src/assets/svgs/likeLocation.svg"
-					alt=""
-					className="w-full rounded"
-				/>
-			</li>
-		</>
+		<ul className="grid grid-cols-4 gap-2 pt-8 pb-24">
+			{recommendListWithImage.map((location, index) => (
+				<li key={`recommend-${index}`}>
+					<img
+						src={location.image}
+						alt={`${location.name}의 이미지`}
+						className="w-full rounded"
+					/>
+				</li>
+			))}
+		</ul>
 	)
 }
 
