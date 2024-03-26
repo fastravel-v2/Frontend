@@ -13,7 +13,7 @@ interface RepositoryUrls {
 }
 const urlData: RepositoryUrls = {
 	'repository1': [
-		'https://m.blog.naver.com/doa_pic/223166821456?isInf=true'
+		'https://love1977.tistory.com/178'
 	],
 	'repository2': [
 		'https://love1977.tistory.com/178',
@@ -24,7 +24,7 @@ const urlData: RepositoryUrls = {
 		'https://wivern.tistory.com/21',
 		'https://wivern.tistory.com/21',
 	],
-	'repository14': [],
+	'repository4': [],
 }
 
 // 비동기 함수로 구현, 실제 네트워크 요청을 흉내냅니다.
@@ -42,3 +42,15 @@ export const fetchUrls = async (repositoryId: string): Promise<UrlEntry[]> => {
 export const fetchRepositoryIds = async (): Promise<string[]> => {
 	return Object.keys(urlData)
 }
+
+export const addUrlToRepository = (repositoryId: string, newUrl: string) => {
+    // 해당 repositoryId의 URL 배열이 없으면 새 배열을 생성
+    if (!urlData[repositoryId]) {
+        urlData[repositoryId] = [];
+    }
+    // 새 URL을 해당 배열에 추가
+    urlData[repositoryId].push(newUrl);
+
+    // urlData 객체의 최신 상태를 콘솔에 출력
+    console.log('Current urlData state:', urlData);
+};

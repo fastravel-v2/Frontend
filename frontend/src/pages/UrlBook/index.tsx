@@ -1,11 +1,11 @@
 // UrlBook.tsx
-import UrlList from './components/UrlList'
-import { UrlSendBtn } from './components/UrlSendBtn'
-import UrlAddBtn from './components/UrlAddBtn'
-import UrlDeleteBtn from './components/UrlDeleteBtn'
 import { useFetchDummyUrls, useUrlStore } from './store'
-import RepositoryDropdown from './components/RepositoryDropdown'
 import { useEffect } from 'react'
+import { UrlSendBtn } from './components/UrlSendBtn'
+import UrlList from './components/UrlList'
+// import UrlAddBtn from './components/UrlAddBtn'
+import UrlDeleteBtn from './components/UrlDeleteBtn'
+import RepositoryDropdown from './components/RepositoryDropdown'
 import GlobalUrlAddBtn from './components/GlobalUrlAddBtn'
 
 export const UrlBook = () => {
@@ -25,7 +25,7 @@ export const UrlBook = () => {
 	return (
 		<div className="min-h-screen bg-gray-100">
 			<GlobalUrlAddBtn/>
-			<UrlAddBtn />
+			{/* <UrlAddBtn /> */}
 			<div className='m-4 mt-4'>
                     <RepositoryDropdown // 컴포넌트로 쪼개서 두개넘겨욧~
                         selectedRepositoryId={selectedRepositoryId}

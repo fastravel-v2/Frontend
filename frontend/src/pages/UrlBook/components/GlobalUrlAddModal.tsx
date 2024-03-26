@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useUrlStore } from '../store'
-import { fetchRepositoryIds } from '../dummyData/urlDummy'
+import { addUrlToRepository, fetchRepositoryIds } from '../dummyData/urlDummy'
 import RepositoryDropdown from './RepositoryDropdown'
 
 const GlobalUrlAddModal: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedRepositoryId, setSelectedRepositoryId] = useState('')
     const [url, setUrl] = useState('')
-    const { addUrlGlobal } = useUrlStore((state) => ({
+    const { addUrlGlobal, selectedRepositoryId: storeSelectedRepositoryId } = useUrlStore((state) => ({
         addUrlGlobal: state.addUrlGlobal,
+        selectedRepositoryId: state.selectedRepositoryId
     }))
 
     const urlInputRef = useRef<HTMLInputElement>(null)
@@ -48,8 +49,12 @@ const GlobalUrlAddModal: React.FC = () => {
                 formattedUrl = `https://${formattedUrl}`
             }
             if (isValidUrl(formattedUrl)) {
-                addUrlGlobal(selectedRepositoryId, formattedUrl) // 수정된 부분
+                addUrlGlobal(selectedRepositoryId || storeSelectedRepositoryId, formattedUrl) // 수정된 부분
+
+                addUrlToRepository(selectedRepositoryId, url); // 로그로 추가되는지 확인인
+
                 setIsModalOpen(false)
+
                 setUrl('')
             } else {
                 alert('잘못된 URL 형식입니다!')

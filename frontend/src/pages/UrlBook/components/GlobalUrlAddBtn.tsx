@@ -1,12 +1,10 @@
-// GlobalUrlAddBtn.tsx
+// src/pages/UrlBook/components/GlobalUrlAddBtn.tsx
 
-import React from 'react';
-import GlobalUrlAddModal from './GlobalUrlAddModal';
+import React from 'react'
+import GlobalUrlAddModal from './GlobalUrlAddModal'
 
 const GlobalUrlAddBtn: React.FC = () => {
-    return (
-        <GlobalUrlAddModal />
-    );
+	return <GlobalUrlAddModal />
 }
 
-export default GlobalUrlAddBtn;
+export default GlobalUrlAddBtn
