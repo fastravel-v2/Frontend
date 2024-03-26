@@ -18,6 +18,7 @@ import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
 import Chat from './pages/Chat'
 import TravelDetail from './pages/TravelDetail'
+import TravelCreate from './pages/TravelCreate'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -108,9 +109,14 @@ const routerData: RouterElement[] = [
 		label: 'urlBook',
 	},
 	{
+		path: '/travel/create',
+		element: <TravelCreate />,
+		label: 'travelCreate',
+	},
+	{
 		path: '/travel/:id',
 		element: <TravelDetail />,
-		label: 'travelDetail'
+		label: 'travelDetail',
 	},
 	{
 		path: '/location/:id',
