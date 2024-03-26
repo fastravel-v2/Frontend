@@ -19,7 +19,7 @@ const RecommendList = () => {
 					<img
 						src={location.image}
 						alt={`${location.name}의 이미지`}
-						className="w-full rounded"
+						className="w-full h-24 rounded"
 					/>
 				</li>
 			))}
