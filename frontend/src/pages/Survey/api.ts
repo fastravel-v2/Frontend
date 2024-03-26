@@ -46,9 +46,7 @@ export const getSurveyList = async ({
 export const postSurveyIds = async (
 	surveyIds: string[]
 ): Promise<'success' | 'fail'> => {
-	const surveyRes = await instance.post('survey/selected', {
-		spots: surveyIds,
-	})
+	const surveyRes = await instance.post('survey/selected', surveyIds)
 	if (surveyRes.status === 200) {
 		return 'success'
 	}
