@@ -2,11 +2,11 @@ import { useEffect } from 'react'
 import { useSurveyItems } from '../store'
 import { FaCheck } from 'react-icons/fa'
 
-interface RecommendItemProps {
-	location: RecommendItemInfo
+interface SurveyItemProps {
+	location: SurveyItemInfo
 }
 
-const RecommendItem = ({ location }: RecommendItemProps) => {
+const SurveyItem = ({ location }: SurveyItemProps) => {
 	const { surveyItems, addSurveyItem, removeSurveyItem } = useSurveyItems()
 
 	const isSelectedSurveyItem = (id: string) =>
@@ -49,4 +49,4 @@ const RecommendItem = ({ location }: RecommendItemProps) => {
 	)
 }
 
-export default RecommendItem
+export default SurveyItem

@@ -2,17 +2,18 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 interface SurveyItemsStoreType {
-	surveyItems: RecommendItemInfo[]
-	setSurveyItem: (newItems: RecommendItemInfo[]) => void
-	addSurveyItem: (newItem: RecommendItemInfo) => void
+	surveyItems: SurveyItemInfo[]
+	setSurveyItem: (newItems: SurveyItemInfo[]) => void
+	addSurveyItem: (newItem: SurveyItemInfo) => void
 	removeSurveyItem: (id: string) => void
 }
+
 export const useSurveyItems = create<SurveyItemsStoreType>()(
 	devtools((set) => ({
 		surveyItems: [],
-		setSurveyItem: (newItems: RecommendItemInfo[]) =>
+		setSurveyItem: (newItems: SurveyItemInfo[]) =>
 			set((state) => ({ surveyItems: [...state.surveyItems, ...newItems] })),
-		addSurveyItem: (newItem: RecommendItemInfo) =>
+		addSurveyItem: (newItem: SurveyItemInfo) =>
 			set((state) => ({ surveyItems: [...state.surveyItems, newItem] })),
 		removeSurveyItem: (id: string) =>
 			set((state) => ({

@@ -1,5 +1,5 @@
 import { useQueries, useQueryClient } from '@tanstack/react-query'
-import { getRecommendList } from './api'
+import { getsurveyList } from './api'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const categoryInfo = {
@@ -17,19 +17,19 @@ const categoryInfo = {
 }
 
 // :: 받아오는 데이터에 image_url에 없다면 새롭게 데이터를 받아온다. (refresh 기능)
-export const useRefreshRecommendList = (
+export const useRefreshsurveyList = (
 	categoryId: number,
 	isNeededRefresh: boolean
 ) => {
 	const queryClient = useQueryClient() // React Query Client 인스턴스를 가져옴
 
 	if (!isNeededRefresh) return
-	queryClient.refetchQueries({ queryKey: ['recommendList', categoryId] })
+	queryClient.refetchQueries({ queryKey: ['surveyList', categoryId] })
 }
 
-export const useRecommendListQueries = () => {
-	const getInitialRecommendListInfo = useCallback(() => {
-		const result: Record<number, RecommendItemResInfo[]> = {}
+export const useSurveyListQueries = () => {
+	const getInitialsurveyListInfo = useCallback(() => {
+		const result: Record<number, SurveyItemResInfo[]> = {}
 		Object.values(categoryInfo).forEach((categoryId) => {
 			result[categoryId] = []
 		})
@@ -37,20 +37,20 @@ export const useRecommendListQueries = () => {
 		return result
 	}, [])
 
-	const [everyRecommendListInfo, setEveryRecommendListInfo] = useState(
-		getInitialRecommendListInfo()
+	const [everySurveyListInfo, setEverySurveyListInfo] = useState(
+		getInitialsurveyListInfo()
 	)
 
 	// :: check current data
 	useEffect(() => {
-		console.log('combined data', everyRecommendListInfo)
-	}, [everyRecommendListInfo])
+		console.log('combined data', everySurveyListInfo)
+	}, [everySurveyListInfo])
 
-	const recommendListQueriesResults = useQueries({
+	const surveyListQueriesResults = useQueries({
 		queries: Object.values(categoryInfo).map((categoryId) => {
 			return {
-				queryKey: ['recommendList', categoryId],
-				queryFn: getRecommendList,
+				queryKey: ['surveyList', categoryId],
+				queryFn: getsurveyList,
 				refetchOnWindowFocus: false,
 				refetchOnMount: false,
 			}
@@ -58,51 +58,51 @@ export const useRecommendListQueries = () => {
 	})
 
 	useEffect(() => {
-		console.log('queries result', recommendListQueriesResults)
-		recommendListQueriesResults.forEach((result, index) => {
+		console.log('queries result', surveyListQueriesResults)
+		surveyListQueriesResults.forEach((result, index) => {
 			const categoryId = Object.values(categoryInfo)[index]
 			if (result.data) {
-				setEveryRecommendListInfo((prev) => ({
+				setEverySurveyListInfo((prev) => ({
 					...prev,
 					[categoryId]: result.data,
 				}))
 			}
 		})
-	}, [...recommendListQueriesResults.map((result) => result.isLoading)])
+	}, [...surveyListQueriesResults.map((result) => result.isLoading)])
 
 	// Todo: useQueries의 result 값은 dependency 배열에 넣어 사용하고 있는데, 이게 맞는 방법인지 확인 필요
 	// Todo: Queries 중 한개의 Query가 값을 받아올 때 이 result 값이 바뀌는 것인지 확인 필요(github 코드를 확인해보자.)
 	// :: 이미지가 있는 데이터 반환
 	// - 이미지가 없는 데이터거나 데이터가 비었다면 빈 배열 반환
-	const recommendListWithImage = useMemo(() => {
+	const surveyListWithImage = useMemo(() => {
 		if (
-			Object.values(everyRecommendListInfo).some(
-				(recommendList) => recommendList.length === 0
+			Object.values(everySurveyListInfo).some(
+				(surveyList) => surveyList.length === 0
 			)
 		) {
 			return []
 		}
 
-		const result = Object.values(everyRecommendListInfo).reduce(
-			(prev: RecommendItemInfo[], recommendList: RecommendItemResInfo[]) => {
+		const result = Object.values(everySurveyListInfo).reduce(
+			(prev: SurveyItemInfo[], surveyList: SurveyItemResInfo[]) => {
 				return [
 					...prev,
-					...recommendList.map(
-						(locationInfo: RecommendItemResInfo) =>
+					...surveyList.map(
+						(locationInfo: SurveyItemResInfo) =>
 							({
 								id: locationInfo.spot_id,
 								name: locationInfo.name,
 								address: locationInfo.address,
 								image: locationInfo.image_url,
-							} as RecommendItemInfo)
+							} as SurveyItemInfo)
 					),
 				]
 			},
-			[] as RecommendItemInfo[]
+			[] as SurveyItemInfo[]
 		)
 
 		return result
-	}, [everyRecommendListInfo])
+	}, [everySurveyListInfo])
 
-	return { recommendListWithImage }
+	return { surveyListWithImage }
 }

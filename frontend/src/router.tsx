@@ -12,7 +12,7 @@ import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
 import NotFound from './pages/NotFound'
 import { ContentTypeInfo } from './pages/MyPage/type'
-import Recommend from './pages/Recommend'
+import Survey from './pages/Survey'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -42,9 +42,9 @@ const routerData: RouterElement[] = [
 		label: 'login',
 	},
 	{
-		path: '/recommend',
-		element: <Recommend />,
-		label: 'recommend',
+		path: '/survey',
+		element: <Survey />,
+		label: 'survey',
 	},
 	{
 		path: '/mypage',

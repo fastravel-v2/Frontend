@@ -1,7 +1,7 @@
 import { QueryFunctionContext } from '@tanstack/react-query'
 import { instance } from 'src/utility/apis/axios'
 
-// const dummyRecommendList = [
+// const dummysurveyList = [
 // 	{
 // 		spot_id: '2755809',
 // 		name: '궁항',
@@ -32,13 +32,13 @@ import { instance } from 'src/utility/apis/axios'
 // 	},
 // ]
 
-export const getRecommendList = async ({
+export const getsurveyList = async ({
 	queryKey,
-}: QueryFunctionContext): Promise<RecommendItemResInfo[]> => {
+}: QueryFunctionContext): Promise<SurveyItemResInfo[]> => {
 	const [, categoryId] = queryKey
-	const recommendRes = await instance.get(
+	const surveyRes = await instance.get(
 		`survey/random_spot?category=${categoryId}&count=4`
 	)
 
-	return recommendRes.data
+	return surveyRes.data
 }
