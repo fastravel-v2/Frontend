@@ -7,6 +7,7 @@ interface SearchbarProps {
 	handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
+// Todo: placeholder랑 텍스트 글자 색 구분 필요
 const Searchbar = ({
 	searchText,
 	setSearchText,
