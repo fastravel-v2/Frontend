@@ -2,9 +2,10 @@ import { useRouter } from "src/hooks/useRouter"
 import usePlanStore from "../../store"
 import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd"
 import EditTravelDay from "./EditTravelDay"
-import { useState } from "react"
+import React, { useState } from "react"
 import { IoTrashSharp } from "react-icons/io5"
 import { LuArrowUpDown } from "react-icons/lu"
+import { IDay, IPlace } from "../../type"
 
 interface EditTravelPlanProps {
     toggleIsEdit: () => void
@@ -13,11 +14,21 @@ interface EditTravelPlanProps {
 const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
     const router = useRouter()
     const plan = usePlanStore.getState().plan
+    const [selectedDay, setSelectedDay] = useState(1)
+    const [selectedDate, setSelectedDate] = useState(plan?.dayOrder[0])
     const [state, setState] = useState(plan)
 
     if (!plan || !state) {
-        router.routeTo('notFound')
+        router.routeTo('/notFound')
         return null
+    }
+
+    const handleDateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const newSelectedDate = event.target.value
+        setSelectedDate(newSelectedDate)
+
+        const dayIndex = plan.dayOrder.findIndex(day => day === newSelectedDate)
+        setSelectedDay(dayIndex + 1)
     }
 
     const handleSave= () => {
@@ -27,8 +38,27 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
     }
 
     const handleDelete = () => {
-        usePlanStore.getState().deleteSelectedPlaces()
-        setState(usePlanStore.getState().plan)
+        const selectedPlaceIds = usePlanStore.getState().selectedPlaceIds
+
+        const updatedDays = Object.keys(state.days).reduce<{[key: string]: IDay}>((acc, dayKey) => {
+            const day = state.days[dayKey]
+            acc[dayKey] = {...day, placeIds: day.placeIds.filter(id => !selectedPlaceIds.includes(id))}
+            return acc
+        }, {})
+
+        const updatedPlaces = Object.keys(state.places).reduce<{[key: string]: IPlace}>((acc, placeId) => {
+            if (!selectedPlaceIds.includes(placeId)) {
+                acc[placeId] = state.places[placeId]
+            }
+            return acc
+        }, {})
+
+        const newState = {
+            ...state,
+            days: updatedDays,
+            places: updatedPlaces
+        }
+        setState(newState)
     }
 
     const onDragEnd: OnDragEndResponder = (result) => {
@@ -99,25 +129,35 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
 
     return (
         <div>
-            <div className="pl-4 pr-6 h-10 flex justify-between items-center bg-white">
-                <div>
-                    <span className="text-sm font-semibold mr-2">day</span>
-                    <span className="text-xs font-semibold text-darkGray1">07.15/월</span>
-                </div>
-                <div onClick={handleSave}>
-                    <button className="text-blue1 text-xs">save</button>
+            <div className="sticky top-[60px] z-30">
+                <div className="pl-4 pr-6 h-10 flex justify-between items-center bg-white">
+                    <div>
+                        <span className="text-sm font-semibold mr-2">day {selectedDay}</span>
+                        <select
+                            className="text-xs font-semibold text-darkGray1"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                        >
+                            {plan.dayOrder.map((day, index) => (
+                                <option key={index} value={day}>{day}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div onClick={handleSave}>
+                        <button className="text-blue1 text-xs">save</button>
+                    </div>
                 </div>
             </div>
-            <div className="mb-[728px]">
+            <div className="pb-[728px]">
                 <DragDropContext
                     onDragEnd={onDragEnd}
                 >
                     <div className="flex flex-col">
-                        {state.dayOrder.map((dayId) => {
+                        {state.dayOrder.map((dayId, index) => {
                             const day = state.days[dayId]
                             const places = day.placeIds.map((placeId) => state.places[placeId])
                             
-                            return <EditTravelDay key={dayId} dayKey={dayId} day={day} places={places} />
+                            return <EditTravelDay key={dayId} dayKey={dayId} day={day} places={places} index={index + 1} />
                         })}
                     </div>
                 </DragDropContext>

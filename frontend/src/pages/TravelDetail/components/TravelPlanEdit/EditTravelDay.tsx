@@ -7,6 +7,7 @@ interface EditTravelDayProps {
     dayKey: string;
     day: IDay;
     places: IPlace[];
+    index: number;
 }
 
 interface EditTravelItemListProps {
@@ -23,11 +24,11 @@ const EditTravelItemList = ({places}: EditTravelItemListProps) => {
     return memoizedPlaces
 }
 
-const EditTravelDay = ({dayKey, day, places}: EditTravelDayProps) => {
+const EditTravelDay = ({dayKey, day, places, index}: EditTravelDayProps) => {
     return (
         <div className="flex flex-col">
             <div className="pl-4 pt-1 h-8">
-                <span className="text-sm font-semibold mr-2">day {day.id}</span>
+                <span className="text-sm font-semibold mr-2">day {index}</span>
                 <span className="text-xs font-semibold text-darkGray1">{dayKey}/{day.day}</span>
             </div>
             <Droppable droppableId={dayKey}>
