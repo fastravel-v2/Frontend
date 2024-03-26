@@ -22,6 +22,7 @@ const requestPrev = (
 ): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'application/json'
 	config.baseURL = import.meta.env.VITE_SURVEY_BASE_URL
+	config.headers['INTERNAL_ID_HEADER'] = import.meta.env.VITE_INTERNAL_ID
 
 	return config
 }

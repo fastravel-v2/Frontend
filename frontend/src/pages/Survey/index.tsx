@@ -1,5 +1,6 @@
 import DefaultLayout from 'src/components/layout/DefaultLayout'
 import SurveyList from './component/SurveyList'
+import SurveySubmit from './component/SurveySubmit'
 
 const Survey = () => {
 	console.log('survey Page')
@@ -18,9 +19,7 @@ const Survey = () => {
 			{/* 한 종류 당 1라인 씩 보여줄지, 다 섞어서 한번에 보여줄지 모두 대비해서 개발 */}
 			<SurveyList />
 
-			<button className="fixed py-4 bottom-6 w-[calc(100%-40px)] text-white rounded bottom bottompy-3 bg-green1">
-				선택 완료
-			</button>
+			<SurveySubmit />
 		</DefaultLayout>
 	)
 }

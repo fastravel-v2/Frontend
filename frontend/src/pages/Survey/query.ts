@@ -1,5 +1,5 @@
 import { useQueries, useQueryClient } from '@tanstack/react-query'
-import { getsurveyList } from './api'
+import { getSurveyList } from './api'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const categoryInfo = {
@@ -50,7 +50,7 @@ export const useSurveyListQueries = () => {
 		queries: Object.values(categoryInfo).map((categoryId) => {
 			return {
 				queryKey: ['surveyList', categoryId],
-				queryFn: getsurveyList,
+				queryFn: getSurveyList,
 				refetchOnWindowFocus: false,
 				refetchOnMount: false,
 			}

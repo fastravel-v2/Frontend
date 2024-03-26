@@ -32,7 +32,7 @@ import { instance } from 'src/utility/apis/axios'
 // 	},
 // ]
 
-export const getsurveyList = async ({
+export const getSurveyList = async ({
 	queryKey,
 }: QueryFunctionContext): Promise<SurveyItemResInfo[]> => {
 	const [, categoryId] = queryKey
@@ -41,4 +41,16 @@ export const getsurveyList = async ({
 	)
 
 	return surveyRes.data
+}
+
+export const postSurveyIds = async (
+	surveyIds: string[]
+): Promise<'success' | 'fail'> => {
+	const surveyRes = await instance.post('survey/selected', {
+		spots: surveyIds,
+	})
+	if (surveyRes.status === 200) {
+		return 'success'
+	}
+	return 'fail'
 }
