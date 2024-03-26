@@ -20,13 +20,17 @@ export const UrlBook = () => {
 		}
 	}, [selectedRepositoryId, fetchUrlsForRepository])
 
+	const setSelectedRepositoryId = useUrlStore(state => state.setSelectedRepositoryId); // setSelectedRepositoryId 추가
 
 	return (
 		<div className="min-h-screen bg-gray-100">
 			<GlobalUrlAddBtn/>
 			<UrlAddBtn />
-			<div className='ml-4 mt-4'>
-				<RepositoryDropdown />
+			<div className='m-4 mt-4'>
+                    <RepositoryDropdown // 컴포넌트로 쪼개서 두개넘겨욧~
+                        selectedRepositoryId={selectedRepositoryId}
+                        setSelectedRepositoryId={setSelectedRepositoryId}
+                    />
 			</div>
 			<UrlSendBtn />
 			<UrlDeleteBtn />
