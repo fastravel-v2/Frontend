@@ -1,6 +1,7 @@
 import DefaultLayout from 'src/components/layout/DefaultLayout'
 import SurveyList from './component/SurveyList'
 import SurveySubmit from './component/SurveySubmit'
+import SurveyRefresh from './component/SurveyRefresh'
 
 const Survey = () => {
 	console.log('survey Page')
@@ -18,8 +19,10 @@ const Survey = () => {
 			</h2>
 			{/* 한 종류 당 1라인 씩 보여줄지, 다 섞어서 한번에 보여줄지 모두 대비해서 개발 */}
 			<SurveyList />
-
-			<SurveySubmit />
+			<div className="fixed left-0 flex w-full gap-5 px-5 bottom-6">
+				<SurveySubmit />
+				<SurveyRefresh />
+			</div>
 		</DefaultLayout>
 	)
 }

@@ -25,7 +25,7 @@ const SurveySubmit = () => {
 	return (
 		<button
 			onClick={handleSubmitSurveyIds}
-			className="fixed py-4 bottom-6 w-[calc(100%-40px)] text-white rounded bottom bottompy-3 bg-green1"
+			className="flex-1 py-4 text-white rounded bg-green1"
 		>
 			선택 완료
 		</button>
