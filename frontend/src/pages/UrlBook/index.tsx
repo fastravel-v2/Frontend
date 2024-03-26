@@ -6,6 +6,7 @@ import UrlDeleteBtn from './components/UrlDeleteBtn'
 import { useFetchDummyUrls, useUrlStore } from './store'
 import RepositoryDropdown from './components/RepositoryDropdown'
 import { useEffect } from 'react'
+import GlobalUrlAddBtn from './components/GlobalUrlAddBtn'
 
 export const UrlBook = () => {
 	const selectedRepositoryId  = useUrlStore(state => state.selectedRepositoryId)
@@ -22,6 +23,7 @@ export const UrlBook = () => {
 
 	return (
 		<div className="min-h-screen bg-gray-100">
+			<GlobalUrlAddBtn/>
 			<UrlAddBtn />
 			<div className='ml-4 mt-4'>
 				<RepositoryDropdown />

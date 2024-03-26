@@ -14,6 +14,7 @@ const urlData: UrlEntry[] = [
 	{ url: 'https://wivern.tistory.com/21', repositoryId: 'travel3' },
 	{ url: 'https://wivern.tistory.com/21', repositoryId: 'travel3' },
 	{ url: 'https://wivern.tistory.com/21', repositoryId: 'travel3' },
+	{ url: 'https://wivern.tistory.com/21', repositoryId: 'travel4' },
 ]
 
 // 비동기 함수로 구현, 실제 네트워크 요청을 흉내냅니다.
@@ -27,6 +28,8 @@ export const fetchUrls = async (repositoryId: string): Promise<UrlEntry[]> => {
 	})
 }
 
+
+// Url Repository들 뽑아서 들고옴니다
 export const fetchRepositoryIds = async (): Promise<string[]> => {
 	return [...new Set(urlData.map(entry => entry.repositoryId))];
   }
