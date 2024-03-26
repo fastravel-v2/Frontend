@@ -1,4 +1,5 @@
 // src/UrlBook/components/UrlList.tsx
+// 저장소별로 나눠서 저장해도 여기서 나눠서 띄워버리면 됩니다 ~
 
 import UrlItem from './UrlItem'
 import { useUrlStore } from '../store'

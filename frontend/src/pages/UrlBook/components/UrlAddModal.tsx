@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useUrlStore } from '../store'
 
+//수정: isOpen을 여기서 지정해야 더 좋은 코드인가 ?
 const UrlAddModal: React.FC<{ doCloseModal: () => void }> = ({
 	doCloseModal,
 }) => {

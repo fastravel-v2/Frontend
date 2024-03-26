@@ -18,11 +18,26 @@ interface UrlStore {
 	unSelectAllUrls: () => void
 
 	// asd: string;
+	selectedRepositoryId: string
+	setSelectedRepositoryId: (repositoryId: string) => void
+	fetchUrlsForRepository: (repositoryId: string) => Promise<void>
+	///
 }
 
 export const useUrlStore = create<UrlStore>((set) => ({
 	urls: [],
+
 	// asd: 'asdasd',
+	selectedRepositoryId: '',
+	setSelectedRepositoryId: (repositoryId) =>
+		set(() => ({ selectedRepositoryId: repositoryId })),
+	fetchUrlsForRepository: async (repositoryId) => {
+		const urls = await fetchUrls(repositoryId)
+		set(() => ({
+			urls: urls.map((entry) => ({ url: entry.url, checked: false })),
+		}))
+	},
+	///
 
 	toggleCheck: (index) => {
 		set((state) => {
@@ -44,9 +59,9 @@ export const useUrlStore = create<UrlStore>((set) => ({
 		}))
 	},
 
-	addUrls: (newUrls) => {
+	addUrls: (urls: string[]) => {
 		set(() => ({
-			urls: newUrls.map((url) => ({ url, checked: false })),
+			urls: urls.map((url) => ({ url, checked: false })),
 		}))
 	},
 
@@ -71,16 +86,22 @@ export const useUrlStore = create<UrlStore>((set) => ({
 
 // 더미 데이터를 가져와서 store에 추가하는 코드
 // useEffect를 사용하여 컴포넌트가 렌더링될 때 한 번만 실행됩니다.
-export const useFetchDummyUrls = () => {
-	const fetchData = async () => {
-		try {
-			const data = await fetchUrls() // 더미 데이터 가져오기
-			useUrlStore.getState().addUrls(data) // store에 데이터 추가
-		} catch (error) {
-			console.error('Error fetching URLs:', error)
-		}
-	}
+export const useFetchDummyUrls = (repositoryId: string) => {
+	// repositoryId 인자 추가
+	const addUrls = useUrlStore((state) => state.addUrls) // addUrls 함수 참조
+
 	useEffect(() => {
-		fetchData()
-	}, []) // useEffect의 두 번째 인자로 빈 배열을 전달하여 컴포넌트가 처음 렌더링될 때만 실행되도록 합니다.
+		const fetchData = async () => {
+			// 비동기 함수 정의
+			try {
+				const urlEntries = await fetchUrls(repositoryId) // 수정: repositoryId 인자 전달
+				const urls = urlEntries.map((entry) => entry.url)
+				addUrls(urls) // URL 문자열 배열만 전달
+			} catch (error) {
+				console.error('Error fetching URLs:', error)
+			}
+		}
+
+		fetchData() // 비동기 함수 호출
+	}, [repositoryId, addUrls]) // 의존성 배열에 repositoryId 추가
 }
