@@ -48,10 +48,13 @@ const GlobalUrlAddModal: React.FC = () => {
             if (!formattedUrl.startsWith('https://')) {
                 formattedUrl = `https://${formattedUrl}`
             }
+            console.log(formattedUrl)
             if (isValidUrl(formattedUrl)) {
                 addUrlGlobal(selectedRepositoryId || storeSelectedRepositoryId, formattedUrl) // 수정된 부분
 
-                addUrlToRepository(selectedRepositoryId, url); // 로그로 추가되는지 확인인
+                // 로그로 추가되는지 확인인
+                // 근데 이건 내가 추가로 똑같은 저장소 만들어서 복사해서 붙여넣고 확인하는거
+                addUrlToRepository(selectedRepositoryId, formattedUrl); 
 
                 setIsModalOpen(false)
 
