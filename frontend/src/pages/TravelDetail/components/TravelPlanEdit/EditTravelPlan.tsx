@@ -25,15 +25,12 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
         if (state && state.dayOrder) {
             dayRefs.current = state.dayOrder.map((_, index) => dayRefs.current[index] || React.createRef())
         }
-    }, [state])
-
-    useEffect(() => {
         const checkDayPositions = () => {
-            const headerTop = headerRef.current?.getBoundingClientRect().top ?? 0
-            const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0
-
+            const headerTop = headerRef.current?.getBoundingClientRect().top ?? 240
+            const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 424
+            
             const visibleDayIndices: number[] = []
-
+            
             dayRefs.current.forEach((ref, index) => {
                 if (ref.current) {
                     const dayTop = ref.current.getBoundingClientRect().top
@@ -206,7 +203,7 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
                     </div>
                 </div>
             </div>
-            <div className="pb-[728px]">
+            <div className="pb-[336px]">
                 <DragDropContext
                     onDragEnd={onDragEnd}
                 >

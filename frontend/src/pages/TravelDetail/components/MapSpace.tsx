@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react"
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown } from "react-icons/md"
 import { useRouter } from "src/hooks/useRouter";
 import { IPlan } from "../type";
-import usePlanStore from "../store";
 
 interface MapSpaceProps {
     plan: IPlan;
@@ -13,7 +12,6 @@ const MapSpace = ({day, plan}: MapSpaceProps) => {
     const router = useRouter()
     const mapRef = useRef<HTMLDivElement>(null)
     const [isMapVisible, setIsMapVisible] = useState(true)
-    const { currentDay } = usePlanStore()
 
     useEffect(() => {
         if (!plan || !mapRef.current) {
@@ -74,17 +72,13 @@ const MapSpace = ({day, plan}: MapSpaceProps) => {
         return null
     }
 
-    if (!day) {
-        day = currentDay
-    }
-
     const toggleIsMapVisible = () => {
         setIsMapVisible(!isMapVisible)
     }
 
     return (
         <div className="bg-white">
-            <div className={`${isMapVisible ? 'block' : 'hidden'} w-full h-40`} ref={mapRef}></div>
+            {isMapVisible && <div className="w-full h-40" ref={mapRef}></div>}
             <div className="h-6 flex justify-center" onClick={toggleIsMapVisible}>
                 {isMapVisible
                     ? <MdOutlineKeyboardArrowUp />

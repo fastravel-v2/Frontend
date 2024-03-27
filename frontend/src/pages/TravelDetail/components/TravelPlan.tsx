@@ -24,8 +24,8 @@ const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
 
     useEffect(() => {
         const checkDayPositions = () => {
-            const headerTop = headerRef.current?.getBoundingClientRect().top ?? 0
-            const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0
+            const headerTop = headerRef.current?.getBoundingClientRect().top ?? 240
+            const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 424
 
             const visibleDayIndices: number[] = []
 
@@ -105,7 +105,7 @@ const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
                     </div>
                 </div>
             </div>
-            <div className="pb-[728px]">
+            <div className="pb-[336px]">
                 {plan.dayOrder.map((day, index) => (
                     <div key={index} ref={dayRefs.current[index]} data-day-index={index+1}>
                         <TravelDay day={day} index={index + 1} />
