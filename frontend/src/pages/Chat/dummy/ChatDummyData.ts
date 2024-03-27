@@ -38,7 +38,8 @@ export const chatDummyData: ChatMessage[] = [
 	{
 		id: 4,
 		sender: 'User',
-		content: '사진!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+		content:
+			'사진!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
 		profileImage: 'chiikawa.png',
 		timestamp: '오후 12:15',
 		type: 'text',
@@ -46,7 +47,7 @@ export const chatDummyData: ChatMessage[] = [
 	{
 		id: 5,
 		sender: 'User1',
-		content: 'image-url-here',
+		content: 'src/assets/profileImage/chiikawa.png',
 		profileImage: 'chiikawa.png',
 		timestamp: '오후 12:15',
 		type: 'image',
@@ -118,7 +119,7 @@ export const chatDummyData: ChatMessage[] = [
 	{
 		id: 14,
 		sender: 'User',
-		content: '감사합니다! 방문해볼게요 :)',
+		content: '감사합니당! 가볼게용!',
 		profileImage: 'User.jpg',
 		timestamp: '오후 12:31',
 		type: 'text',

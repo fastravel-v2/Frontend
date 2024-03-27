@@ -10,8 +10,10 @@ const useFetchUrls = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await fetchUrls()
-				addUrls(data)
+				const repositoryId = '저장소 번호 선택';
+				const urlEntries = await fetchUrls(repositoryId);
+				const urls = urlEntries.map(entry => entry.url);
+				addUrls(urls)
 			} catch (error) {
 				console.error('Error fetching URLs:', error)
 			}

@@ -6,62 +6,71 @@ import { useEffect } from 'react'
 export interface UrlItem {
 	checked: boolean
 	url: string
+	repositoryId: string // repositoryId 속성 추가
 }
 
 interface UrlStore {
 	urls: UrlItem[]
 	toggleCheck: (index: number) => void
-	addUrl: (url: string) => void // Modify the type of newUrl parameter
+	addUrl: (url: string) => void
+	addUrlGlobal: (repositoryId: string, url: string) => void
 	addUrls: (urls: string[]) => void // 한번에 urls만들어서 렌더링
 	deleteCheckedUrls: () => void
 	selectAllUrls: () => void
 	unSelectAllUrls: () => void
 
 	// asd: string;
+	selectedRepositoryId: string
+	setSelectedRepositoryId: (repositoryId: string) => void
+	fetchUrlsForRepository: (repositoryId: string) => Promise<void>
+	///
 }
-
 export const useUrlStore = create<UrlStore>((set) => ({
 	urls: [],
-	// asd: 'asdasd',
-
-	toggleCheck: (index) => {
-		set((state) => {
-			const updatedUrls = state.urls.map((item, i) =>
-				i === index ? { ...item, checked: !item.checked } : item
-			)
-			// console.log("Checked Items:", updatedUrls.filter(item => item.checked).map(item => item.url));
-			// console.log("asd:", state.asd)
-			return {
-				urls: updatedUrls,
-				// asd: state
-			}
+	selectedRepositoryId: '',
+	setSelectedRepositoryId: (repositoryId) =>
+		set(() => ({ selectedRepositoryId: repositoryId })),
+	fetchUrlsForRepository: async (repositoryId) => {
+		const urls = await fetchUrls(repositoryId)
+		set({
+			urls: urls.map(
+				(entry) => ({ url: entry.url, checked: false, repositoryId: entry.repositoryId })
+				// (entry) => ({ url: entry.url, checked: false, repositoryId: entry.repositoryId } as UrlItem)
+			),
 		})
 	},
-
-	addUrl: (url) => {
+	toggleCheck: (index) => {
 		set((state) => ({
-			urls: [...state.urls, { url, checked: false }],
+			urls: state.urls.map((item, i) =>
+				i === index ? { ...item, checked: !item.checked } : item
+			),
 		}))
 	},
-
-	addUrls: (newUrls) => {
+	addUrl: (url: string) => {
+		set((state) => ({
+			urls: [...state.urls, { url, checked: false } as UrlItem], // repositoryId 무시하고 UrlItem으로 강제 형변환
+		}))
+	},
+	addUrlGlobal: (repositoryId: string, url: string) => {
+		set((state) => ({
+			urls: [...state.urls, { repositoryId, url, checked: false }], // 새로운 URL 아이템을 추가
+		}))
+	},
+	addUrls: (urls: string[]) => {
 		set(() => ({
-			urls: newUrls.map((url) => ({ url, checked: false })),
+			urls: urls.map((url) => ({ url, checked: false } as UrlItem)), // repositoryId 무시하고 UrlItem으로 강제 형변환
 		}))
 	},
-
 	deleteCheckedUrls: () => {
 		set((state) => ({
 			urls: state.urls.filter((item) => !item.checked),
 		}))
 	},
-
 	selectAllUrls: () => {
 		set((state) => ({
 			urls: state.urls.map((url) => ({ ...url, checked: true })),
 		}))
 	},
-
 	unSelectAllUrls: () => {
 		set((state) => ({
 			urls: state.urls.map((url) => ({ ...url, checked: false })),
@@ -71,16 +80,12 @@ export const useUrlStore = create<UrlStore>((set) => ({
 
 // 더미 데이터를 가져와서 store에 추가하는 코드
 // useEffect를 사용하여 컴포넌트가 렌더링될 때 한 번만 실행됩니다.
-export const useFetchDummyUrls = () => {
-	const fetchData = async () => {
-		try {
-			const data = await fetchUrls() // 더미 데이터 가져오기
-			useUrlStore.getState().addUrls(data) // store에 데이터 추가
-		} catch (error) {
-			console.error('Error fetching URLs:', error)
-		}
-	}
+export const useFetchDummyUrls = (repositoryId: string) => {
+	const fetchUrlsForRepository = useUrlStore(
+		(state) => state.fetchUrlsForRepository
+	)
+
 	useEffect(() => {
-		fetchData()
-	}, []) // useEffect의 두 번째 인자로 빈 배열을 전달하여 컴포넌트가 처음 렌더링될 때만 실행되도록 합니다.
+		fetchUrlsForRepository(repositoryId)
+	}, [repositoryId, fetchUrlsForRepository])
 }

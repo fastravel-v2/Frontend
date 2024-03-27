@@ -1,3 +1,6 @@
+// src/pages/UrlBook/components/UrlResult.tsx
+
+
 import { useEffect, useState } from 'react'
 import {
 	fetchUrlResults,

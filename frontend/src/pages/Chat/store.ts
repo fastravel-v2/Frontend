@@ -5,11 +5,12 @@ import { ChatMessage, chatDummyData } from './dummy/ChatDummyData' // chatDummyD
 
 interface ChatStore {
 	messages: ChatMessage[] // messages의 타입을 chatDummyData의 타입으로 설정합니다.
-	addMessage: (sender: string, content: string) => void
+	addMessage: (sender: string, content: string, type?: string) => void; // type은 선택적으로. 생략 가능
 	deleteMessage: (id: number) => void
 }
 
 //수정: utils에 넣어도되나요?
+//수정: 날짜별로 채팅 나누기 ?
 const getTimeStamp = (): string => {
 	const date = new Date()
 	const hours = date.getHours()
@@ -22,7 +23,7 @@ const getTimeStamp = (): string => {
 
 export const useChatStore = create<ChatStore>((set) => ({
 	messages: chatDummyData, // chatDummyData를 초기 상태로 사용합니다.
-	addMessage: (sender, content) =>
+	addMessage: (sender, content, type = 'text') =>
 		set((state) => ({
 			messages: [
 				...state.messages,
@@ -32,7 +33,7 @@ export const useChatStore = create<ChatStore>((set) => ({
 					content,
 					profileImage: 'default.jpg',
 					timestamp: getTimeStamp(),
-					type: 'text',
+					type,
 				}, // profileImage와 timestamp를 기본값으로 설정합니다.
 			],
 		})),

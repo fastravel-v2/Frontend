@@ -1,26 +1,28 @@
-import UrlAddModal from './UrlAddModal'
-import React, { useState } from 'react'
+// //src/pages/UrlBook/components/UrlAddBtn.tsx
 
-const UrlAddBtn: React.FC = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false)
+// import UrlAddModal from './UrlAddModal'
+// import React, { useState } from 'react'
 
-	const openModal = () => setIsModalOpen(true)
-	const doCloseModal = () => setIsModalOpen(false)
+// const UrlAddBtn: React.FC = () => {
+// 	const [isModalOpen, setIsModalOpen] = useState(false)
 
-	return (
-		<>
-			<button
-				className="px-4 py-2 bg-green1 text-darkGray5 text-base 
-        font-medium w-full shadow-sm hover:bg-green-600 
-        focus:outline-none focus:ring-2 focus:ring-blue1"
-				onClick={openModal}
-			>
-				URL 추가 버튼
-			</button>
-			{/* 닫힌상태로 IsModalOpen = false 인 상태로 UrlAddModal 불러~ */}
-			{isModalOpen && <UrlAddModal doCloseModal={doCloseModal} />}
-		</>
-	)
-}
+// 	const openModal = () => setIsModalOpen(true)
+// 	const doCloseModal = () => setIsModalOpen(false)
 
-export default UrlAddBtn
+// 	return (
+// 		<>
+// 			<button
+// 				className="px-4 py-2 bg-green1 text-darkGray5 text-base 
+//         font-medium w-full shadow-sm hover:bg-green-600 
+//         focus:outline-none focus:ring-2 focus:ring-blue1"
+// 				onClick={openModal}
+// 			>
+// 				URL 추가 버튼
+// 			</button>
+// 			{/* 닫힌상태로 IsModalOpen = false 인 상태로 UrlAddModal 불러~ */}
+// 			{isModalOpen && <UrlAddModal doCloseModal={doCloseModal} />}
+// 		</>
+// 	)
+// }
+
+// export default UrlAddBtn
