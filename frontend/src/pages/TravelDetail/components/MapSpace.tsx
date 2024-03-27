@@ -6,10 +6,10 @@ import usePlanStore from "../store";
 
 interface MapSpaceProps {
     plan: IPlan;
-    date: string | undefined;
+    day: number;
 }
 
-const MapSpace = ({date, plan}: MapSpaceProps) => {
+const MapSpace = ({day, plan}: MapSpaceProps) => {
     const router = useRouter()
     const mapRef = useRef<HTMLDivElement>(null)
     const [isMapVisible, setIsMapVisible] = useState(true)
@@ -19,12 +19,9 @@ const MapSpace = ({date, plan}: MapSpaceProps) => {
         if (!plan || !mapRef.current) {
             return
         }
-        if (!date) {
-            date = plan.dayOrder[currentDay]
-        }
 
-        const day = plan.days[date]
-        const places = day.placeIds.map((placeId) => plan.places[placeId])
+        const visibleDay = plan.days[plan.dayOrder[day - 1]]
+        const places = visibleDay.placeIds.map((placeId) => plan.places[placeId])
 
         const averageLatLong = places.reduce((acc, place) => {
             acc.lat += parseFloat(place.lat)
@@ -70,15 +67,15 @@ const MapSpace = ({date, plan}: MapSpaceProps) => {
             })
         })
 
-    }, [date, plan])
+    }, [day, plan])
 
     if (!plan) {
         router.routeTo('/notfound')
         return null
     }
 
-    if (!date) {
-        date = plan.dayOrder[0]
+    if (!day) {
+        day = currentDay
     }
 
     const toggleIsMapVisible = () => {

@@ -186,7 +186,7 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
     return (
         <div>
             <div className="sticky top-[60px] z-30" ref={headerRef}>
-                <MapSpace date={selectedDate} plan={state} />
+                <MapSpace day={visibleDay ? visibleDay : currentDay} plan={state} />
                 <div className="pl-4 pr-6 h-10 flex justify-between items-center bg-white">
                     <div>
                         <span className="text-sm font-semibold mr-2">day {visibleDay ? visibleDay : currentDay}</span>

@@ -31,14 +31,14 @@ const EditTravelItem = ({place, index, hasNext}: EditTravelItemProps) => {
                     ref={provided.innerRef}
                     onClick={handleSelect}
                 >
-                    <div className={`z-10 absolute left-[26px] top-6 h-5 w-5 rounded-full flex justify-center items-center ${isSelected ? 'bg-green3' : 'bg-white border border-darkGray3'} `}><IoMdCheckmark className={`${isSelected ? 'text-white' : 'text-darkGray3'}`} /></div>
-                    <div className="ml-[60px] mt-1.5">
+                    <div className={`absolute left-[26px] top-6 h-5 w-5 rounded-full flex justify-center items-center ${isSelected ? 'bg-green3' : 'bg-white border border-darkGray3'} `}><IoMdCheckmark className={`${isSelected ? 'text-white' : 'text-darkGray3'}`} /></div>
+                    <div className="ml-[60px] mt-1.5 w-full">
                         <div className="flex items-center">
-                            <div className="border w-[248px] h-[60px] mr-4 border-lightGray3 bg-white rounded">
-                                <div className="mt-1.5 ml-3 mb-1 font-semibold">{place.id}</div>
+                            <div className="border w-full h-[60px] mr-4 border-lightGray3 bg-white rounded">
+                                <div className="mt-1.5 ml-3 mb-1 font-semibold">{place.name}</div>
                                 <div className="ml-3 text-xs text-darkGray1">{place.category}</div>
                             </div>
-                            <div className="w-5 h-5"
+                            <div className="w-5 h-5 mr-4"
                                 {...provided.dragHandleProps}
                             >
                                 <IoMenu className="w-5 h-5"/>

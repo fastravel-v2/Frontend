@@ -22,7 +22,7 @@ const usePlanStore = create<PlanState>(
                 : [...state.selectedPlaceIds, placeId]
         })),
         clearSelectedItems: () => set({selectedPlaceIds: []}),
-        currentDay: 0,
+        currentDay: 1,
         setCurrentDay: (currentDay: number) => set({currentDay}),
     })
 )
