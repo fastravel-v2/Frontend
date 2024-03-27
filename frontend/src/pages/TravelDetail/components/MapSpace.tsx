@@ -65,7 +65,7 @@ const MapSpace = ({day, plan}: MapSpaceProps) => {
             })
         })
 
-    }, [day, plan])
+    }, [day, plan, isMapVisible])
 
     if (!plan) {
         router.routeTo('/notfound')

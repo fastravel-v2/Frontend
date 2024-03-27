@@ -73,7 +73,7 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
         
         const element = dayRefs.current[dayIndex]?.current
         if (element) {
-            const headerHeight = headerRef.current?.getBoundingClientRect().bottom ?? 100
+            const headerHeight = headerRef.current?.getBoundingClientRect().bottom ?? 424
             const elementPosition = element.getBoundingClientRect().top + window.scrollY
             const offsetPosition = elementPosition - headerHeight + 1
 
@@ -183,7 +183,7 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
     return (
         <div>
             <div className="sticky top-[60px] z-30" ref={headerRef}>
-                <MapSpace day={visibleDay ? visibleDay : currentDay} plan={state} />
+                <MapSpace day={currentDay} plan={state} />
                 <div className="pl-4 pr-6 h-10 flex justify-between items-center bg-white">
                     <div>
                         <span className="text-sm font-semibold mr-2">day {visibleDay ? visibleDay : currentDay}</span>

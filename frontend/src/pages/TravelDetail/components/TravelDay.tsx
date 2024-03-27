@@ -30,8 +30,8 @@ const TravelDay = ({day, index}: TravelDayProps) => {
                     : <TravelDayEmptyItem />
                 }
             </div>
-            <div className="w-[360px] h-[88px] flex justify-center">
-                <button className="m-5 w-[312px] h-10 border border-lightGray3 rounded">
+            <div className="w-full h-[88px] flex justify-center">
+                <button className="m-5 w-full h-10 border border-lightGray3 rounded">
                     장소 추가
                 </button>
             </div>

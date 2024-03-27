@@ -43,10 +43,10 @@ const EditTravelDay = ({dayKey, day, places, index}: EditTravelDayProps) => {
                 )}
             </Droppable>
             <div className="mx-6 mt-5 h-[88px] flex justify-between gap-6">
-                <button className="w-[148px] h-10 border border-lightGray3 rounded">
+                <button className="w-full h-10 border border-lightGray3 rounded">
                     day 전체 선택
                 </button>
-                <button className="w-[148px] h-10 border border-lightGray3 rounded">
+                <button className="w-full h-10 border border-lightGray3 rounded">
                     거리순 재정렬
                 </button>
             </div>
