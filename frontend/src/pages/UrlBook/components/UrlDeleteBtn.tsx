@@ -5,10 +5,11 @@ import { useUrlStore } from '../store'
 const UrlDeleteBtn = () => {
 	const deleteCheckedUrls = useUrlStore((state) => state.deleteCheckedUrls)
 	const urls = useUrlStore((state) => state.urls)
+	const selectedRepositoryId = useUrlStore((state) => state.selectedRepositoryId); // 선택한 저장소 ID 추가
 	const checkedCount = urls.filter((url) => url.checked).length
 
 	const handleDelete = () => {
-		deleteCheckedUrls()
+		deleteCheckedUrls(selectedRepositoryId)
 	}
 
 	return (

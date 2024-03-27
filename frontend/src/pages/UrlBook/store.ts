@@ -15,7 +15,7 @@ interface UrlStore {
 	addUrl: (url: string) => void
 	addUrlGlobal: (repositoryId: string, url: string) => void
 	addUrls: (urls: string[]) => void // 한번에 urls만들어서 렌더링
-	deleteCheckedUrls: () => void
+	deleteCheckedUrls: (repositoryId: string) => void
 	selectAllUrls: () => void
 	unSelectAllUrls: () => void
 
@@ -61,10 +61,17 @@ export const useUrlStore = create<UrlStore>((set) => ({
 			urls: urls.map((url) => ({ url, checked: false } as UrlItem)), // repositoryId 무시하고 UrlItem으로 강제 형변환
 		}))
 	},
-	deleteCheckedUrls: () => {
-		set((state) => ({
-			urls: state.urls.filter((item) => !item.checked),
-		}))
+    // deleteCheckedUrls: (repositoryId: string) => {
+    //     set((state) => ({
+    //         urls: state.urls.filter((item) => item.repositoryId === repositoryId && !item.checked), // 선택한 저장소에 속한 체크된 URL만 필터링
+    //     }));
+    // },
+	deleteCheckedUrls: (repositoryId: string) => {
+		set((state) => {
+			const updatedUrls = state.urls.filter((item) => item.repositoryId === repositoryId && !item.checked); // 선택한 저장소에 속한 체크된 URL만 필터링
+			localStorage.setItem('urlData', JSON.stringify(updatedUrls)); // 로컬 스토리지 업데이트
+			return { urls: updatedUrls };
+		});
 	},
 	selectAllUrls: () => {
 		set((state) => ({

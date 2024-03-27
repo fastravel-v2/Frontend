@@ -1,9 +1,11 @@
-//src/pages/UrlBook/components/RepositoryDropdown.tsx
+// src/pages/UrlBook/components/RepositoryDropdown.tsx
+import { MdArrowDropDown } from 'react-icons/md'
 
 import React, { useEffect, useState } from 'react'
+
+// 더미 데이터에서 Repository ID를 가져오는 함수를 import합니다.
 import { fetchRepositoryIds } from '../dummyData/urlDummy'
 
-// 이거 넘겨주시요 그렇지 않으면 코드는 죽소
 interface RepositoryDropdownProps {
 	selectedRepositoryId: string
 	setSelectedRepositoryId: (repositoryId: string) => void
@@ -17,6 +19,7 @@ const RepositoryDropdown: React.FC<RepositoryDropdownProps> = ({
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
 	useEffect(() => {
+		// 더미 데이터에서 Repository ID를 가져와서 상태를 업데이트합니다.
 		const loadRepositoryIds = async () => {
 			const ids = await fetchRepositoryIds()
 			setRepositoryIds(ids)
@@ -36,15 +39,18 @@ const RepositoryDropdown: React.FC<RepositoryDropdownProps> = ({
 
 	return (
 		<div className="">
-			<button
-				onClick={toggleDropdown}
-				className="block w-full text-left border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-			>
-				<span className="">{selectedRepositoryId || '선택하시요'}</span>
-			</button>
+			<div className="mb-2 ">
+				<button
+					onClick={toggleDropdown}
+					className="block flex justify-between w-full text-left border border-darkGray2 rounded-md"
+				>
+					<span className="mx-4">{selectedRepositoryId || '선택하시요'}</span>
+					<MdArrowDropDown size={25} className="mr-1" />
+				</button>
+			</div>
 			{isOpen && (
 				<ul
-					className="absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg"
+					className="absolute z-10 bg-white border w-72 border-gray-300 rounded-md shadow-lg"
 					onClick={() => setIsOpen(false)}
 				>
 					{repositoryIds.map((repositoryId) => (
