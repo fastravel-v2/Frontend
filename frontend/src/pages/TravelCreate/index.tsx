@@ -1,23 +1,19 @@
-import DefaultLayout from 'src/components/layout/DefaultLayout'
-import SearchHeader from 'src/components/header/SearchHeader'
-import SearchResult from './component/SearchResult'
+import { useEffect } from 'react'
+import { Outlet } from 'react-router-dom'
+import { useSearchCityStore, useSelectedCityStore } from './store'
 
 const TravelCreate = () => {
-	// Todo: 도시 검색 함수 구현을 이용하고 검색 결과 가져오기
-	// Todo: 검색 결과를 전역 저장소에 저장하기
-	const handleSearch = async (searchText: string) => {
-		console.log(searchText)
-	}
+	const { setSelectedCities } = useSelectedCityStore()
+	const { setSearchedCities } = useSearchCityStore()
 
-	return (
-		<DefaultLayout>
-			<SearchResult />
-			<SearchHeader
-				placeHolder="어디로 떠나시나요?"
-				handleSearch={handleSearch}
-			/>
-		</DefaultLayout>
-	)
+	// page 나갈 때 해당 내용 초기화
+	useEffect(() => {
+		return () => {
+			setSelectedCities([])
+			setSearchedCities([])
+		}
+	}, [])
+	return <Outlet />
 }
 
 export default TravelCreate

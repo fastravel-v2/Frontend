@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import { useRouter } from 'src/hooks/useRouter'
 import { IoArrowBackOutline } from 'react-icons/io5'
-import { TbSearch } from 'react-icons/tb'
 
 // :: SearchHeader.tsx
 // - DefaultHeader.tsx에서 검색 기능을 추가로 수행하는 Header 컴포넌트
@@ -21,10 +20,8 @@ const SearchHeader = ({ placeHolder, handleSearch }: HeaderProps) => {
 	const handleGoBack = () => {
 		goBack()
 	}
-	const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChangeInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchText(e.target.value)
-	}
-	const handleGetAndStoreResult = async () => {
 		await handleSearch(searchText)
 	}
 
@@ -40,9 +37,6 @@ const SearchHeader = ({ placeHolder, handleSearch }: HeaderProps) => {
 				onChange={handleChangeInput}
 				className="w-full py-2 font-medium focus:outline-none text-darkGray2"
 			/>
-			<button onClick={handleGetAndStoreResult}>
-				<TbSearch size="1.5rem" color="#454545" />
-			</button>
 		</div>
 	)
 }

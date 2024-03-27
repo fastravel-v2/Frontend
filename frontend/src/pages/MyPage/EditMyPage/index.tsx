@@ -2,10 +2,12 @@ import WithHeaderLayout from 'src/components/layout/WithHeaderLayout'
 import { useRouter } from 'src/hooks/useRouter'
 import { IMenu, IMenuFunc } from 'src/types/layout'
 import { IoArrowBackOutline } from 'react-icons/io5'
-import EditProfile from '../components/editProfile/EditProfile'
+import EditProfile from '../../../components/editProfile/EditProfile'
+import { useCurrentUser } from './../../../store/queries/useCurrentUser'
 
 const EditMyPage = () => {
 	const { goBack } = useRouter()
+	const { data: currentUser, isLoading } = useCurrentUser()
 
 	// :: Header
 	const handleLeftFunc = () => {
@@ -24,7 +26,12 @@ const EditMyPage = () => {
 	// :: Rendering
 	return (
 		<WithHeaderLayout headerMenu={headerMenu} headerFunc={headerFunc}>
-			<EditProfile />
+			<EditProfile
+				type="user"
+				profileName={currentUser ? currentUser.username : ''}
+				profileImage={currentUser ? currentUser.profileImage : null}
+				isLoading={isLoading}
+			/>
 		</WithHeaderLayout>
 	)
 }

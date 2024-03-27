@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { NameMessageType } from '../../type'
+import { NameMessageType } from '../../pages/MyPage/type'
 
 interface EditProfileSubmitProps {
 	nameStatus: NameMessageType

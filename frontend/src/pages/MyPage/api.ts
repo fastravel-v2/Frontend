@@ -139,6 +139,16 @@ export const putUserProfile = async (
 	return 'success'
 }
 
+export const putTravelProfile = async (
+	profileFormData: FormData
+): Promise<'success' | 'fail'> => {
+	// const editRes = await tokenMultipartInstance.put('/user/travel', profileFormData)
+	// return editRes.data
+
+	console.log(profileFormData)
+	return 'success'
+}
+
 export const putMemoSave = async (
 	locationId: number,
 	memoText: string

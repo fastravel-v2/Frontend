@@ -1,12 +1,16 @@
 import { useState } from 'react'
-import { isValidImageFile } from '../../util'
-import { useUserProfileImage } from '../../hooks/useUserProfileImage'
+import { isValidImageFile } from '../../pages/MyPage/util'
+import { useUserProfileImage } from '../../pages/MyPage/hooks/useUserProfileImage'
 
 interface EditProfileImageProps {
+	type: 'user' | 'travel'
 	currentUserProfileUrl: string | null
 }
 
-const EditProfileImage = ({ currentUserProfileUrl }: EditProfileImageProps) => {
+const EditProfileImage = ({
+	type,
+	currentUserProfileUrl,
+}: EditProfileImageProps) => {
 	const [imageFile, setImageFile] = useState<File | null>(null) // 서버 전송용 imageFile
 	const profileUrl = useUserProfileImage(imageFile, currentUserProfileUrl)
 
@@ -27,7 +31,11 @@ const EditProfileImage = ({ currentUserProfileUrl }: EditProfileImageProps) => {
 		<label className="self-center">
 			<img
 				src={
-					profileUrl ? profileUrl : '/src/assets/svgs/defaultProfile1234.svg'
+					profileUrl
+						? profileUrl
+						: type === 'user'
+						? '/src/assets/svgs/defaultProfile.svg'
+						: '/src/assets/svgs/defaultLocation.svg'
 				}
 				alt="프로필 이미지"
 				className="w-20 h-20 rounded-full"
