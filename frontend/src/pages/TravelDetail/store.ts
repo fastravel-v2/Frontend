@@ -7,6 +7,8 @@ interface PlanState {
     setPlan: (plan: IPlan) => void;
     togglePlaceSelection: (placeId: string) => void;
     clearSelectedItems: () => void;
+    currentDay: number;
+    setCurrentDay: (currentDate: number) => void;
 }
 
 const usePlanStore = create<PlanState>(
@@ -20,6 +22,8 @@ const usePlanStore = create<PlanState>(
                 : [...state.selectedPlaceIds, placeId]
         })),
         clearSelectedItems: () => set({selectedPlaceIds: []}),
+        currentDay: 0,
+        setCurrentDay: (currentDay: number) => set({currentDay}),
     })
 )
 

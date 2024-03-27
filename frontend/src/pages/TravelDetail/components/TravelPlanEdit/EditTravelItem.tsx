@@ -35,7 +35,7 @@ const EditTravelItem = ({place, index, hasNext}: EditTravelItemProps) => {
                     <div className="ml-[60px] mt-1.5">
                         <div className="flex items-center">
                             <div className="border w-[248px] h-[60px] mr-4 border-lightGray3 bg-white rounded">
-                                <div className="mt-1.5 ml-3 mb-1 font-semibold">{place.name}</div>
+                                <div className="mt-1.5 ml-3 mb-1 font-semibold">{place.id}</div>
                                 <div className="ml-3 text-xs text-darkGray1">{place.category}</div>
                             </div>
                             <div className="w-5 h-5"

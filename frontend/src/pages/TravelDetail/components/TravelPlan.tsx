@@ -2,6 +2,7 @@ import { useRouter } from "src/hooks/useRouter"
 import usePlanStore from "../store"
 import TravelDay from "./TravelDay"
 import React, { useEffect, useRef, useState } from "react"
+import MapSpace from "./MapSpace"
 
 interface TravelPlanProps {
     toggleIsEdit: () => void
@@ -9,11 +10,11 @@ interface TravelPlanProps {
 
 const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
     const router = useRouter()
-    const plan = usePlanStore.getState().plan
     const [selectedDate, setSelectedDate] = useState<string | undefined>('')
     const [visibleDay, setVisibleDay] = useState<number | null>()
     const dayRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([])
     const headerRef = useRef<HTMLDivElement | null>(null)
+    const {plan, currentDay, setCurrentDay} = usePlanStore()
 
     useEffect(() => {
         if (plan && plan.dayOrder) {
@@ -40,10 +41,11 @@ const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
                     }
                 }
             })
-            const dayIndex = (visibleDayIndices.length > 0 ? visibleDayIndices[visibleDayIndices.length - 1] : null)
+            const dayIndex = (visibleDayIndices.length > 0 ? visibleDayIndices[visibleDayIndices.length - 1] : currentDay)
             
-            if (dayIndex) {
-                setSelectedDate(plan?.dayOrder[dayIndex - 1])
+            if (dayIndex && plan) {
+                setSelectedDate(plan.dayOrder[dayIndex - 1])
+                setCurrentDay(dayIndex)
             }
             setVisibleDay(dayIndex)
         }
@@ -69,7 +71,7 @@ const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
 
         const element = dayRefs.current[dayIndex]?.current
         if (element) {
-            const headerHeight = 100
+            const headerHeight = headerRef.current?.getBoundingClientRect().bottom ?? 100
             const elementPosition = element.getBoundingClientRect().top + window.scrollY
             const offsetPosition = elementPosition - headerHeight + 1
 
@@ -83,9 +85,10 @@ const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
     return (
         <div>
             <div className="sticky top-[60px] z-30" ref={headerRef}>
+                <MapSpace date={selectedDate} plan={plan} />
                 <div className="pl-4 pr-6 h-10 flex justify-between items-center bg-white">
                     <div>
-                        <span className="text-sm font-semibold mr-2">day {visibleDay}</span>
+                        <span className="text-sm font-semibold mr-2">day {visibleDay ? visibleDay : currentDay}</span>
                         <select 
                             className="text-xs font-semibold text-darkGray1"
                             defaultValue={selectedDate}

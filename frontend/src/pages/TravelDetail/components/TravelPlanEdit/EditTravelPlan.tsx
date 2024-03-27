@@ -2,10 +2,11 @@ import { useRouter } from "src/hooks/useRouter"
 import usePlanStore from "../../store"
 import { DragDropContext, OnDragEndResponder } from "react-beautiful-dnd"
 import EditTravelDay from "./EditTravelDay"
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { IoTrashSharp } from "react-icons/io5"
 import { LuArrowUpDown } from "react-icons/lu"
 import { IDay, IPlace } from "../../type"
+import MapSpace from "../MapSpace"
 
 interface EditTravelPlanProps {
     toggleIsEdit: () => void
@@ -13,10 +14,54 @@ interface EditTravelPlanProps {
 
 const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
     const router = useRouter()
-    const plan = usePlanStore.getState().plan
-    const [selectedDay, setSelectedDay] = useState(1)
-    const [selectedDate, setSelectedDate] = useState(plan?.dayOrder[0])
+    const {plan, currentDay, setCurrentDay} = usePlanStore()
+    const [selectedDate, setSelectedDate] = useState<string | undefined>('')
+    const [visibleDay, setVisibleDay] = useState<number | null>()
+    const dayRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([])
+    const headerRef = useRef<HTMLDivElement | null>(null)
     const [state, setState] = useState(plan)
+
+    useEffect(() => {
+        if (state && state.dayOrder) {
+            dayRefs.current = state.dayOrder.map((_, index) => dayRefs.current[index] || React.createRef())
+        }
+    }, [state])
+
+    useEffect(() => {
+        const checkDayPositions = () => {
+            const headerTop = headerRef.current?.getBoundingClientRect().top ?? 0
+            const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0
+
+            const visibleDayIndices: number[] = []
+
+            dayRefs.current.forEach((ref, index) => {
+                if (ref.current) {
+                    const dayTop = ref.current.getBoundingClientRect().top
+                    const dayBottom = ref.current.getBoundingClientRect().bottom
+
+                    if ((dayTop >= headerTop && dayTop <= headerBottom) ||
+                        (dayBottom >= headerTop && dayBottom <= headerBottom) ||
+                        (dayTop <= headerTop && dayBottom >= headerBottom)) {
+                        visibleDayIndices.push(index + 1)
+                    }
+                }
+            })
+            const dayIndex = (visibleDayIndices.length > 0 ? visibleDayIndices[visibleDayIndices.length - 1] : currentDay)
+
+            if (dayIndex && state) {
+                setSelectedDate(state.dayOrder[dayIndex - 1])
+                setCurrentDay(dayIndex)
+            }
+            setVisibleDay(dayIndex)
+        }
+
+        window.addEventListener('scroll', checkDayPositions)
+        checkDayPositions()
+
+        return () => {
+            window.removeEventListener('scroll', checkDayPositions)
+        }
+    }, [state])
 
     if (!plan || !state) {
         router.routeTo('/notFound')
@@ -27,8 +72,19 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
         const newSelectedDate = event.target.value
         setSelectedDate(newSelectedDate)
 
-        const dayIndex = plan.dayOrder.findIndex(day => day === newSelectedDate)
-        setSelectedDay(dayIndex + 1)
+        const dayIndex = state.dayOrder.findIndex(day => day === newSelectedDate)
+        
+        const element = dayRefs.current[dayIndex]?.current
+        if (element) {
+            const headerHeight = headerRef.current?.getBoundingClientRect().bottom ?? 100
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY
+            const offsetPosition = elementPosition - headerHeight + 1
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            })
+        }
     }
 
     const handleSave= () => {
@@ -129,16 +185,18 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
 
     return (
         <div>
-            <div className="sticky top-[60px] z-30">
+            <div className="sticky top-[60px] z-30" ref={headerRef}>
+                <MapSpace date={selectedDate} plan={state} />
                 <div className="pl-4 pr-6 h-10 flex justify-between items-center bg-white">
                     <div>
-                        <span className="text-sm font-semibold mr-2">day {selectedDay}</span>
+                        <span className="text-sm font-semibold mr-2">day {visibleDay ? visibleDay : currentDay}</span>
                         <select
                             className="text-xs font-semibold text-darkGray1"
+                            defaultValue={selectedDate}
                             value={selectedDate}
                             onChange={handleDateChange}
                         >
-                            {plan.dayOrder.map((day, index) => (
+                            {state.dayOrder.map((day, index) => (
                                 <option key={index} value={day}>{day}</option>
                             ))}
                         </select>
@@ -156,8 +214,12 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
                         {state.dayOrder.map((dayId, index) => {
                             const day = state.days[dayId]
                             const places = day.placeIds.map((placeId) => state.places[placeId])
-                            
-                            return <EditTravelDay key={dayId} dayKey={dayId} day={day} places={places} index={index + 1} />
+
+                            return (
+                                <div key={index} ref={dayRefs.current[index]}>
+                                    <EditTravelDay dayKey={dayId} day={day} places={places} index={index + 1} />
+                                </div>
+                            )
                         })}
                     </div>
                 </DragDropContext>

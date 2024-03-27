@@ -21,6 +21,8 @@ interface IPlace {
     id: string;
     name: string;
     category: string[];
+    lat: string;
+    long: string;
 }
 
 interface IDay {
