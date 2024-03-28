@@ -1,44 +1,66 @@
 // src/pages/UrlBook/store.ts
 import { create } from 'zustand'
-import { fetchUrls } from 'src/pages/UrlBook/dummyData/urlDummy'
-import { useEffect } from 'react'
+import axios from 'axios'
+// import { fetchUrls } from './dummyData/urlDummy'
 
 export interface UrlItem {
 	checked: boolean
 	url: string
-	repositoryId: string // repositoryId 속성 추가
+	url_id: number // url_id 추가
 }
 
 interface UrlStore {
 	urls: UrlItem[]
 	toggleCheck: (index: number) => void
 	addUrl: (url: string) => void
-	addUrlGlobal: (repositoryId: string, url: string) => void
 	addUrls: (urls: string[]) => void // 한번에 urls만들어서 렌더링
-	deleteCheckedUrls: (repositoryId: string) => void
 	selectAllUrls: () => void
 	unSelectAllUrls: () => void
-
-	// asd: string;
-	selectedRepositoryId: string
-	setSelectedRepositoryId: (repositoryId: string) => void
-	fetchUrlsForRepository: (repositoryId: string) => Promise<void>
-	///
+	deleteCheckedUrls: () => void
+	deleteUrl: (url_id: number) => void
+	fetchUrls: () => Promise<void>
 }
 export const useUrlStore = create<UrlStore>((set) => ({
 	urls: [],
-	selectedRepositoryId: '',
-	setSelectedRepositoryId: (repositoryId) =>
-		set(() => ({ selectedRepositoryId: repositoryId })),
-	fetchUrlsForRepository: async (repositoryId) => {
-		const urls = await fetchUrls(repositoryId)
-		set({
-			urls: urls.map(
-				(entry) => ({ url: entry.url, checked: false, repositoryId: entry.repositoryId })
-				// (entry) => ({ url: entry.url, checked: false, repositoryId: entry.repositoryId } as UrlItem)
-			),
-		})
+	fetchUrls: async () => {
+		try {
+			const response = await axios.get(
+				'http://j10d204.p.ssafy.io:8000/url/list',
+				{
+					headers: {
+						Accept: 'application/json',
+						// INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+					},
+				}
+			)
+			const data = response.data
+			set({
+				urls: data.map((item: UrlItem) => ({
+					url: item.url,
+					checked: false,
+					url_id: item.url_id,
+				})),
+			})
+		} catch (error) {
+			console.error('URL 데이터 로딩 실패:', error)
+		}
 	},
+
+	/// 더미더미~ 더미더미~ 더미더미~ ///
+	// fetchUrls: async () => {
+	// 	try {
+	// 		const data = await fetchUrls()
+	// 		set({
+	// 			urls: data.map((item: UrlItem) => ({
+	// 				url: item.url,
+	// 				checked: false,
+	// 				url_id: item.url_id,
+	// 			})),
+	// 		})
+	// 	} catch (error) {
+	// 		console.error('URL 데이터 로딩 실패:', error)
+	// 	}
+	// },
 	toggleCheck: (index) => {
 		set((state) => ({
 			urls: state.urls.map((item, i) =>
@@ -46,33 +68,60 @@ export const useUrlStore = create<UrlStore>((set) => ({
 			),
 		}))
 	},
-	addUrl: (url: string) => {
-		set((state) => ({
-			urls: [...state.urls, { url, checked: false } as UrlItem], // repositoryId 무시하고 UrlItem으로 강제 형변환
-		}))
+
+	addUrl: async (url: string) => {
+		try {
+			const response = await axios.post(
+				'http://j10d204.p.ssafy.io:8000/url/',
+				null,
+				{
+					params: {
+						target_url: url,
+					},
+					headers: {
+						Accept: 'application/json',
+						INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+					},
+				}
+			)
+
+			const data = response.data
+			console.log('URL 추가 성공:', data)
+		} catch (error) {
+			console.error('URL 추가 실패:', error)
+		}
 	},
-	addUrlGlobal: (repositoryId: string, url: string) => {
-		set((state) => ({
-			urls: [...state.urls, { repositoryId, url, checked: false }], // 새로운 URL 아이템을 추가
-		}))
-	},
+
 	addUrls: (urls: string[]) => {
 		set(() => ({
-			urls: urls.map((url) => ({ url, checked: false } as UrlItem)), // repositoryId 무시하고 UrlItem으로 강제 형변환
+			urls: urls.map((url) => ({ url, checked: false } as UrlItem)),
 		}))
 	},
-    // deleteCheckedUrls: (repositoryId: string) => {
-    //     set((state) => ({
-    //         urls: state.urls.filter((item) => item.repositoryId === repositoryId && !item.checked), // 선택한 저장소에 속한 체크된 URL만 필터링
-    //     }));
-    // },
-	deleteCheckedUrls: (repositoryId: string) => {
-		set((state) => {
-			const updatedUrls = state.urls.filter((item) => item.repositoryId === repositoryId && !item.checked); // 선택한 저장소에 속한 체크된 URL만 필터링
-			localStorage.setItem('urlData', JSON.stringify(updatedUrls)); // 로컬 스토리지 업데이트
-			return { urls: updatedUrls };
-		});
+	deleteCheckedUrls: () => {
+		set((state) => ({
+			urls: state.urls.filter((item) => !item.checked),
+		}))
 	},
+
+	deleteUrl: async (url_id: number) => {
+		try {
+			await axios.delete(
+				`http://j10d204.p.ssafy.io:8000/url/?url_id=${url_id}`,
+				{
+					headers: {
+						Accept: 'application/json',
+						// 필요하다면 'internal_id': '사용자ID' 추가
+					},
+				}
+			)
+			set((state) => ({
+				urls: state.urls.filter((item) => item.url_id !== url_id),
+			}))
+		} catch (error) {
+			console.error('URL 삭제 실패:', error)
+		}
+	},
+
 	selectAllUrls: () => {
 		set((state) => ({
 			urls: state.urls.map((url) => ({ ...url, checked: true })),
@@ -84,15 +133,3 @@ export const useUrlStore = create<UrlStore>((set) => ({
 		}))
 	},
 }))
-
-// 더미 데이터를 가져와서 store에 추가하는 코드
-// useEffect를 사용하여 컴포넌트가 렌더링될 때 한 번만 실행됩니다.
-export const useFetchDummyUrls = (repositoryId: string) => {
-	const fetchUrlsForRepository = useUrlStore(
-		(state) => state.fetchUrlsForRepository
-	)
-
-	useEffect(() => {
-		fetchUrlsForRepository(repositoryId)
-	}, [repositoryId, fetchUrlsForRepository])
-}

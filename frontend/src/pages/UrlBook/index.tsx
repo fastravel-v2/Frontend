@@ -1,17 +1,15 @@
 // UrlBook.tsx
 import { UrlSendBtn } from './components/UrlSendBtn'
 import UrlList from './components/UrlList'
-// import UrlAddBtn from './components/UrlAddBtn'
 import UrlDeleteBtn from './components/UrlDeleteBtn'
-import GlobalUrlAddBtn from './components/GlobalUrlAddBtn'
+import UrlAddBtn from './components/UrlAddBtn'
 
 export const UrlBook = () => {
 
 
 	return (
 		<div className="min-h-screen bg-gray-100">
-			<GlobalUrlAddBtn/>
-			{/* <UrlAddBtn /> */}
+			<UrlAddBtn />
 			<UrlSendBtn />
 			<UrlDeleteBtn />
 			<div className="p-4">

@@ -3,14 +3,25 @@
 import { useUrlStore } from '../store'
 
 const UrlDeleteBtn = () => {
-	const deleteCheckedUrls = useUrlStore((state) => state.deleteCheckedUrls)
+	
 	const urls = useUrlStore((state) => state.urls)
-	const selectedRepositoryId = useUrlStore((state) => state.selectedRepositoryId); // 선택한 저장소 ID 추가
 	const checkedCount = urls.filter((url) => url.checked).length
+	
+	// 임시로 하나만 지우는거 ~
+	const deleteUrl = useUrlStore((state) => state.deleteUrl)
+	
+	// const deleteCheckedUrls = useUrlStore((state) => state.deleteCheckedUrls)
+	// const handleDelete = () => {
+		// 	deleteCheckedUrls()
+		// }
+		
 
 	const handleDelete = () => {
-		deleteCheckedUrls(selectedRepositoryId)
-	}
+		const urlToDelete = urls.find((url) => url.checked);
+		if (urlToDelete) {
+			deleteUrl(urlToDelete.url_id);
+		}
+	};
 
 	return (
 		<div className="pt-2">

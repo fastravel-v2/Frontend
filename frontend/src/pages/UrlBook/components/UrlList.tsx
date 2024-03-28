@@ -1,22 +1,16 @@
-//src/pages/UrlBook/components/UrlList.tsx
-
 import React, { useEffect } from 'react'
 import Lottie from 'react-lottie'
 import UrlItem from './UrlItem'
-import RepositoryDropdown from './RepositoryDropdown'
-import { useUrlStore } from '../store'
 import TravelBus2 from '../../../assets/lottie/TravelBus2.json'
+import { useUrlStore } from '../store'
 
 const UrlList: React.FC = () => {
-	const { urls, selectedRepositoryId } = useUrlStore((state) => ({
-		urls: state.urls,
-		selectedRepositoryId: state.selectedRepositoryId,
-	}))
+	const { urls, fetchUrls } = useUrlStore()
 
-	// 저장소별로 필터링된 URL 목록
-	const filteredUrls = urls.filter(
-		(urlEntry) => urlEntry.repositoryId === selectedRepositoryId
-	)
+    useEffect(() => {
+        fetchUrls(); // 컴포넌트가 마운트될 때 URL 데이터를 불러옵니다.
+    }, []); // 더 이상 fetchUrls를 의존성 배열에 넣을 필요가 없습니다.
+
 
 	// Lottie 애니메이션 설정
 	const defaultOptions = {
@@ -28,37 +22,20 @@ const UrlList: React.FC = () => {
 		},
 	}
 
-	// 선택한 저장소의 URL 가져오기
-	const fetchUrlsForRepository = useUrlStore(
-		(state) => state.fetchUrlsForRepository
-	)
-	useEffect(() => {
-		if (selectedRepositoryId) {
-			fetchUrlsForRepository(selectedRepositoryId)
-		}
-	}, [selectedRepositoryId, fetchUrlsForRepository])
-
-	// 선택한 저장소 변경 시 실행될 함수
-	const setSelectedRepositoryId = useUrlStore(
-		(state) => state.setSelectedRepositoryId
-	)
-
 	return (
 		<div>
-			<div className="mx-6">
-				{/* RepositoryDropdown 컴포넌트 */}
-				<RepositoryDropdown
-					selectedRepositoryId={selectedRepositoryId}
-					setSelectedRepositoryId={setSelectedRepositoryId}
-				/>
-			</div>
-			{filteredUrls.length > 0 ? (
-				// URL 목록 출력
-				filteredUrls.map((url, index) => (
-					<UrlItem key={index} index={index} {...url} />
+			<div className="mx-6">{/* RepositoryDropdown 관련 코드 제거됨 */}</div>
+			{urls.length > 0 ? (
+				urls.map((url, index) => (
+					<UrlItem
+						key={index}
+						index={index}
+						url_id={url.url_id}
+						url={url.url}
+						checked={url.checked}
+					/>
 				))
 			) : (
-				// URL이 없을 경우
 				<div className="text-center">
 					<Lottie options={defaultOptions} height={260} width={300} />
 					<h1 className="text-xl font-bold">삐뽀삐뽀 URL 추가 요망</h1>

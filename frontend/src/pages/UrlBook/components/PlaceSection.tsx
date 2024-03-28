@@ -1,5 +1,3 @@
-//src/pages/UrlBook/components/PlaceSection.tsx
-
 import React from 'react'
 import { PlaceInfo } from 'src/pages/UrlBook/dummyData/urlDummyResult'
 
@@ -12,21 +10,22 @@ const PlaceSection: React.FC<PlaceSectionProps> = ({ urlKey, places }) => {
 	return (
 		<div className="mb-2">
 			<h3 className="text-lg font-semibold mb-1">
-				{urlKey.replace('URL', 'URL ')}
+				{urlKey.replace('URL', 'URL ').slice(0, 20)}
+				{urlKey.length > 10 ? '...' : ''}
 			</h3>
 			<div className="flex pb-12 overflow-x-auto">
 				{places.map((place, index) => (
 					<div key={index} className="flex-shrink-0 w-24 h-24 mr-4">
-						{place.img ? (
+						{place.image_url ? (
 							<img
-								src={place.img}
+								src={place.image_url}
 								alt={place.name}
 								className="w-full h-full object-cover rounded-lg"
 							/>
 						) : (
 							// 이미지 없을때 기본 이미지
 							<img
-								src="../src/assets/noImage.jpg" 
+								src="../src/assets/noImage.jpg"
 								alt={place.name}
 								className="w-full h-full object-cover rounded-lg"
 							/>
