@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { IDay, IPlace, IPlan } from "./type";
+import { IPlan } from "./type";
 
 interface PlanState {
     plan: IPlan | undefined;
@@ -7,7 +7,8 @@ interface PlanState {
     setPlan: (plan: IPlan) => void;
     togglePlaceSelection: (placeId: string) => void;
     clearSelectedItems: () => void;
-    deleteSelectedPlaces: () => void;
+    currentDay: number;
+    setCurrentDay: (currentDate: number) => void;
 }
 
 const usePlanStore = create<PlanState>(
@@ -21,27 +22,8 @@ const usePlanStore = create<PlanState>(
                 : [...state.selectedPlaceIds, placeId]
         })),
         clearSelectedItems: () => set({selectedPlaceIds: []}),
-        deleteSelectedPlaces: () => set((state) => {
-            if (!state.plan) return {}
-
-            const updatedDays = Object.keys(state.plan.days).reduce<{[key: string]: IDay}>((acc, dayKey) => {
-                const day = state.plan!.days[dayKey]
-                acc[dayKey] = {...day, placeIds: day.placeIds.filter(id => !state.selectedPlaceIds.includes(id))}
-                return acc
-            }, {})
-
-            const updatedPlaces = Object.keys(state.plan.places).reduce<{[key: string]: IPlace}>((acc, placeId) => {
-                if (!state.selectedPlaceIds.includes(placeId)) {
-                    acc[placeId] = state.plan!.places[placeId]
-                }
-                return acc
-            }, {})
-
-            return {
-                plan: {...state.plan, days: updatedDays, places: updatedPlaces },
-                selectedPlaceIds: []
-            }
-        })
+        currentDay: 1,
+        setCurrentDay: (currentDay: number) => set({currentDay}),
     })
 )
 

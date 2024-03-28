@@ -5,7 +5,7 @@ import { getTravelDetail } from "./api"
 import { IMenu, IMenuFunc } from "src/types/layout"
 import { FaArrowLeft } from "react-icons/fa6"
 import Header from "./components/Header"
-import TravelPlan from "./components/TravelPlan"
+import TravelPlanHeader from "./components/TravelPlanHeader"
 import DefaultHeader from "src/components/header/DefaultHeader"
 
 const TravelDetail = () => {
@@ -42,7 +42,7 @@ const TravelDetail = () => {
     <div>
       <DefaultHeader menu={headerMenu} func={headerFunc} />
       <Header headerInfo={travelData.info} />
-      <TravelPlan />
+      <TravelPlanHeader />
     </div>
   )
 }

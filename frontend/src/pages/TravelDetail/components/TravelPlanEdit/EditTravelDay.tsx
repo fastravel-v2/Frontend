@@ -7,6 +7,7 @@ interface EditTravelDayProps {
     dayKey: string;
     day: IDay;
     places: IPlace[];
+    index: number;
 }
 
 interface EditTravelItemListProps {
@@ -23,11 +24,11 @@ const EditTravelItemList = ({places}: EditTravelItemListProps) => {
     return memoizedPlaces
 }
 
-const EditTravelDay = ({dayKey, day, places}: EditTravelDayProps) => {
+const EditTravelDay = ({dayKey, day, places, index}: EditTravelDayProps) => {
     return (
         <div className="flex flex-col">
             <div className="pl-4 pt-1 h-8">
-                <span className="text-sm font-semibold mr-2">day {day.id}</span>
+                <span className="text-sm font-semibold mr-2">day {index}</span>
                 <span className="text-xs font-semibold text-darkGray1">{dayKey}/{day.day}</span>
             </div>
             <Droppable droppableId={dayKey}>
@@ -42,10 +43,10 @@ const EditTravelDay = ({dayKey, day, places}: EditTravelDayProps) => {
                 )}
             </Droppable>
             <div className="mx-6 mt-5 h-[88px] flex justify-between gap-6">
-                <button className="w-[148px] h-10 border border-lightGray3 rounded">
+                <button className="w-full h-10 border border-lightGray3 rounded">
                     day 전체 선택
                 </button>
-                <button className="w-[148px] h-10 border border-lightGray3 rounded">
+                <button className="w-full h-10 border border-lightGray3 rounded">
                     거리순 재정렬
                 </button>
             </div>
