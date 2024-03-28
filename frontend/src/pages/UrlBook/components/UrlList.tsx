@@ -1,31 +1,22 @@
-// src/pages/UrlBook/components/UrlList.tsx
-// 저장소별로 나눠서 저장해도 여기서 나눠서 띄워버리면 됩니다 ~
-
-import UrlItem from './UrlItem'
-import { useUrlStore } from '../store'
-import TravelBus2 from '../../../assets/lottie/TravelBus2.json'
+import React, { useEffect } from 'react'
 import Lottie from 'react-lottie'
-// import { filter } from 'lodash'
+import UrlItem from './UrlItem'
+import TravelBus2 from '../../../assets/lottie/TravelBus2.json'
+import { useUrlStore } from '../store'
 
 const UrlList: React.FC = () => {
-    const { urls, selectedRepositoryId } = useUrlStore((state) => ({
-        urls: state.urls,
-        selectedRepositoryId: state.selectedRepositoryId,
-    }));
+	const { urls, fetchUrls } = useUrlStore()
 
-	// 이친구 그냥 url 다른 저장소에 추가해도 urls로 나오는데
-	console.log('urls = ', urls)
+    useEffect(() => {
+        fetchUrls(); // 컴포넌트가 마운트될 때 URL 데이터를 불러옵니다.
+    }, []); // 더 이상 fetchUrls를 의존성 배열에 넣을 필요가 없습니다.
 
 
-	// 굳이 여기서 한번 더 걸러야 실시간으로 렌더링될 때 출력 안됨
-	// 승질나네그냥
-	const filteredUrls = urls.filter(urlEntry => urlEntry.repositoryId === selectedRepositoryId);
-	
-	console.log('filter = ', filteredUrls)
+	// Lottie 애니메이션 설정
 	const defaultOptions = {
 		loop: true,
 		autoplay: true,
-		animationData: TravelBus2, // Lottie 애니메이션 데이터
+		animationData: TravelBus2,
 		rendererSettings: {
 			preserveAspectRatio: 'xMidYMid slice',
 		},
@@ -33,11 +24,20 @@ const UrlList: React.FC = () => {
 
 	return (
 		<div>
-			{filteredUrls.length > 0 ? (
-				filteredUrls.map((url, index) => <UrlItem key={index} index={index} {...url} />)
+			<div className="mx-6">{/* RepositoryDropdown 관련 코드 제거됨 */}</div>
+			{urls.length > 0 ? (
+				urls.map((url, index) => (
+					<UrlItem
+						key={index}
+						index={index}
+						url_id={url.url_id}
+						url={url.url}
+						checked={url.checked}
+					/>
+				))
 			) : (
-				<div className="text-center py-12">
-					<Lottie options={defaultOptions} height={300} width={300} />
+				<div className="text-center">
+					<Lottie options={defaultOptions} height={260} width={300} />
 					<h1 className="text-xl font-bold">삐뽀삐뽀 URL 추가 요망</h1>
 				</div>
 			)}
