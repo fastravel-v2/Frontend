@@ -59,7 +59,7 @@ const LocationDetail = () => {
                 <div className='h-5 absolute top-2 right-4 px-3 z-10 rounded-full text-white bg-darkGray1 flex justify-center items-center'>
                     <p className='text-xs font-light '>{1} / {1}</p>
                 </div>
-                <img src={locationData.image_urls[0]} alt={`image number ${1}`} className='rounded-xl px-1 h-44 w-80' /> 
+                <img src={locationData.image_urls[0]} alt={`image number ${1}`} className='rounded-xl px-1 h-44 w-full' /> 
               </div>
             </div>
           : <div className="flex justify-center"><CarouselComponent images={locationData.image_urls} /></div>
