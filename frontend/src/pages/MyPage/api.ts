@@ -144,7 +144,7 @@ export const putTravelProfile = async (
 	profileFormData: FormData
 ): Promise<'success' | 'fail'> => {
 	const editRes = await tokenMultipartInstance.put(
-		'/travel/create',
+		'core/travel/create',
 		profileFormData
 	)
 
