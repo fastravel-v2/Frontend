@@ -16,7 +16,7 @@ const TravelDay = ({day, index}: TravelDayProps) => {
         <div>
             <div className="pl-4 pt-1 h-10">
                 <span className="text-sm font-semibold mr-2">day {index}</span>
-                <span className="text-xs font-semibold text-darkGray1">{day}/{dayPlan.day}</span>
+                <span className="text-xs font-semibold text-darkGray1">{day}</span>
             </div>
             <div>
                 {dayPlan.placeIds.length 
