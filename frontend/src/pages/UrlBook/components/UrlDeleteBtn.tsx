@@ -1,27 +1,37 @@
-//src/pages/UrlBook/components/UrlDeleteBtn.tsx
-
+import axios from 'axios'
+import { useMutation, useQueryClient } from 'react-query'
 import { useUrlStore } from '../store'
 
 const UrlDeleteBtn = () => {
-	
+	const queryClient = useQueryClient()
+
 	const urls = useUrlStore((state) => state.urls)
 	const checkedCount = urls.filter((url) => url.checked).length
-	
-	// 임시로 하나만 지우는거 ~
-	const deleteUrl = useUrlStore((state) => state.deleteUrl)
-	
-	// const deleteCheckedUrls = useUrlStore((state) => state.deleteCheckedUrls)
-	// const handleDelete = () => {
-		// 	deleteCheckedUrls()
-		// }
-		
 
-	const handleDelete = () => {
-		const urlToDelete = urls.find((url) => url.checked);
-		if (urlToDelete) {
-			deleteUrl(urlToDelete.url_id);
+	// 여기에서 useMutation을 임포트하고 초기화합니다.
+	const mutation = useMutation<void, unknown, number>(
+		(urlId) => {
+			return axios.delete(
+				`http://j10d204.p.ssafy.io:8000/url/?url_id=${urlId}`,
+				{
+					headers: {
+						Accept: 'application/json',
+					},
+				}
+			)
+		},
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries('urls')
+			},
 		}
-	};
+	)
+	const handleDelete = () => {
+		const urlToDelete = urls.find((url) => url.checked)
+		if (urlToDelete) {
+			mutation.mutate(urlToDelete.url_id)
+		}
+	}
 
 	return (
 		<div className="pt-2">

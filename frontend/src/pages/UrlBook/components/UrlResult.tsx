@@ -7,7 +7,7 @@ import {
 	UrlDummyResult,
 } from 'src/pages/UrlBook/dummyData/urlDummyResult'
 import { Link } from 'react-router-dom'
-import PlaceSection from './PlaceSection' // PlaceSection 컴포넌트를 임포트합니다.
+import PlaceSection from 'src/components/PlaceSection'// PlaceSection 컴포넌트를 임포트합니다.
 
 const UrlResult = () => {
 	const [urlData, setUrlData] = useState<UrlDummyResult | null>(null)

@@ -1,25 +1,27 @@
-// src/pages/UrlBook/store.ts
+//src/pages/UrlBook/store.ts
+
 import { create } from 'zustand'
 import axios from 'axios'
-// import { fetchUrls } from './dummyData/urlDummy'
+import fetchUrlInfo from './utils/fetchUrlInfo'
 
 export interface UrlItem {
 	checked: boolean
 	url: string
-	url_id: number // url_id 추가
+	url_id: number
+	title?: string // URL의 제목
+	description?: string // URL의 설명
+	image?: string // URL의 이미지
 }
 
 interface UrlStore {
 	urls: UrlItem[]
 	toggleCheck: (index: number) => void
-	addUrl: (url: string) => void
-	addUrls: (urls: string[]) => void // 한번에 urls만들어서 렌더링
 	selectAllUrls: () => void
 	unSelectAllUrls: () => void
 	deleteCheckedUrls: () => void
-	deleteUrl: (url_id: number) => void
 	fetchUrls: () => Promise<void>
 }
+
 export const useUrlStore = create<UrlStore>((set) => ({
 	urls: [],
 	fetchUrls: async () => {
@@ -29,38 +31,29 @@ export const useUrlStore = create<UrlStore>((set) => ({
 				{
 					headers: {
 						Accept: 'application/json',
-						// INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
 					},
 				}
 			)
-			const data = response.data
-			set({
-				urls: data.map((item: UrlItem) => ({
-					url: item.url,
-					checked: false,
-					url_id: item.url_id,
-				})),
-			})
+			const urls = response.data
+
+			// 각 URL에 대한 세부 정보를 가져옵니다.
+			const detailedUrls = await Promise.all(
+				urls.map(async (item: UrlItem) => {
+					const details = await fetchUrlInfo(item.url_id)
+					return {
+						...item,
+						title: details.title, // URL 제목
+						description: details.description, // URL 설명
+						image: details.image, // URL 이미지
+					}
+				})
+			)
+
+			set({ urls: detailedUrls })
 		} catch (error) {
 			console.error('URL 데이터 로딩 실패:', error)
 		}
 	},
-
-	/// 더미더미~ 더미더미~ 더미더미~ ///
-	// fetchUrls: async () => {
-	// 	try {
-	// 		const data = await fetchUrls()
-	// 		set({
-	// 			urls: data.map((item: UrlItem) => ({
-	// 				url: item.url,
-	// 				checked: false,
-	// 				url_id: item.url_id,
-	// 			})),
-	// 		})
-	// 	} catch (error) {
-	// 		console.error('URL 데이터 로딩 실패:', error)
-	// 	}
-	// },
 	toggleCheck: (index) => {
 		set((state) => ({
 			urls: state.urls.map((item, i) =>
@@ -69,57 +62,10 @@ export const useUrlStore = create<UrlStore>((set) => ({
 		}))
 	},
 
-	addUrl: async (url: string) => {
-		try {
-			const response = await axios.post(
-				'http://j10d204.p.ssafy.io:8000/url/',
-				null,
-				{
-					params: {
-						target_url: url,
-					},
-					headers: {
-						Accept: 'application/json',
-						INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
-					},
-				}
-			)
-
-			const data = response.data
-			console.log('URL 추가 성공:', data)
-		} catch (error) {
-			console.error('URL 추가 실패:', error)
-		}
-	},
-
-	addUrls: (urls: string[]) => {
-		set(() => ({
-			urls: urls.map((url) => ({ url, checked: false } as UrlItem)),
-		}))
-	},
 	deleteCheckedUrls: () => {
 		set((state) => ({
 			urls: state.urls.filter((item) => !item.checked),
 		}))
-	},
-
-	deleteUrl: async (url_id: number) => {
-		try {
-			await axios.delete(
-				`http://j10d204.p.ssafy.io:8000/url/?url_id=${url_id}`,
-				{
-					headers: {
-						Accept: 'application/json',
-						// 필요하다면 'internal_id': '사용자ID' 추가
-					},
-				}
-			)
-			set((state) => ({
-				urls: state.urls.filter((item) => item.url_id !== url_id),
-			}))
-		} catch (error) {
-			console.error('URL 삭제 실패:', error)
-		}
 	},
 
 	selectAllUrls: () => {
