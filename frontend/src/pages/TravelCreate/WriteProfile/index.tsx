@@ -2,14 +2,14 @@ import EditProfile from 'src/components/editProfile/EditProfile'
 
 const WriteProfile = () => {
 	return (
-		<form>
+		<div>
 			<EditProfile
 				type="travel"
 				profileName=""
 				profileImage={null}
 				isLoading={false}
 			/>
-		</form>
+		</div>
 	)
 }
 

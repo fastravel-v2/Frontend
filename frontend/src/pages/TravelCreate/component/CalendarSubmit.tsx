@@ -1,14 +1,14 @@
 import { useMemo } from 'react'
 import { useCreatingTravelPageTypeStore, useSelectedCityStore } from '../store'
 
-const CitySubmit = () => {
+const CalendarSubmit = () => {
 	const { selectedCities } = useSelectedCityStore()
 	const { setPageType } = useCreatingTravelPageTypeStore()
 	const isDisable = useMemo(() => {
 		return selectedCities.length === 0
 	}, [selectedCities])
 	const handleClickNextPage = () => {
-		setPageType('date')
+		setPageType('profile')
 	}
 	return (
 		<div>
@@ -25,4 +25,4 @@ const CitySubmit = () => {
 	)
 }
 
-export default CitySubmit
+export default CalendarSubmit

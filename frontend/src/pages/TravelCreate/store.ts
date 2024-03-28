@@ -41,13 +41,7 @@ export const useSelectedCityStore = create<ISelectedCityStore>()(
 	}))
 )
 
-interface ISelectedCityStore {
-	selectedCities: number[]
-	addSelectedCity: (selectedCity: number) => void
-	removeSelectedCity: (selectedCity: number) => void
-	setSelectedCities: (selectedCities: number[]) => void
-}
-
+// Selected travel date store
 interface ITravelDateStore {
 	startDate: Date
 	endDate: Date | null
@@ -67,5 +61,17 @@ export const useTravelDateStore = create<ITravelDateStore>()(
 				startDate: startOfToday(),
 				endDate: startOfToday(),
 			})),
+	}))
+)
+
+interface ITravelPageTypeStore {
+	pageType: PageType
+	setPageType: (pageType: PageType) => void
+}
+// ::: Page type
+export const useCreatingTravelPageTypeStore = create<ITravelPageTypeStore>()(
+	devtools((set) => ({
+		pageType: 'city',
+		setPageType: (pageType: PageType) => set(() => ({ pageType })),
 	}))
 )
