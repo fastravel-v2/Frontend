@@ -4,15 +4,25 @@ import { createBrowserRouter } from 'react-router-dom'
 import Main from './pages/Main'
 import Login from './pages/Login'
 import MyPage from './pages/MyPage'
-import MyTravelInfo from './pages/MyPage/components/myPageContent/MyTravelInfo'
-import LikeLocationInfo from './pages/MyPage/components/myPageContent/LikeLocationInfo'
+import LikeLocationInfo from './pages/MyPage/components/myPageContent/likeLocation/LikeLocationInfo'
+import MyTravelInfo from './pages/MyPage/components/myPageContent/myTravel/MyTravelInfo'
 import MyUrlInfo from './pages/MyPage/components/myPageContent/MyUrlInfo'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
+import LocationDetail from './pages/LocationDetail'
 import NotFound from './pages/NotFound'
+import { UrlBook } from './pages/UrlBook'
+import UrlResult from './pages/UrlBook/components/UrlResult'
+import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
 import Survey from './pages/Survey'
+import Chat from './pages/Chat'
+import TravelDetail from './pages/TravelDetail'
+import TravelCreate from './pages/TravelCreate'
+import SelectCity from './pages/TravelCreate/SelectCity'
+import SelectDate from './pages/TravelCreate/SelectDate'
+import WriteProfile from './pages/TravelCreate/WriteProfile'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -57,13 +67,6 @@ const routerData: RouterElement[] = [
 				label: 'myTravelInfo',
 				headerText: '내 여행',
 			},
-			// header 정보 추출할 때 path:'' 부분은 걸러지기 때문에 동일한 내용을 한번 더 추가
-			{
-				path: 'travel',
-				element: <MyTravelInfo />,
-				label: 'myTravelInfo',
-				headerText: '내 여행',
-			},
 			{
 				path: 'like',
 				element: <LikeLocationInfo />,
@@ -80,7 +83,7 @@ const routerData: RouterElement[] = [
 	},
 	{
 		path: '/mypage/edit',
-		element: <MyPage />,
+		element: <EditMyPage />,
 		label: 'editProfile',
 	},
 	{
@@ -97,6 +100,53 @@ const routerData: RouterElement[] = [
 		path: '/search/add-place',
 		element: <AddPlace />,
 		label: 'addPlace',
+	},
+	{
+		path: '/urlbook',
+		element: <UrlBook />,
+		label: 'urlBook',
+	},
+	{
+		path: '/urlbook/result',
+		element: <UrlResult />,
+		label: 'urlBook',
+	},
+	{
+		path: '/travel/create',
+		element: <TravelCreate />,
+		label: 'travelCreate',
+		children: [
+			{
+				path: '',
+				element: <SelectCity />,
+				label: 'selectCity',
+			},
+			{
+				path: 'date',
+				element: <SelectDate />,
+				label: 'selectDate',
+			},
+			{
+				path: 'profile',
+				element: <WriteProfile />,
+				label: 'writeProfile',
+			},
+		],
+	},
+	{
+		path: '/travel/:id',
+		element: <TravelDetail />,
+		label: 'travelDetail',
+	},
+	{
+		path: '/location/:id',
+		element: <LocationDetail />,
+		label: 'locationDetail',
+	},
+	{
+		path: '/chat',
+		element: <Chat />,
+		label: 'chat',
 	},
 	{ path: '*', element: <NotFound />, label: 'notFound' },
 ]

@@ -1,3 +1,8 @@
 export { ReactComponent as KakaoButtonIcon } from './kakaoButton.svg'
+export { ReactComponent as DefaultLocation } from './defaultLocation.svg'
 export { ReactComponent as GoogleLogo } from './googleLogo.svg'
 export { ReactComponent as DefaultProfile } from './defaultProfile.svg'
+export { ReactComponent as TravelImage } from './travelImage.svg'
+export { ReactComponent as LikeLocationImage } from './likeLocation.svg'
+export { ReactComponent as LocationIcon } from './locationIcon.svg'
+export { ReactComponent as HeartIcon } from './heartIcon.svg'

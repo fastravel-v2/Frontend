@@ -17,10 +17,13 @@ const colorPalette = {
 	green2: '#C3E2C2',
 	green3: '#51DBC0',
 	green4: '#67CFA2',
+	green5: '#99e8cb',
 	blue1: '#578ADD',
 
 	// Primary Colors
 	yellow: '#FFEB59',
+	red: '#EE4444',
+	pink: '#FC2B5D',
 }
 
 export default colorPalette
