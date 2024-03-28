@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { TravelImage } from 'src/assets/svgs'
+import { DefaultLocation } from 'src/assets/svgs'
 import { MyTravel } from 'src/pages/MyPage/type'
 import { getStartEndDate } from 'src/pages/MyPage/util'
 
@@ -11,9 +11,13 @@ const MyTravelItemInfo = ({ travelInfo }: IMyTravelItemInfoProps) => {
 	return (
 		<Link to={`/travel/${travelInfo.planId}`} className="flex grow">
 			{travelInfo.planImage ? (
-				<img src={travelInfo.planImage} alt="여행지 이미지" className="mr-4" />
+				<img
+					src={travelInfo.planImage}
+					alt="여행지 이미지"
+					className="mr-4 rounded-full w-14 h-14"
+				/>
 			) : (
-				<TravelImage className="mr-4" />
+				<DefaultLocation className="mr-4 rounded-full w-14 h-14" />
 			)}
 			<div className="flex flex-col">
 				<h3 className="text-sm font-semibold text-black mb-[6px]">
