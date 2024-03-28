@@ -21,20 +21,6 @@ const MapSpace = ({day, plan}: MapSpaceProps) => {
         const visibleDay = plan.days[plan.dayOrder[day - 1]]
         const places = visibleDay.placeIds.map((placeId) => plan.places[placeId])
 
-        // const averageLatLong = places.reduce((acc, place) => {
-        //     acc.lat += parseFloat(place.lat)
-        //     acc.long += parseFloat(place.long)
-        //     return acc
-        // }, {lat: 0, long: 0})
-
-        // if (places.length > 0) {
-        //     averageLatLong.lat /= places.length
-        //     averageLatLong.long /= places.length
-        // } else {
-        //     averageLatLong.lat = 36.1073423
-        //     averageLatLong.long = 128.4141895
-        // }
-
         const mapOptions = {
             center: new window.naver.maps.LatLng(36.1073423, 128.4141895),
             zoom: 11,
@@ -45,7 +31,8 @@ const MapSpace = ({day, plan}: MapSpaceProps) => {
         if (places.length > 0) {
             const firstPlacePosition = new window.naver.maps.LatLng(parseFloat(places[0].lat), parseFloat(places[0].long))
             const bounds = new window.naver.maps.LatLngBounds(firstPlacePosition, firstPlacePosition)
-            
+            const polylinePath: naver.maps.LatLng[] = places.map(place => new naver.maps.LatLng(parseFloat(place.lat), parseFloat(place.long)))
+
             places.forEach((place) => {
                 const position = new window.naver.maps.LatLng(parseFloat(place.lat), parseFloat(place.long))
                 bounds.extend(position)
@@ -56,7 +43,7 @@ const MapSpace = ({day, plan}: MapSpaceProps) => {
                 const content = `<div style="
                     width: 20px;
                     height: 20px;
-                    background-color: #578ADD;
+                    background-color: #51dbc0;
                     color: white;
                     display: flex;
                     justify-content: center;
@@ -73,6 +60,15 @@ const MapSpace = ({day, plan}: MapSpaceProps) => {
                         anchor: new window.naver.maps.Point(10, 10)
                     }
                 })
+            })
+
+            new window.naver.maps.Polyline({
+                map: map,
+                path: polylinePath,
+                strokeColor: '#9ba2ae',
+                strokeOpacity: 1,
+                strokeWeight: 2,
+                strokeStyle: 'dash',
             })
             
         } else {
