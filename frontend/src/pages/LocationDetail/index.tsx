@@ -65,7 +65,7 @@ const LocationDetail = () => {
           : <div className="flex justify-center"><CarouselComponent images={locationData.image_urls} /></div>
         : <div className="flex justify-center"><div className="h-44 min-h-44 w-full bg-lightGray3 flex justify-center items-center"><span className="text-darkGray3">No image...</span></div></div>
       }
-      <div className="flex justify-between">
+      <div className="flex justify-between w-full gap-4">
         <LikeButton />
         <AddToPlanButton />
       </div>
