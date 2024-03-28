@@ -1,10 +1,11 @@
 import { useMemo } from 'react'
-import { NameMessageType } from '../../type'
+import { NameMessageType, TravelMessageType } from '../../pages/MyPage/type'
 
 interface EditProfileSubmitProps {
-	nameStatus: NameMessageType
+	type: 'user' | 'travel'
+	nameStatus: NameMessageType | TravelMessageType
 }
-const EditProfileSubmit = ({ nameStatus }: EditProfileSubmitProps) => {
+const EditProfileSubmit = ({ type, nameStatus }: EditProfileSubmitProps) => {
 	const isDisabled = useMemo(() => nameStatus !== 'valid', [nameStatus])
 
 	// :: Rendering
@@ -16,7 +17,7 @@ const EditProfileSubmit = ({ nameStatus }: EditProfileSubmitProps) => {
 			}`}
 			disabled={isDisabled}
 		>
-			수정 완료
+			{type ? '여행 생성' : '수정 완료'}
 		</button>
 	)
 }
