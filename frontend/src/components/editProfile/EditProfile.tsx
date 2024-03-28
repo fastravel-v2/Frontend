@@ -9,12 +9,13 @@ import { NameMessageType, TravelMessageType } from '../../pages/MyPage/type'
 import { putTravelProfile, putUserProfile } from '../../pages/MyPage/api'
 
 export enum NameMessageInfo {
+	'initial' = '',
 	'empty' = '닉네임이 비어있습니다.',
 	'tooLong' = '닉네임은 최대 10자를 넘을 수 없습니다.',
 	'invalidChar' = '유효하지 않은 문자 입력 입니다.',
 	'duplicate' = '이미 사용중인 닉네임 입니다.',
 	'loading' = '중복 검사 중입니다..',
-	'valid' = '한글/영어/숫자/./밑줄을 사용할 수 있습니다.',
+	'valid' = '가능한 닉네임입니다.',
 }
 
 export enum TravelNameMessageInfo {}
@@ -37,7 +38,7 @@ const EditProfile = ({
 	const [name, setName] = useState(profileName)
 	const [nameStatus, setNameStatus] = useState<
 		NameMessageType | TravelMessageType
-	>('valid')
+	>('initial')
 
 	useEffect(() => {
 		if (profileName) {
@@ -72,6 +73,9 @@ const EditProfile = ({
 						setName={setName}
 					/>
 					<EditProfileSubmit nameStatus={nameStatus} />
+					<p className="text-xs text-darkGray1">
+						한글/영어/숫자/./밑줄을 사용할 수 있습니다.
+					</p>
 					<NameMessage nameStatus={nameStatus} />
 				</form>
 			)}

@@ -6,13 +6,24 @@ interface NameMessageProps {
 }
 const NameMessage = ({ nameStatus }: NameMessageProps) => {
 	return (
-		<p
-			className={`text-xs text-darkGray1 ${
-				nameStatus !== 'valid' && nameStatus !== 'loading' && 'text-red'
-			}`}
-		>
-			{NameMessageInfo[nameStatus]}
-		</p>
+		<>
+			{nameStatus !== 'initial' && (
+				<p
+					className={`mt-2 text-xs text-darkGray1 
+			${
+				nameStatus === 'valid'
+					? 'text-green1'
+					: nameStatus === 'loading'
+					? 'text-darkGray1'
+					: 'text-red'
+			}
+			
+		}`}
+				>
+					{NameMessageInfo[nameStatus]}
+				</p>
+			)}
+		</>
 	)
 }
 

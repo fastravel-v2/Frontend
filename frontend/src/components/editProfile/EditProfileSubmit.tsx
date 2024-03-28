@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
-import { NameMessageType } from '../../pages/MyPage/type'
+import { NameMessageType, TravelMessageType } from '../../pages/MyPage/type'
 
 interface EditProfileSubmitProps {
-	nameStatus: NameMessageType
+	nameStatus: NameMessageType | TravelMessageType
 }
 const EditProfileSubmit = ({ nameStatus }: EditProfileSubmitProps) => {
 	const isDisabled = useMemo(() => nameStatus !== 'valid', [nameStatus])
