@@ -21,11 +21,7 @@ const MyTravelMoreBtn: React.FC<MyTravelMoreBtnProps> = () => {
 			return
 		}
 
-		// TODO: API 연결할 때는 매개변수로 travelId를 받아서 해당 여행을 삭제하도록 수정
-		const deleteRes = await deleteMyTravel()
-		if (deleteRes === 'success') {
-			routeTo('/mypage')
-		}
+		await deleteMyTravel(travelId)
 	}
 
 	return (

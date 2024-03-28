@@ -14,7 +14,7 @@ export const useUserProfileImage = (
 	// - 둘 중 한개만 있으면 그것을 반영
 	useEffect(() => {
 		setProfileUrl(imageUrl ? imageUrl : currentUserProfileUrl)
-	}, [imageFile])
+	}, [imageFile, imageUrl])
 
 	return profileUrl
 }

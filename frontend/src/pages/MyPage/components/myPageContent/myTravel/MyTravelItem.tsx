@@ -12,7 +12,7 @@ const MyTravelItem = ({ travelInfo }: IMyTravelItemProps) => {
 		<>
 			<MyTravelItemInfo travelInfo={travelInfo} />
 			<Link
-				to={`/urls/${travelInfo.travelId}`}
+				to={`/urls/${travelInfo.planId}`}
 				className="mr-1 text-xs font-semibold text-darkGray1"
 			>
 				<span className="block">URL</span>

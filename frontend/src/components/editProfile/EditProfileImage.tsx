@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { isValidImageFile } from '../../pages/MyPage/util'
-import { useUserProfileImage } from '../../pages/MyPage/hooks/useUserProfileImage'
+import { useEffect, useState } from 'react'
+import { useUserProfileImage } from 'src/pages/MyPage/hooks/useUserProfileImage'
+import { isValidImageFile } from 'src/pages/MyPage/util'
 
 interface EditProfileImageProps {
 	type: 'user' | 'travel'
@@ -14,11 +14,16 @@ const EditProfileImage = ({
 	const [imageFile, setImageFile] = useState<File | null>(null) // 서버 전송용 imageFile
 	const profileUrl = useUserProfileImage(imageFile, currentUserProfileUrl)
 
+	useEffect(() => {
+		console.log(imageFile)
+	}, [imageFile])
+
 	const handleChangeImageFile = (
 		event: React.ChangeEvent<HTMLInputElement>
 	) => {
 		const fileInput = event.currentTarget
 		const selectedFile = (fileInput.files as FileList)[0]
+		console.log(selectedFile)
 
 		if (!isValidImageFile(selectedFile)) {
 			return

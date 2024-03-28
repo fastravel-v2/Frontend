@@ -6,9 +6,9 @@ const LikeLocationInfo = () => {
 
 	return (
 		<ul className="grid grid-cols-2 gap-x-6 gap-y-5">
-			{isLoading ? (
+			{isLoading || likeLocationList === undefined ? (
 				<>Loading...</>
-			) : (
+			) : likeLocationList.length > 0 ? (
 				likeLocationList?.map((locationInfo, index) => {
 					return (
 						<li key={`like-${index}`} className="inline-block">
@@ -16,6 +16,8 @@ const LikeLocationInfo = () => {
 						</li>
 					)
 				})
+			) : (
+				<>좋아요한 여행지가 없습니다.</>
 			)}
 		</ul>
 	)
