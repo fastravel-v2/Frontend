@@ -9,19 +9,15 @@ interface IMyTravelItemInfoProps {
 
 const MyTravelItemInfo = ({ travelInfo }: IMyTravelItemInfoProps) => {
 	return (
-		<Link to={`/travel/${travelInfo.travelId}`} className="flex grow">
-			{travelInfo.travelImage ? (
-				<img
-					src={travelInfo.travelImage}
-					alt="여행지 이미지"
-					className="mr-4"
-				/>
+		<Link to={`/travel/${travelInfo.planId}`} className="flex grow">
+			{travelInfo.planImage ? (
+				<img src={travelInfo.planImage} alt="여행지 이미지" className="mr-4" />
 			) : (
 				<TravelImage className="mr-4" />
 			)}
 			<div className="flex flex-col">
 				<h3 className="text-sm font-semibold text-black mb-[6px]">
-					{travelInfo.travelName}
+					{travelInfo.planName}
 				</h3>
 				<p className="mb-1 text-xs font-semibold text-darkGray1">
 					{getStartEndDate(travelInfo.startDate, travelInfo.endDate)}
