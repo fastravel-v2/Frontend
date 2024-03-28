@@ -29,14 +29,16 @@ const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
 
             const visibleDayIndices: number[] = []
 
+            const buffer = 10
+
             dayRefs.current.forEach((ref, index) => {
                 if (ref.current) {
                     const dayTop = ref.current.getBoundingClientRect().top
                     const dayBottom = ref.current.getBoundingClientRect().bottom
 
-                    if ((dayTop >= headerTop && dayTop <= headerBottom) ||
-                        (dayBottom >= headerTop && dayBottom <= headerBottom) ||
-                        (dayTop <= headerTop && dayBottom >= headerBottom)) {
+                    if ((dayTop >= headerTop - buffer && dayTop <= headerBottom + buffer) ||
+                        (dayBottom >= headerTop - buffer && dayBottom <= headerBottom + buffer) ||
+                        (dayTop <= headerTop - buffer && dayBottom >= headerBottom + buffer)) {
                         visibleDayIndices.push(index + 1)
                     }
                 }
