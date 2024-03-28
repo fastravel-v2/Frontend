@@ -55,7 +55,10 @@ const EditProfile = ({
 	const setAdditionalTravelInfo = (formData: FormData) => {
 		formData.append('startDate', startDate.toISOString())
 		formData.append('endDate', endDate ? endDate.toISOString() : '')
-		formData.append('cities', JSON.stringify(selectedCities))
+		formData.append(
+			'cities',
+			JSON.stringify(selectedCities.map((cityInfo) => cityInfo.id))
+		)
 	}
 
 	// :: Event handler

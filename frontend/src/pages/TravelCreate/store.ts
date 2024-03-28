@@ -17,26 +17,26 @@ export const useSearchCityStore = create<ISearchCityStore>()(
 
 // :: Selected city store
 interface ISelectedCityStore {
-	selectedCities: number[]
-	addSelectedCity: (selectedCity: number) => void
-	removeSelectedCity: (selectedCity: number) => void
-	setSelectedCities: (selectedCities: number[]) => void
+	selectedCities: CityItemInfo[]
+	addSelectedCity: (selectedCity: CityItemInfo) => void
+	removeSelectedCity: (cityId: number) => void
+	setSelectedCities: (selectedCities: CityItemInfo[]) => void
 }
 export const useSelectedCityStore = create<ISelectedCityStore>()(
 	devtools((set) => ({
-		selectedCities: [] as number[],
-		addSelectedCity: (selectedCity: number) =>
+		selectedCities: [] as CityItemInfo[],
+		addSelectedCity: (selectedCity: CityItemInfo) =>
 			set((state) => ({
 				selectedCities: state.selectedCities.concat(selectedCity),
 			})),
-		removeSelectedCity: (selectedCity: number) => {
+		removeSelectedCity: (cityId: number) => {
 			set((state) => ({
 				selectedCities: state.selectedCities.filter(
-					(city) => city !== selectedCity
+					(city) => city.id !== cityId
 				),
 			}))
 		},
-		setSelectedCities: (selectedCities: number[]) =>
+		setSelectedCities: (selectedCities: CityItemInfo[]) =>
 			set(() => ({ selectedCities })),
 	}))
 )
