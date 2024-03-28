@@ -37,7 +37,7 @@ const TravelItemModal = ({ place, onClose }: TravelItemModalProps) => {
                     <MdOutlineKeyboardArrowRight onClick={handleClick}/>
                 </div>
                 <div className="text-xs text-darkGray3 mb-2">{place.category}</div>
-                <div className="text-xs text-blue1 font-bold">영업시간이 없는 경우는 어쩌지....</div>
+                <div className="text-xs text-blue1 font-bold">영업시간</div>
                 <div className="h-5 mt-1.5 mb-3 text-darkGray3 flex items-center">
                     <FaRegClock className="h-4 w-4"/>
                     <div className="text-xs ml-1">시간 추가</div>
