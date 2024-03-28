@@ -42,7 +42,7 @@ const EditProfileImage = ({
 			/>
 			<input
 				type="file"
-				name="profile-image"
+				name="profileImage"
 				id=""
 				onChange={handleChangeImageFile}
 				className="hidden"

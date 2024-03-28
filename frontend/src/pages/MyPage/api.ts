@@ -1,4 +1,5 @@
 // import { tokenInstance } from 'src/utility/apis/axios'
+import { tokenMultipartInstance } from 'src/utility/apis/axios'
 import { LikeLocation, MyTravel } from './type'
 // import { tokenMultipartInstance } from 'src/utility/apis/axios'
 import { NameMessageType } from './type'
@@ -142,11 +143,12 @@ export const putUserProfile = async (
 export const putTravelProfile = async (
 	profileFormData: FormData
 ): Promise<'success' | 'fail'> => {
-	// const editRes = await tokenMultipartInstance.put('/user/travel', profileFormData)
-	// return editRes.data
+	const editRes = await tokenMultipartInstance.put(
+		'/travel/create',
+		profileFormData
+	)
 
-	console.log(profileFormData)
-	return 'success'
+	return editRes.data
 }
 
 export const putMemoSave = async (

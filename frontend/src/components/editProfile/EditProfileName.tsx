@@ -79,8 +79,8 @@ const EditProfileName = ({
 			<input
 				value={name}
 				type="text"
-				name="profile-name"
-				id="profile-name"
+				name="profileName"
+				id="profileName"
 				onChange={handleChangeName}
 				className="w-full px-10 py-3 text-2xl font-bold text-center text-black border-b-2 px- border-lightGray2 focus:outline-none"
 			/>
