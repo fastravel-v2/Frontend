@@ -8,20 +8,29 @@ export const sortDatesBasedOnCurrent = (
 ): SortedTravelsType => {
 	// 현재 날짜를 구합니다.
 	const now = new Date()
+	now.setHours(0, 0, 0, 0)
+	const nowTimestamp = now.getTime()
 
 	// 결과 객체를 초기화합니다.
 	const sortedTravels: SortedTravelsType = {
-		past: [],
-		present: [],
 		future: [],
+		present: [],
+		past: [],
 	}
 
 	// 각 날짜를 확인하며 과거, 현재, 미래로 분류합니다.
 	travelList.forEach((travelInfo) => {
-		const currentDate = new Date(travelInfo.startDate)
-		if (currentDate.setHours(0, 0, 0, 0) === now.setHours(0, 0, 0, 0)) {
+		const startDate = new Date(travelInfo.startDate).setHours(0, 0, 0, 0)
+		const endDate = travelInfo.endDate
+			? new Date(travelInfo.endDate).setHours(0, 0, 0, 0)
+			: null
+
+		if (
+			startDate <= nowTimestamp &&
+			(endDate ? nowTimestamp <= endDate : true)
+		) {
 			sortedTravels.present.push(travelInfo)
-		} else if (currentDate < now) {
+		} else if (startDate < nowTimestamp) {
 			sortedTravels.past.push(travelInfo)
 		} else {
 			sortedTravels.future.push(travelInfo)
