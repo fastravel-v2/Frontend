@@ -94,7 +94,7 @@ const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
                         <select 
                             className="text-xs font-semibold text-darkGray1"
                             defaultValue={selectedDate}
-                            value={selectedDate}
+                            
                             onChange={handleDateChange}
                         >
                             {plan.dayOrder.map((day, index) => (

@@ -5,6 +5,17 @@ export type NameMessageType =
 	| 'duplicate'
 	| 'loading'
 	| 'valid'
+	| 'initial'
+
+export type TravelMessageType =
+	| 'empty'
+	| 'tooLong'
+	| 'invalidChar'
+	| 'duplicate'
+	| 'loading'
+	| 'valid'
+	| 'initial'
+
 export interface ContentTypeInfo {
 	name: string
 	path: string

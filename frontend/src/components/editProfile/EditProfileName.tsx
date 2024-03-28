@@ -1,7 +1,7 @@
 import { debounce } from 'lodash'
 import { IoIosCloseCircle } from 'react-icons/io'
-import { NameMessageType } from '../../type'
-import { getNameIsDuplicated } from '../../api'
+import { NameMessageType } from '../../pages/MyPage/type'
+import { getNameIsDuplicated } from '../../pages/MyPage/api'
 import { useRef } from 'react'
 
 const validateNameWithoutDuplicate = (name: string): NameMessageType => {
@@ -22,12 +22,14 @@ const validateNameWithoutDuplicate = (name: string): NameMessageType => {
 }
 
 interface EditProfileNameProps {
+	type: 'user' | 'travel'
 	name: string
 	setName: React.Dispatch<React.SetStateAction<string>>
 	setNameStatus: React.Dispatch<React.SetStateAction<NameMessageType>>
 }
 // Todo: Axios Cancel Token을 사용하여 중복 검사 중에 다른 검사가 시작되면 이전 검사를 취소하도록 고쳐보기
 const EditProfileName = ({
+	type,
 	name,
 	setName,
 	setNameStatus,
@@ -46,9 +48,13 @@ const EditProfileName = ({
 		}
 
 		// :: 중복 검사
-		currentStatus = await getNameIsDuplicated(currentName)
-		if (currentName === nameRef.current) {
-			setNameStatus(currentStatus)
+		if (type === 'user') {
+			currentStatus = await getNameIsDuplicated(currentName)
+			if (currentName === nameRef.current) {
+				setNameStatus(currentStatus)
+			}
+		} else {
+			setNameStatus('valid')
 		}
 	}, 500)
 
@@ -73,8 +79,8 @@ const EditProfileName = ({
 			<input
 				value={name}
 				type="text"
-				name="profile-name"
-				id="profile-name"
+				name="profileName"
+				id="profileName"
 				onChange={handleChangeName}
 				className="w-full px-10 py-3 text-2xl font-bold text-center text-black border-b-2 px- border-lightGray2 focus:outline-none"
 			/>

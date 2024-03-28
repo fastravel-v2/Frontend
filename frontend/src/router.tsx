@@ -18,6 +18,10 @@ import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
 import Chat from './pages/Chat'
 import TravelDetail from './pages/TravelDetail'
+import TravelCreate from './pages/TravelCreate'
+import SelectCity from './pages/TravelCreate/SelectCity'
+import SelectDate from './pages/TravelCreate/SelectDate'
+import WriteProfile from './pages/TravelCreate/WriteProfile'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -52,13 +56,6 @@ const routerData: RouterElement[] = [
 		children: [
 			{
 				path: '',
-				element: <MyTravelInfo />,
-				label: 'myTravelInfo',
-				headerText: '내 여행',
-			},
-			// header 정보 추출할 때 path:'' 부분은 걸러지기 때문에 동일한 내용을 한번 더 추가
-			{
-				path: 'travel',
 				element: <MyTravelInfo />,
 				label: 'myTravelInfo',
 				headerText: '내 여행',
@@ -108,9 +105,31 @@ const routerData: RouterElement[] = [
 		label: 'urlBook',
 	},
 	{
+		path: '/travel/create',
+		element: <TravelCreate />,
+		label: 'travelCreate',
+		children: [
+			{
+				path: '',
+				element: <SelectCity />,
+				label: 'selectCity',
+			},
+			{
+				path: 'date',
+				element: <SelectDate />,
+				label: 'selectDate',
+			},
+			{
+				path: 'profile',
+				element: <WriteProfile />,
+				label: 'writeProfile',
+			},
+		],
+	},
+	{
 		path: '/travel/:id',
 		element: <TravelDetail />,
-		label: 'travelDetail'
+		label: 'travelDetail',
 	},
 	{
 		path: '/location/:id',

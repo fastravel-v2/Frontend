@@ -59,13 +59,13 @@ const LocationDetail = () => {
                 <div className='h-5 absolute top-2 right-4 px-3 z-10 rounded-full text-white bg-darkGray1 flex justify-center items-center'>
                     <p className='text-xs font-light '>{1} / {1}</p>
                 </div>
-                <img src={locationData.image_urls[0]} alt={`image number ${1}`} className='rounded-xl px-1 h-44 w-80' /> 
+                <img src={locationData.image_urls[0]} alt={`image number ${1}`} className='rounded-xl px-1 h-44 w-full' /> 
               </div>
             </div>
           : <div className="flex justify-center"><CarouselComponent images={locationData.image_urls} /></div>
         : <div className="flex justify-center"><div className="h-44 min-h-44 w-full bg-lightGray3 flex justify-center items-center"><span className="text-darkGray3">No image...</span></div></div>
       }
-      <div className="flex justify-between">
+      <div className="flex justify-between w-full gap-4">
         <LikeButton />
         <AddToPlanButton />
       </div>

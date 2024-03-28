@@ -26,7 +26,5 @@ interface IPlace {
 }
 
 interface IDay {
-    id: string;
-    day: string;
     placeIds: string[];
 }

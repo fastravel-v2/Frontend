@@ -7,6 +7,9 @@ export default {
 	theme: {
 		extend: {
 			colors: colorPalette,
+			content: {
+				middleDot: '"\\00B7"',
+			},
 		},
 	},
 	plugins: [],
