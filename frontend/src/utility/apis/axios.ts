@@ -6,9 +6,7 @@ import axios, {
 
 // :: create Instance
 const baseConfig = {
-	// baseURL: import.meta.env.VITE_BASE_URL,
-	// baseURL: import.meta.env.VITE_OAUTH_BASE_URL,
-	// baseURL: import.meta.env.VITE_CORE_BASE_URL,
+	baseURL: import.meta.env.VITE_BASE_URL,
 	timeout: 10 * 1000,
 }
 
@@ -24,7 +22,6 @@ const requestPrev = (
 	config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'application/json'
-	config.baseURL = import.meta.env.VITE_DEPLOY_BASE_URL
 
 	return config
 }
@@ -32,8 +29,7 @@ const tokenReqPrev = (
 	config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'application/json'
-	config.headers['INTERNAL_ID_HEADER'] = '8b5b03b7-ae9f-458e-a2b9-558eac541629'
-	config.baseURL = import.meta.env.VITE_DEPLOY_BASE_URL
+	config.headers['Authorization'] = `Bearer ${import.meta.env.VITE_USER1_TOKEN}`
 	config.withCredentials = true
 
 	return config
@@ -50,7 +46,7 @@ const tokenMultipartReqPrev = (
 	config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'multipart/form-data'
-	config.baseURL = import.meta.env.VITE_DEPLOY_BASE_URL
+	config.headers['Authorization'] = `Bearer ${import.meta.env.VITE_USER1_TOKEN}`
 	config.withCredentials = true
 
 	return config

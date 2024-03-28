@@ -16,6 +16,7 @@ import { UrlBook } from './pages/UrlBook'
 import UrlResult from './pages/UrlBook/components/UrlResult'
 import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
+import Survey from './pages/Survey'
 import Chat from './pages/Chat'
 import TravelDetail from './pages/TravelDetail'
 import TravelCreate from './pages/TravelCreate'
@@ -44,10 +45,16 @@ const routerData: RouterElement[] = [
 		element: <Login />,
 		label: 'login',
 	},
+	// Route for OAuth login
 	{
 		path: '/login/:loginType',
 		element: <Login />,
 		label: 'login',
+	},
+	{
+		path: '/survey',
+		element: <Survey />,
+		label: 'survey',
 	},
 	{
 		path: '/mypage',
