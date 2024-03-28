@@ -54,71 +54,69 @@ export const getMyTravel = async (): Promise<MyTravel[]> => {
 }
 
 // TODO: API 연결할 때는 매개변수로 travelId를 받아서 해당 여행을 삭제하도록 수정
-export const deleteMyTravel = async (): Promise<'success' | 'fail'> => {
+export const deleteMyTravel = async (
+	travelId: string
+): Promise<'success' | 'fail'> => {
 	// :: after api is ready
-	// const deleteRes = await tokenInstance.delete(`user/travel/${travelId}`)
-	// return deleteRes.data
-
-	return new Promise((resolve) => {
-		resolve('success')
-	})
+	const deleteRes = await tokenInstance.delete(`/travel/list?id=${travelId}`)
+	return deleteRes.data
 }
 
-const dummyLikeData = {
-	data: [
-		{
-			locationId: 1,
-			locationImage: '/src/assets/svgs/travelImage.svg',
-			locationName: '홉히',
-			locationAddress: '제주 시내(제주)',
-			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
-		},
-		{
-			locationId: 2,
-			locationImage: '/src/assets/svgs/travelImage.svg',
-			locationName: '홉히',
-			locationAddress: '제주 시내(제주)',
-			locationMemo: null,
-		},
-		{
-			locationId: 3,
-			locationImage: '',
-			locationName: '홉히',
-			locationAddress: '제주 시내(제주)',
-			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
-		},
-		{
-			locationId: 4,
-			locationImage: '',
-			locationName: '홉히',
-			locationAddress: '제주 시내(제주)',
-			locationMemo: null,
-		},
-		{
-			locationId: 5,
-			locationImage: '/src/assets/svgs/travelImage.svg',
-			locationName: '홉히',
-			locationAddress: '제주 시내(제주)',
-			locationMemo: null,
-		},
-		{
-			locationId: 6,
-			locationImage: '/src/assets/svgs/travelImage.svg',
-			locationName: '홉히',
-			locationAddress: '제주 시내(제주)',
-			locationMemo: null,
-		},
-	],
-}
+// const dummyLikeData = {
+// 	data: [
+// 		{
+// 			locationId: 1,
+// 			locationImage: '/src/assets/svgs/travelImage.svg',
+// 			locationName: '홉히',
+// 			locationAddress: '제주 시내(제주)',
+// 			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
+// 		},
+// 		{
+// 			locationId: 2,
+// 			locationImage: '/src/assets/svgs/travelImage.svg',
+// 			locationName: '홉히',
+// 			locationAddress: '제주 시내(제주)',
+// 			locationMemo: null,
+// 		},
+// 		{
+// 			locationId: 3,
+// 			locationImage: '',
+// 			locationName: '홉히',
+// 			locationAddress: '제주 시내(제주)',
+// 			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
+// 		},
+// 		{
+// 			locationId: 4,
+// 			locationImage: '',
+// 			locationName: '홉히',
+// 			locationAddress: '제주 시내(제주)',
+// 			locationMemo: null,
+// 		},
+// 		{
+// 			locationId: 5,
+// 			locationImage: '/src/assets/svgs/travelImage.svg',
+// 			locationName: '홉히',
+// 			locationAddress: '제주 시내(제주)',
+// 			locationMemo: null,
+// 		},
+// 		{
+// 			locationId: 6,
+// 			locationImage: '/src/assets/svgs/travelImage.svg',
+// 			locationName: '홉히',
+// 			locationAddress: '제주 시내(제주)',
+// 			locationMemo: null,
+// 		},
+// 	],
+// }
 
 export const getLikeLocation = async (): Promise<LikeLocation[]> => {
 	// :: after api is ready
-	// const myLikeRes = await tokenInstance.post('user/like')
-	// return myLikeRes.data
+	const myLikeRes = await tokenInstance.get('travel/like/list')
+	return myLikeRes.data
 
-	return new Promise((resolve) => {
-		resolve(dummyLikeData.data)
-	})
+	// return new Promise((resolve) => {
+	// 	resolve(dummyLikeData.data)
+	// })
 }
 
 export const getNameIsDuplicated = async (
