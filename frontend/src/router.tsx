@@ -162,7 +162,7 @@ export const myPageHeaderData: ContentTypeInfo[] = routerData.reduce(
 
 		if (router.children) {
 			headerData = router.children
-				.filter((child) => !!child.path && !!child.headerText) // path와 headerText가 있는 child 만 사용하겠다.
+				.filter((child) => !!child.headerText) // path와 headerText가 있는 child 만 사용하겠다.
 				.map((child) => {
 					return {
 						name: child.headerText,
