@@ -1,43 +1,58 @@
-// src/pages/UrlBook/store.ts
+//src/pages/UrlBook/store.ts
+
 import { create } from 'zustand'
-import { fetchUrls } from 'src/pages/UrlBook/dummyData/urlDummy'
-import { useEffect } from 'react'
+import axios from 'axios'
+import fetchUrlInfo from './utils/fetchUrlInfo'
 
 export interface UrlItem {
 	checked: boolean
 	url: string
-	repositoryId: string // repositoryId 속성 추가
+	url_id: number
+	title?: string // URL의 제목
+	description?: string // URL의 설명
+	image?: string // URL의 이미지
 }
 
 interface UrlStore {
 	urls: UrlItem[]
 	toggleCheck: (index: number) => void
-	addUrl: (url: string) => void
-	addUrlGlobal: (repositoryId: string, url: string) => void
-	addUrls: (urls: string[]) => void // 한번에 urls만들어서 렌더링
-	deleteCheckedUrls: () => void
 	selectAllUrls: () => void
 	unSelectAllUrls: () => void
-
-	// asd: string;
-	selectedRepositoryId: string
-	setSelectedRepositoryId: (repositoryId: string) => void
-	fetchUrlsForRepository: (repositoryId: string) => Promise<void>
-	///
+	deleteCheckedUrls: () => void
+	fetchUrls: () => Promise<void>
 }
+
 export const useUrlStore = create<UrlStore>((set) => ({
 	urls: [],
-	selectedRepositoryId: '',
-	setSelectedRepositoryId: (repositoryId) =>
-		set(() => ({ selectedRepositoryId: repositoryId })),
-	fetchUrlsForRepository: async (repositoryId) => {
-		const urls = await fetchUrls(repositoryId)
-		set({
-			urls: urls.map(
-				(entry) => ({ url: entry.url, checked: false, repositoryId: entry.repositoryId })
-				// (entry) => ({ url: entry.url, checked: false, repositoryId: entry.repositoryId } as UrlItem)
-			),
-		})
+	fetchUrls: async () => {
+		try {
+			const response = await axios.get(
+				'http://j10d204.p.ssafy.io:8000/url/list',
+				{
+					headers: {
+						Accept: 'application/json',
+					},
+				}
+			)
+			const urls = response.data
+
+			// 각 URL에 대한 세부 정보를 가져옵니다.
+			const detailedUrls = await Promise.all(
+				urls.map(async (item: UrlItem) => {
+					const details = await fetchUrlInfo(item.url_id)
+					return {
+						...item,
+						title: details.title, // URL 제목
+						description: details.description, // URL 설명
+						image: details.image, // URL 이미지
+					}
+				})
+			)
+
+			set({ urls: detailedUrls })
+		} catch (error) {
+			console.error('URL 데이터 로딩 실패:', error)
+		}
 	},
 	toggleCheck: (index) => {
 		set((state) => ({
@@ -46,26 +61,13 @@ export const useUrlStore = create<UrlStore>((set) => ({
 			),
 		}))
 	},
-	addUrl: (url: string) => {
-		set((state) => ({
-			urls: [...state.urls, { url, checked: false } as UrlItem], // repositoryId 무시하고 UrlItem으로 강제 형변환
-		}))
-	},
-	addUrlGlobal: (repositoryId: string, url: string) => {
-		set((state) => ({
-			urls: [...state.urls, { repositoryId, url, checked: false }], // 새로운 URL 아이템을 추가
-		}))
-	},
-	addUrls: (urls: string[]) => {
-		set(() => ({
-			urls: urls.map((url) => ({ url, checked: false } as UrlItem)), // repositoryId 무시하고 UrlItem으로 강제 형변환
-		}))
-	},
+
 	deleteCheckedUrls: () => {
 		set((state) => ({
 			urls: state.urls.filter((item) => !item.checked),
 		}))
 	},
+
 	selectAllUrls: () => {
 		set((state) => ({
 			urls: state.urls.map((url) => ({ ...url, checked: true })),
@@ -77,15 +79,3 @@ export const useUrlStore = create<UrlStore>((set) => ({
 		}))
 	},
 }))
-
-// 더미 데이터를 가져와서 store에 추가하는 코드
-// useEffect를 사용하여 컴포넌트가 렌더링될 때 한 번만 실행됩니다.
-export const useFetchDummyUrls = (repositoryId: string) => {
-	const fetchUrlsForRepository = useUrlStore(
-		(state) => state.fetchUrlsForRepository
-	)
-
-	useEffect(() => {
-		fetchUrlsForRepository(repositoryId)
-	}, [repositoryId, fetchUrlsForRepository])
-}
