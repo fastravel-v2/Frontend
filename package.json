@@ -22,5 +22,8 @@
       "yarn format:fix"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "date-fns": "^3.6.0",
+    "react-query": "^3.39.3"
+  }
 }

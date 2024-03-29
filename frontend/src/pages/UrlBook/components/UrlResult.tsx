@@ -7,7 +7,7 @@ import {
 	UrlDummyResult,
 } from 'src/pages/UrlBook/dummyData/urlDummyResult'
 import { Link } from 'react-router-dom'
-import PlaceSection from './PlaceSection' // PlaceSection 컴포넌트를 임포트합니다.
+import PlaceSection from 'src/components/PlaceSection'// PlaceSection 컴포넌트를 임포트합니다.
 
 const UrlResult = () => {
 	const [urlData, setUrlData] = useState<UrlDummyResult | null>(null)
@@ -24,7 +24,7 @@ const UrlResult = () => {
 		<div className="bg-white rounded-lg overflow-hidden mr-4">
 			<div className="p-4">
 				<div className="flex justify-between items-center mb-3">
-					<h2 className="text-xl tex font-bold">FASTRAVEL'S PICK</h2>
+					<h2 className="text-xl tex font-bold">FASTRAVEL PICK</h2>
 					<Link to="/urlbook" className="text-sm text-blue-500 hover:underline">
 						Back To Url
 					</Link>
