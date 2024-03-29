@@ -22,6 +22,6 @@ export const useDoLogin = async (
 		await hasValidToken()
 		routeTo('/')
 	} catch (error) {
-		routeTo('/login')
+		console.error(error)
 	}
 }
