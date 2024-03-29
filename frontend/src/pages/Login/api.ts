@@ -4,13 +4,13 @@ import axios from 'axios'
 export const getGoogleLogin = async (code: string) => {
 	// await instance.get(`auth/google?code=${code}`)
 	await axios.get(
-		`${import.meta.env.VITE_DEPLOY_BASE_URL}auth/google?code=${code}`
+		`${import.meta.env.VITE_DEPLOY_BASE_URL}/auth/google?code=${code}`
 	)
 }
 
 export const getKakaoLogin = async (code: string) => {
 	// await instance.get(`auth/kakao?code=${code}`)
 	await axios.get(
-		`${import.meta.env.VITE_DEPLOY_BASE_URL}auth/kakao?code=${code}`
+		`${import.meta.env.VITE_DEPLOY_BASE_URL}/auth/kakao?code=${code}`
 	)
 }
