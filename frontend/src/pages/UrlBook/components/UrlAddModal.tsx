@@ -1,43 +1,45 @@
 //src/pages/UrlBook/components/UrlAddModalts
+import React, {
+	useState,
+	useRef,
+	useEffect,
+	ChangeEvent,
+	KeyboardEvent,
+} from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import axios, { AxiosResponse } from 'axios'
 
-import React, { useState, useRef, useEffect } from 'react'
-// import { useUrlStore } from '../store'
-import { useMutation, useQueryClient } from 'react-query'
-import axios from 'axios'
+interface UrlAddModalProps {
+	doCloseModal: () => void
+}
 
-//수정: isOpen을 여기서 지정해야 더 좋은 코드인가 ?
-
-const UrlAddModal: React.FC<{ doCloseModal: () => void }> = ({
-	doCloseModal,
-}) => {
-	const [url, setUrl] = useState('')
-	// const addUrl = useUrlStore((state) => state.addUrl)
-	const [isInvalidUrl, setIsInvalidUrl] = useState(false)
+const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
+	const [url, setUrl] = useState<string>('')
+	const [isInvalidUrl, setIsInvalidUrl] = useState<boolean>(false)
 	const urlInputRef = useRef<HTMLTextAreaElement>(null)
 	const queryClient = useQueryClient()
-	const mutation = useMutation<void, unknown, string>(
-		(newUrl) => {
-			return axios.post(`http://j10d204.p.ssafy.io:8000/url/`, null, {
+	const mutation = useMutation<AxiosResponse, Error, string>({
+		mutationFn: (newUrl: string) =>
+			axios.post(`http://j10d204.p.ssafy.io:8000/url/`, null, {
 				params: { target_url: newUrl },
 				headers: {
 					Accept: 'application/json',
 					INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
 				},
-			})
+			}),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['urls'] });
+			doCloseModal()
 		},
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries('urls')
-			},
-		}
-	)
+		onError: () => {
+			setIsInvalidUrl(true)
+		},
+	})
 	useEffect(() => {
-		if (urlInputRef.current) {
-			urlInputRef.current.focus()
-		}
+		urlInputRef.current?.focus()
 	}, [])
 
-	const isValidUrl = (urlString: string) => {
+	const isValidUrl = (urlString: string): boolean => {
 		const pattern = new RegExp(
 			'^(https?:\\/\\/)?' +
 				'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' +
@@ -47,37 +49,34 @@ const UrlAddModal: React.FC<{ doCloseModal: () => void }> = ({
 				'(\\#[-a-z\\d_]*)?$',
 			'i'
 		)
-		return !!pattern.test(urlString)
+		return pattern.test(urlString)
 	}
+
 	const handleSubmit = () => {
-		// 여기에서 mutation.mutate를 호출하여 URL 추가
-		let formattedUrl = url
-		if (!formattedUrl.startsWith('https://')) {
-			formattedUrl = `https://${formattedUrl}`
-		}
+		const formattedUrl = url.startsWith('https://') ? url : `https://${url}`
 		if (isValidUrl(formattedUrl)) {
 			mutation.mutate(formattedUrl)
-			doCloseModal()
 		} else {
 			setIsInvalidUrl(true)
 		}
 	}
 
-	const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+	const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
 		if (e.key === 'Enter' && !e.shiftKey) {
 			e.preventDefault()
 			handleSubmit()
 		}
 	}
 
-	const adjustTextareaHeight = (target: HTMLTextAreaElement) => {
-		target.style.height = 'auto'
-		target.style.height = `${target.scrollHeight}px`
-	}
-	const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+	const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
 		setUrl(e.target.value)
 		setIsInvalidUrl(false)
 		adjustTextareaHeight(e.target)
+	}
+
+	const adjustTextareaHeight = (target: HTMLTextAreaElement) => {
+		target.style.height = 'auto'
+		target.style.height = `${target.scrollHeight}px`
 	}
 
 	return (

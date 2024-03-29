@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useUrlStore } from '../store'
 
 const UrlDeleteBtn = () => {
@@ -9,8 +9,8 @@ const UrlDeleteBtn = () => {
 	const checkedCount = urls.filter((url) => url.checked).length
 
 	// 여기에서 useMutation을 임포트하고 초기화합니다.
-	const mutation = useMutation<void, unknown, number>(
-		(urlId) => {
+	const mutation = useMutation<void, unknown, number>({
+		mutationFn: (urlId: number) => {
 			return axios.delete(
 				`http://j10d204.p.ssafy.io:8000/url/?url_id=${urlId}`,
 				{
@@ -20,12 +20,10 @@ const UrlDeleteBtn = () => {
 				}
 			)
 		},
-		{
-			onSuccess: () => {
-				queryClient.invalidateQueries('urls')
-			},
-		}
-	)
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['urls'] })
+		},
+	})
 	const handleDelete = () => {
 		const urlToDelete = urls.find((url) => url.checked)
 		if (urlToDelete) {

@@ -4,7 +4,7 @@ import UrlDeleteBtn from './components/UrlDeleteBtn'
 import UrlAddBtn from './components/UrlAddBtn'
 
 // QueryClientProvider 및 QueryClient import
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 // QueryClient 인스턴스 생성
 const queryClient = new QueryClient()
