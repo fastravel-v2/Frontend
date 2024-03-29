@@ -1,14 +1,14 @@
 import { getGoogleLogin, getKakaoLogin } from './api'
 import { LoginTokenType } from './type'
 
-export const getToken = async (loginType: LoginTokenType, code: string) => {
+export const getToken = async (
+	loginType: LoginTokenType,
+	code: string
+): Promise<'success' | 'fail'> => {
 	switch (loginType) {
 		case 'kakao':
-			await getKakaoLogin(code)
-			break
+			return await getKakaoLogin(code)
 		case 'google':
-			await getGoogleLogin(code)
-			console.log('try google login')
-			break
+			return await getGoogleLogin(code)
 	}
 }
