@@ -7,6 +7,7 @@ import { useSurveyListQueries } from '../query'
 const SurveyList = () => {
 	// :: Queries version
 	const { surveyListWithImage } = useSurveyListQueries()
+
 	useEffect(() => {
 		console.log('final data', surveyListWithImage)
 	}, [surveyListWithImage])

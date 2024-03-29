@@ -1,4 +1,5 @@
 import { QueryFunctionContext } from '@tanstack/react-query'
+import axios from 'axios'
 import { instance } from 'src/utility/apis/axios'
 
 // const dummysurveyList = [
@@ -36,8 +37,18 @@ export const getSurveyList = async ({
 	queryKey,
 }: QueryFunctionContext): Promise<SurveyItemResInfo[]> => {
 	const [, categoryId] = queryKey
-	const surveyRes = await instance.get(
-		`survey/random_spot?category=${categoryId}&count=4`
+	console.log('api req key', categoryId, typeof categoryId)
+
+	// :: For production api
+	// const surveyRes = await instance.get(
+	// 	`survey/random_spot?category=${categoryId}&count=4`
+	// )
+
+	// :: For development api
+	const surveyRes = await axios.get(
+		`${
+			import.meta.env.VITE_SURVEY_BASE_URL
+		}/survey/random_spot?category=${categoryId}&count=4`
 	)
 
 	return surveyRes.data
