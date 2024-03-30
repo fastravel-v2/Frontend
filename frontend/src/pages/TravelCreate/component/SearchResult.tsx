@@ -6,14 +6,15 @@ import CityList from './CityList'
 
 const SearchResult = () => {
 	const { selectedCities } = useSelectedCityStore()
+
 	const setBottomMargin = () => {
 		const numOfCity = selectedCities.length
 
 		if (numOfCity === 0) {
 			return 'mb-24'
-		} else if (numOfCity <= 5) {
+		} else if (numOfCity <= 4) {
 			return 'mb-[200px]'
-		} else if (numOfCity <= 10) {
+		} else if (numOfCity <= 8) {
 			return 'mb-[286px]'
 		} else if (numOfCity <= 15) {
 			return 'mb-[372px]'

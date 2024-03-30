@@ -8,7 +8,7 @@ interface IDefaultLayoutProps {
 const DefaultLayout = ({ children }: IDefaultLayoutProps) => {
 	return (
 		<div className="flex h-screen">
-			<section className="relative flex flex-col max-w-full px-5 grow">
+			<section className="relative flex flex-col max-w-full px-5 overflow-auto grow">
 				{children}
 			</section>
 		</div>
