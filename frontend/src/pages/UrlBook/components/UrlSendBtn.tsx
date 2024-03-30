@@ -1,69 +1,60 @@
 // src/pages/UrlBook/components/UrlSendBtn.tsx
+import React from 'react';
+import useUrlBook from '../hooks/useUrlBook';
+import useUrlSend from '../hooks/useUrlSend';
 
-// import React from 'react';
-import { useNavigate } from 'react-router-dom' // useNavigate를 import합니다.
-import { useUrlStore } from '../store'
+const UrlSendBtn: React.FC = () => {
+    const { urls, selectAllUrls, unSelectAllUrls, countCheckedUrls, handleButtonClickToDummy } = useUrlBook();
+    const { sendCheckedUrls } = useUrlSend();
+    const checkedCount = countCheckedUrls();
 
-export const UrlSendBtn = () => {
-	const navigate = useNavigate() // useNavigate 훅을 사용해 navigate 함수를 가져옵니다.
 
-	const { urls, selectAllUrls, unSelectAllUrls } = useUrlStore((state) => ({
-		urls: state.urls,
-		selectAllUrls: state.selectAllUrls,
-		unSelectAllUrls: state.unSelectAllUrls,
-	}))
+	// 낙관적 UI
+    const handleSelectAllButtonClick = () => {
+        selectAllUrls();
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]');
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = true;
+        });
+    };
 
-	//수정: return으로 한번에 안되나 ?
+    const handleUnSelectAllButtonClick = () => {
+        unSelectAllUrls();
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]');
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = false;
+        });
+    };
 
-	const countCheckedUrls = () => {
-		return urls.filter((url) => url.checked).length
-	}
+    return (
+        <div>
+            {urls.length === 0 ? (
+                <div></div>
+            ) : checkedCount === 0 ? (
+                <div className="flex justify-end">
+                    <button className="font-bold py-2 px-4 rounded text-gray-500" onClick={handleSelectAllButtonClick}>
+                        전체 선택
+                    </button>
+                </div>
+            ) : (
+                <div className="flex justify-between">
+                    <div className="flex-1">
+                        <button className="font-bold px-4 rounded" onClick={handleButtonClickToDummy}>
+                            [더미결과보기]
+                        </button>
+                        <button className="font-bold px-4 rounded" onClick={sendCheckedUrls}>
+                            [URL 보내기]
+                        </button>
+                    </div>
+                    <div className="flex-1 text-right">
+                        <button className="font-bold py-2 px-4 rounded text-darkGra" onClick={handleUnSelectAllButtonClick}>
+                            전체 선택 해제
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
 
-	const checkedCount = countCheckedUrls()
-
-	const handleButtonClick = () => {
-		navigate('/urlbook/result') // '/url-result' 경로로 이동하는 함수를 실행합니다.
-	}
-
-	const handleSelectAllButtonClick = () => {
-		selectAllUrls() // 전체 선택 함수 호출
-	}
-	const handleUnSelectAllButtonClick = () => {
-		unSelectAllUrls() // 전체 선택 함수 호출
-	}
-
-	//수정: 전체 선택, 전체 선택 해제 추가
-	return (
-		<div>
-			{urls.length === 0 ? (
-				<div></div>
-			) : checkedCount === 0 ? (
-				<div className="flex justify-end">
-					{' '}
-					{/* justify-end를 사용하여 오른쪽 정렬 */}
-					<button
-						className="font-bold py-2 px-4 rounded text-gray-500"
-						onClick={handleSelectAllButtonClick} // 전체 선택 버튼 클릭 시 함수 호출
-					>
-						전체 선택
-					</button>
-				</div>
-			) : (
-				<div className="flex justify-between">
-					<button
-						className="font-bold py-2 px-4 rounded"
-						onClick={handleButtonClick} // 버튼 클릭 시 handleButtonClick 함수를 호출합니다.
-					>
-						[URL Send]
-					</button>
-					<button
-						className="font-bold py-2 px-4 rounded text-gray-500"
-						onClick={handleUnSelectAllButtonClick} // 버튼 클릭 시 handleButtonClick 함수를 호출합니다.
-					>
-						전체 선택 해제
-					</button>
-				</div>
-			)}
-		</div>
-	)
-}
+export default UrlSendBtn;
