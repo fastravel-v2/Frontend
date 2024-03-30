@@ -93,7 +93,7 @@ const Calendar = () => {
 			<div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
 				<div className="md:pr-14">
 					<div className="flex items-center">
-						<h2 className="flex-auto font-semibold text-gray-900">
+						<h2 className="flex-auto text-2xl font-semibold text-black">
 							{format(firstDayCurrentMonth, 'MMMM yyyy')}
 						</h2>
 						<button
@@ -113,7 +113,7 @@ const Calendar = () => {
 							<FaChevronRight className="w-5 h-5" aria-hidden="true" />
 						</button>
 					</div>
-					<div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500">
+					<div className="grid grid-cols-7 mt-10 text-base font-semibold leading-6 text-center text-gray-500">
 						<div className="text-rose-600">일</div>
 						<div>월</div>
 						<div>화</div>
@@ -122,7 +122,7 @@ const Calendar = () => {
 						<div>금</div>
 						<div className="text-blue-700">토</div>
 					</div>
-					<ul className="grid grid-cols-7 mt-2 text-sm">
+					<ul className="grid grid-cols-7 mt-2 text-base text-black">
 						{days.map((day, dayIdx) => (
 							<li
 								key={day.toString()}
@@ -134,47 +134,39 @@ const Calendar = () => {
 								<button
 									type="button"
 									onClick={handleSelectDate}
-									className={`
-												
-												${
-													!isToday(day) &&
-													isSameMonth(day, firstDayCurrentMonth) &&
-													(!isEqual(day, startDate) ||
-														(endDate && !isEqual(day, endDate))) &&
-													'text-gray-900'
-												} 
-												${
-													isToday(day) &&
-													((endDate && !isEqual(day, endDate)) ||
-														!isEqual(day, startDate)) &&
-													'text-rose-500'
-												} 
-												${
-													!isToday(day) &&
-													!isSameMonth(day, firstDayCurrentMonth) &&
-													(!isEqual(day, startDate) ||
-														(endDate && !isEqual(day, endDate))) &&
-													'text-gray-400'
-												} 
-												${
-													!isEqual(day, startDate) &&
-													endDate &&
-													!isEqual(day, endDate) &&
-													'hover:bg-gray-200'
-												} 
-												${
-													(isEqual(day, startDate) ||
-														(endDate && isEqual(day, endDate)) ||
-														isToday(day)) &&
-													'font-semibold'
-												} 
-												${isEqual(day, startDate) && 'text-white'} 
-												${endDate && isEqual(day, endDate) && 'text-white'} 
-												${isEqual(day, startDate) && 'bg-black'} 
-												${endDate && isEqual(day, endDate) && 'bg-black'} 
-												${isDateInBetweenStartAndEnd(day) && 'text-lightGray2'}
-												mx-auto flex h-8 w-8 items-center justify-center rounded-full
-											`}
+									className={[
+										isToday(day) &&
+										((endDate && !isEqual(day, endDate)) ||
+											!isEqual(day, startDate))
+											? 'text-green1'
+											: '',
+										!isToday(day) &&
+										!isSameMonth(day, firstDayCurrentMonth) &&
+										(!isEqual(day, startDate) ||
+											(endDate && !isEqual(day, endDate)))
+											? 'text-lightGray2'
+											: '',
+										!isEqual(day, startDate) &&
+										endDate &&
+										!isEqual(day, endDate)
+											? 'hover:bg-gray-200'
+											: '',
+										isEqual(day, startDate) ||
+										(endDate && isEqual(day, endDate)) ||
+										isToday(day)
+											? 'font-semibold'
+											: '',
+										isEqual(day, startDate) ? 'text-white bg-black' : '',
+										endDate && isEqual(day, endDate)
+											? 'text-white bg-black'
+											: '',
+										getDay(day) === 0 ? 'text-rose-600' : '',
+										getDay(day) === 6 ? 'text-blue-700' : '',
+										isDateInBetweenStartAndEnd(day) ? '!text-lightGray2' : '',
+										'mx-auto flex h-8 w-8 items-center justify-center rounded-full',
+									]
+										.filter(Boolean)
+										.join(' ')}
 								>
 									<time dateTime={format(day, 'yyyy-MM-dd')}>
 										{format(day, 'd')}

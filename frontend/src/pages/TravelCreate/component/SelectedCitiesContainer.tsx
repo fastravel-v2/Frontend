@@ -9,7 +9,7 @@ const SelectedCitiesContainer = () => {
 
 	return (
 		<section className="fixed bottom-0 m-h-[180px] border-t-[1px] p-6 pb-24 border-lightGray1 w-full left-0 bg-white ">
-			<ul className="flex flex-wrap gap-x-7 gap-y-4">
+			<ul className="grid grid-cols-4 gap-x-10 gap-y-4">
 				{selectedCities.map((city, index) => (
 					<SelectedCityItem key={`selected-city-${index}`} cityInfo={city} />
 				))}
