@@ -12,7 +12,11 @@ export const getTravelInfo = async ({
 	// return travelInfoRes.data
 
 	// :: For development api
-	const travelInfoRes = await axios.get(`travel/info/${travelId}`, {
+	const travelInfoRes = await axios.get(`core/travel/info/${travelId}`, {
+		headers: {
+			'Content-Type': 'application/json',
+			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+		},
 		withCredentials: true,
 	})
 	return travelInfoRes.data
@@ -31,6 +35,7 @@ export const putTravelProfileCreate = async (
 	const createRes = await axios.put(`core/travel/create`, profileFormData, {
 		headers: {
 			'Content-Type': 'multipart/form-data',
+			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
 		},
 		withCredentials: true,
 	})
@@ -55,6 +60,7 @@ export const putTravelProfileEdit = async (
 		{
 			headers: {
 				'Content-Type': 'multipart/form-data',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
 			},
 			withCredentials: true,
 		}

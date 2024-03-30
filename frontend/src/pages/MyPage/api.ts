@@ -144,8 +144,9 @@ export const deleteMyTravel = async (
 	const deleteRes = await axios.delete(`core/travel/delete?id=${travelId}`, {
 		headers: {
 			'Content-Type': 'application/json',
-			withCredentials: true,
+			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
 		},
+		withCredentials: true,
 	})
 
 	return deleteRes.data

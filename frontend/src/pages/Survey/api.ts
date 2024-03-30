@@ -48,7 +48,13 @@ export const getSurveyList = async ({
 	const surveyRes = await axios.get(
 		`${
 			import.meta.env.VITE_SURVEY_BASE_URL
-		}/survey/random_spot?category=${categoryId}&count=4`
+		}/survey/random_spot?category=${categoryId}&count=4`,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+		}
 	)
 
 	return surveyRes.data
