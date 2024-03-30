@@ -11,8 +11,8 @@ const EditProfileImage = ({
 	type,
 	currentUserProfileUrl,
 }: EditProfileImageProps) => {
-	const [imageFile, setImageFile] = useState<File | null>(null) // 서버 전송용 imageFile
-	const profileUrl = useUserProfileImage(imageFile, currentUserProfileUrl)
+	const [imageFile, setImageFile] = useState<File | null>(null) // 서버 전송용 이미지_imageFile(File type)
+	const profileUrl = useUserProfileImage(imageFile, currentUserProfileUrl) // 클라이언트 표시용 이미지_profileUrl(String type)
 
 	useEffect(() => {
 		console.log(imageFile)
@@ -48,7 +48,6 @@ const EditProfileImage = ({
 			<input
 				type="file"
 				name="profileImage"
-				id=""
 				onChange={handleChangeImageFile}
 				className="hidden"
 			/>
