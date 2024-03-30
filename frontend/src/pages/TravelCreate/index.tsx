@@ -18,14 +18,20 @@ const TravelCreate = () => {
 	const { setSelectedCities } = useSelectedCityStore()
 	const { setSearchedCities } = useSearchCityStore()
 	const { pageType, setPageType } = useCreatingTravelPageTypeStore()
-	const { setStartDate, resetDate } = useTravelDateStore()
+	const { setStartDate, setEndDate, resetDate } = useTravelDateStore()
 
 	const { travelId } = useParams()
 	const { data, isLoading } = useTravelInfoQuery(travelId)
 
 	// page 나갈 때 해당 내용 초기화
 	useEffect(() => {
-		setStartDate(startOfToday())
+		if (data) {
+			setSelectedCities(data.cities)
+			setStartDate(new Date(data.startDate))
+			data.endDate && setEndDate(new Date(data.endDate))
+		} else {
+			setStartDate(startOfToday())
+		}
 
 		return () => {
 			setSelectedCities([])
@@ -33,7 +39,7 @@ const TravelCreate = () => {
 			setPageType('city')
 			resetDate()
 		}
-	}, [])
+	}, [data])
 
 	return (
 		<DefaultLayout>
