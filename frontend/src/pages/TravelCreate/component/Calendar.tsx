@@ -16,7 +16,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useTravelDateStore } from '../store'
 
-// Todo: 미래 날짜 설정 불가능하도록하는 기능 추가
+// Todo: 휴일 정보를 받아와서 반영하도록 수정
 const Calendar = () => {
 	const { startDate, endDate, setStartDate, setEndDate } = useTravelDateStore()
 
