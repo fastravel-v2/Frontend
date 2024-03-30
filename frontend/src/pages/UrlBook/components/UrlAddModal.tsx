@@ -1,4 +1,3 @@
-//src/pages/UrlBook/components/UrlAddModalts
 import React, {
 	useState,
 	useRef,
@@ -6,8 +5,7 @@ import React, {
 	ChangeEvent,
 	KeyboardEvent,
 } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import axios, { AxiosResponse } from 'axios'
+import { useAddUrl } from '../hooks/useAddUrl'
 
 interface UrlAddModalProps {
 	doCloseModal: () => void
@@ -17,24 +15,8 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 	const [url, setUrl] = useState<string>('')
 	const [isInvalidUrl, setIsInvalidUrl] = useState<boolean>(false)
 	const urlInputRef = useRef<HTMLTextAreaElement>(null)
-	const queryClient = useQueryClient()
-	const mutation = useMutation<AxiosResponse, Error, string>({
-		mutationFn: (newUrl: string) =>
-			axios.post(`http://j10d204.p.ssafy.io:8000/url/`, null, {
-				params: { target_url: newUrl },
-				headers: {
-					Accept: 'application/json',
-					INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
-				},
-			}),
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['urls'] });
-			doCloseModal()
-		},
-		onError: () => {
-			setIsInvalidUrl(true)
-		},
-	})
+	const mutation = useAddUrl()
+
 	useEffect(() => {
 		urlInputRef.current?.focus()
 	}, [])
@@ -56,6 +38,7 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 		const formattedUrl = url.startsWith('https://') ? url : `https://${url}`
 		if (isValidUrl(formattedUrl)) {
 			mutation.mutate(formattedUrl)
+			doCloseModal()
 		} else {
 			setIsInvalidUrl(true)
 		}

@@ -13,13 +13,17 @@ import AddPlace from './pages/Search/AddPlace'
 import LocationDetail from './pages/LocationDetail'
 import NotFound from './pages/NotFound'
 import { UrlBook } from './pages/UrlBook'
-import UrlResult from './pages/UrlBook/components/UrlResult'
 import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
 import Survey from './pages/Survey'
 import Chat from './pages/Chat'
 import TravelDetail from './pages/TravelDetail'
 import TravelCreate from './pages/TravelCreate'
+import SelectCity from './pages/TravelCreate/SelectCity'
+import SelectDate from './pages/TravelCreate/SelectDate'
+import WriteProfile from './pages/TravelCreate/WriteProfile'
+import UrlResultDummy from './pages/UrlBook/components/UrlResultDummy'
+import UrlResult from './pages/UrlBook/components/UrlResult'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -104,8 +108,13 @@ const routerData: RouterElement[] = [
 		label: 'urlBook',
 	},
 	{
+		path: '/urlbook/resultdummy',
+		element: <UrlResultDummy />,
+		label: 'urlBook',
+	},
+	{
 		path: '/urlbook/result',
-		element: <UrlResult />,
+		element: <UrlResult/>,
 		label: 'urlBook',
 	},
 	{

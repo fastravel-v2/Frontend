@@ -1,117 +1,71 @@
-// // import { tokenInstance } from 'src/utility/apis/axios'
-// import { LikeLocation, MyTravel } from './type'
+// src/pages/UrlBook/api.ts
 
-// const dummyData = {
-// 	data: [
-// 		{
-// 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
-// 			travelImage: '/src/assets/svgs/travelImage.svg',
-// 			travelName: '여수 여행',
-// 			startDate: new Date('2024.12.7'),
-// 			endDate: new Date('2024.12.7'),
-// 			numOfCity: 1,
-// 		},
-// 		{
-// 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
-// 			travelImage: '/src/assets/svgs/travelImage.svg',
-// 			travelName: '여수 여행',
-// 			startDate: new Date('2024.12.7'),
-// 			endDate: new Date('2024.12.7'),
-// 			numOfCity: 1,
-// 		},
-// 		{
-// 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
-// 			travelImage: '/src/assets/svgs/travelImage.svg',
-// 			travelName: '여수 여행',
-// 			startDate: new Date('2024.12.7'),
-// 			endDate: new Date('2024.12.7'),
-// 			numOfCity: 1,
-// 		},
-// 		{
-// 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
-// 			travelImage: '/src/assets/svgs/travelImage.svg',
-// 			travelName: '여수 여행',
-// 			startDate: new Date('2024.12.7'),
-// 			endDate: new Date('2024.12.7'),
-// 			numOfCity: 1,
-// 		},
-// 	],
-// }
+import axios from 'axios'
+const BASE_URL = 'http://j10d204.p.ssafy.io:8000'
 
-// export const getMyTravel = async (): Promise<MyTravel[]> => {
-// 	// :: after api is ready
-// 	// const myTravelRes = await tokenInstance.post('user/travel')
-// 	// return myTravelRes.data
+export const deleteUrl = async (urlId: number) => {
+	return axios.delete(`${BASE_URL}/url/?url_id=${urlId}`, {
+		headers: {
+			Accept: 'application/json',
+		},
+	})
+}
 
-// 	return new Promise((resolve) => {
-// 		resolve(dummyData.data)
-// 	})
-// }
+export const fetchUrlList = async () => {
+	const response = await axios.get(`${BASE_URL}/url/list`, {
+		headers: { Accept: 'application/json' },
+	})
+	return response.data
+}
 
-// // TODO: API 연결할 때는 매개변수로 travelId를 받아서 해당 여행을 삭제하도록 수정
-// export const deleteMyTravel = async (): Promise<'success' | 'fail'> => {
-// 	// :: after api is ready
-// 	// const deleteRes = await tokenInstance.delete(`user/travel/${travelId}`)
-// 	// return deleteRes.data
 
-// 	return new Promise((resolve) => {
-// 		resolve('success')
-// 	})
-// }
+export const fetchUrlInfo = async (url_id: number) => {
+	const response = await axios.get(`${BASE_URL}/url/info?url_id=${url_id}`, {
+		headers: {
+			Accept: 'application/json',
+			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+		},
+	});
+	return response.data;
+};
 
-// const dummyLikeData = {
-// 	data: [
-// 		{
-// 			locationId: 1,
-// 			locationImage: '/src/assets/svgs/travelImage.svg',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
-// 		},
-// 		{
-// 			locationId: 1,
-// 			locationImage: '/src/assets/svgs/travelImage.svg',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: null,
-// 		},
-// 		{
-// 			locationId: 1,
-// 			locationImage: '/src/assets/svgs/travelImage.svg',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
-// 		},
-// 		{
-// 			locationId: 1,
-// 			locationImage: '/src/assets/svgs/travelImage.svg',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: null,
-// 		},
-// 		{
-// 			locationId: 1,
-// 			locationImage: '/src/assets/svgs/travelImage.svg',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: null,
-// 		},
-// 		{
-// 			locationId: 1,
-// 			locationImage: '/src/assets/svgs/travelImage.svg',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: null,
-// 		},
-// 	],
-// }
 
-// export const getLikeLocation = async (): Promise<LikeLocation[]> => {
-// 	// :: after api is ready
-// 	// const myLikeRes = await tokenInstance.post('user/like')
-// 	// return myLikeRes.data
+export const fetchUrlResults = async (url_id: number) => {
+	return axios.get(`${BASE_URL}/url/result/${url_id}`, {
+		headers: {
+			Accept: 'application/json',
+		},
+	})
+}
 
-// 	return new Promise((resolve) => {
-// 		resolve(dummyLikeData.data)
-// 	})
-// }
+export const addUrl = async (newUrl: string) => {
+	return axios.post(`${BASE_URL}/url/`, null, {
+		params: { target_url: newUrl },
+		headers: {
+			Accept: 'application/json',
+			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+		},
+	})
+}
+
+export const addNewUrl = async (newUrl: string) => {
+	return axios.post(`${BASE_URL}/url/`, null, {
+		params: { target_url: newUrl },
+		headers: {
+			Accept: 'application/json',
+			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+		},
+	})
+}
+
+export const calculateUrl = async (urlId: number) => {
+	return axios.put(
+		`${BASE_URL}/url/calculate?url_id=${urlId}`,
+		{},
+		{
+			headers: {
+				accept: 'application/json',
+			},
+		}
+	)
+}
