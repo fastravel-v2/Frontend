@@ -13,14 +13,12 @@ import {
 	parse,
 	startOfToday,
 } from 'date-fns'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useTravelDateStore } from '../store'
 
 // Todo: 휴일 정보를 받아와서 반영하도록 수정
 const Calendar = () => {
 	const { startDate, endDate, setStartDate, setEndDate } = useTravelDateStore()
-
-	useEffect(() => {}, [startDate, endDate])
 
 	const today = startOfToday()
 	const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
@@ -137,26 +135,29 @@ const Calendar = () => {
 									className={[
 										isToday(day) &&
 										((endDate && !isEqual(day, endDate)) ||
-											!isEqual(day, startDate))
+											(startDate && !isEqual(day, startDate)))
 											? 'text-green1'
 											: '',
 										!isToday(day) &&
 										!isSameMonth(day, firstDayCurrentMonth) &&
-										(!isEqual(day, startDate) ||
+										((startDate && !isEqual(day, startDate)) ||
 											(endDate && !isEqual(day, endDate)))
 											? 'text-lightGray2'
 											: '',
+										startDate &&
 										!isEqual(day, startDate) &&
 										endDate &&
 										!isEqual(day, endDate)
 											? 'hover:bg-gray-200'
 											: '',
-										isEqual(day, startDate) ||
+										(startDate && isEqual(day, startDate)) ||
 										(endDate && isEqual(day, endDate)) ||
 										isToday(day)
 											? 'font-semibold'
 											: '',
-										isEqual(day, startDate) ? 'text-white bg-black' : '',
+										startDate && isEqual(day, startDate)
+											? 'text-white bg-black'
+											: '',
 										endDate && isEqual(day, endDate)
 											? 'text-white bg-black'
 											: '',

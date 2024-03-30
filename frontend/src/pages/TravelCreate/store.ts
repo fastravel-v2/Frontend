@@ -1,4 +1,3 @@
-import { startOfToday } from 'date-fns'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
@@ -43,23 +42,23 @@ export const useSelectedCityStore = create<ISelectedCityStore>()(
 
 // Selected travel date store
 interface ITravelDateStore {
-	startDate: Date
+	startDate: Date | null
 	endDate: Date | null
-	setStartDate: (startDate: Date) => void
+	setStartDate: (startDate: Date | null) => void
 	setEndDate: (endDate: Date | null) => void
 	resetDate: () => void
 }
 
 export const useTravelDateStore = create<ITravelDateStore>()(
 	devtools((set) => ({
-		startDate: startOfToday(),
+		startDate: null,
 		endDate: null,
 		setStartDate: (startDate) => set(() => ({ startDate })),
 		setEndDate: (endDate) => set(() => ({ endDate })),
 		resetDate: () =>
 			set(() => ({
-				startDate: startOfToday(),
-				endDate: startOfToday(),
+				startDate: null,
+				endDate: null,
 			})),
 	}))
 )

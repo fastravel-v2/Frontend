@@ -16,11 +16,13 @@ const CalendarSubmit = () => {
 	const selectedDateText = useMemo(() => {
 		if (!startDate && !endDate) return null
 
-		if (!endDate) {
+		if (startDate && !endDate) {
 			return formatDateString(startDate)
 		}
 
-		return `${formatDateString(startDate)} - ${formatEndDateString(endDate)}`
+		if (startDate && endDate) {
+			return `${formatDateString(startDate)} - ${formatEndDateString(endDate)}`
+		}
 	}, [startDate, endDate])
 
 	const handleClickNextPage = () => {

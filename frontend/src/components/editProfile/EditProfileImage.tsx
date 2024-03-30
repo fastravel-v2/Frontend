@@ -3,7 +3,7 @@ import { useUserProfileImage } from 'src/pages/MyPage/hooks/useUserProfileImage'
 import { isValidImageFile } from 'src/pages/MyPage/util'
 
 interface EditProfileImageProps {
-	type: 'user' | 'travel'
+	type: 'user' | 'travelCreate' | 'travelEdit'
 	currentUserProfileUrl: string | null
 }
 
