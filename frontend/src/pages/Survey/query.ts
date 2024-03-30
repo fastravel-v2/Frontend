@@ -35,12 +35,14 @@ export const useSurveyListQueries = () => {
 
 	useEffect(() => {
 		console.log('queries result', surveyListQueriesResults)
+		const categoryIds = Object.values(categoryInfo)
 		surveyListQueriesResults.forEach((result, index) => {
-			const categoryId = Object.values(categoryInfo)[index]
+			const categoryId = categoryIds[index]
+			console.log(categoryId, result.data)
 			if (result.data) {
 				setEverySurveyListInfo((prev) => ({
 					...prev,
-					[categoryId]: result.data,
+					[categoryId]: result.data ?? [],
 				}))
 			}
 		})
@@ -52,15 +54,16 @@ export const useSurveyListQueries = () => {
 	// - 이미지가 없는 데이터거나 데이터가 비었다면 빈 배열 반환
 	const surveyListWithImage = useMemo(() => {
 		if (
-			Object.values(everySurveyListInfo).some(
-				(surveyList) => surveyList.length === 0
-			)
+			Object.values(everySurveyListInfo).some((surveyList) => {
+				return surveyList.length === 0
+			})
 		) {
 			return []
 		}
 
 		const result = Object.values(everySurveyListInfo).reduce(
 			(prev: SurveyItemInfo[], surveyList: SurveyItemResInfo[]) => {
+				console.log(surveyList)
 				return [
 					...prev,
 					...surveyList.map(

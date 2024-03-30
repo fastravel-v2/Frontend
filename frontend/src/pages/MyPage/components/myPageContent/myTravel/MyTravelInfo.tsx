@@ -24,8 +24,10 @@ const MyTravelInfo = () => {
 					.map((travelType) => {
 						return (
 							<div key={travelType}>
-								<h2>{TravelHeader[travelType as TravelType]}</h2>
-								<ul>
+								<h2 className="mb-5 text-sm font-bold">
+									{TravelHeader[travelType as TravelType]}
+								</h2>
+								<ul className="flex flex-col gap-4">
 									{sortedMyTravelList[travelType as TravelType].map(
 										(travelInfo, index) => {
 											return (

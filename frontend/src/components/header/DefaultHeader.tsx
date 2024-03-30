@@ -9,7 +9,7 @@ const DefaultHeader = ({ menu, func }: IHeaderProp) => {
 	const { left_func, right_func } = func
 
 	return (
-		<div className="fixed top-0 z-50 flex items-center justify-between w-full h-16 px-5 bg-transparent bg-white">
+		<div className="fixed top-0 left-0 z-50 flex items-center justify-between w-full h-16 px-5 bg-transparent bg-white">
 			{left ? (
 				<div onClick={left_func}>{left}</div>
 			) : (

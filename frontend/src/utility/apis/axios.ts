@@ -1,3 +1,4 @@
+// :: Production Axios Instance
 import axios, {
 	AxiosError,
 	AxiosResponse,
@@ -22,14 +23,14 @@ const requestPrev = (
 	config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'application/json'
-
+	config.baseURL = import.meta.env.VITE_DEPLOY_BASE_URL
 	return config
 }
 const tokenReqPrev = (
 	config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'application/json'
-	config.headers['Authorization'] = `Bearer ${import.meta.env.VITE_USER1_TOKEN}`
+	config.baseURL = import.meta.env.VITE_DEPLOY_BASE_URL
 	config.withCredentials = true
 
 	return config
@@ -46,7 +47,7 @@ const tokenMultipartReqPrev = (
 	config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
 	config.headers['Content-Type'] = 'multipart/form-data'
-	config.headers['Authorization'] = `Bearer ${import.meta.env.VITE_USER1_TOKEN}`
+	config.baseURL = import.meta.env.VITE_DEPLOY_BASE_URL
 	config.withCredentials = true
 
 	return config
