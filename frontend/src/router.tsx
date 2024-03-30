@@ -16,12 +16,10 @@ import { UrlBook } from './pages/UrlBook'
 import UrlResult from './pages/UrlBook/components/UrlResult'
 import EditMyPage from './pages/MyPage/EditMyPage'
 import { ContentTypeInfo } from './pages/MyPage/type'
+import Survey from './pages/Survey'
 import Chat from './pages/Chat'
 import TravelDetail from './pages/TravelDetail'
 import TravelCreate from './pages/TravelCreate'
-import SelectCity from './pages/TravelCreate/SelectCity'
-import SelectDate from './pages/TravelCreate/SelectDate'
-import WriteProfile from './pages/TravelCreate/WriteProfile'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
 interface IRouterBase {
@@ -44,10 +42,16 @@ const routerData: RouterElement[] = [
 		element: <Login />,
 		label: 'login',
 	},
+	// Route for OAuth login
 	{
 		path: '/login/:loginType',
 		element: <Login />,
 		label: 'login',
+	},
+	{
+		path: '/survey',
+		element: <Survey />,
+		label: 'survey',
 	},
 	{
 		path: '/mypage',
@@ -108,23 +112,11 @@ const routerData: RouterElement[] = [
 		path: '/travel/create',
 		element: <TravelCreate />,
 		label: 'travelCreate',
-		children: [
-			{
-				path: '',
-				element: <SelectCity />,
-				label: 'selectCity',
-			},
-			{
-				path: 'date',
-				element: <SelectDate />,
-				label: 'selectDate',
-			},
-			{
-				path: 'profile',
-				element: <WriteProfile />,
-				label: 'writeProfile',
-			},
-		],
+	},
+	{
+		path: '/travel/edit/:travelId',
+		element: <TravelCreate />,
+		label: 'travelEdit',
 	},
 	{
 		path: '/travel/:id',

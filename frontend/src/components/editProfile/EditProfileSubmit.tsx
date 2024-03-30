@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { NameMessageType, TravelMessageType } from '../../pages/MyPage/type'
 
 interface EditProfileSubmitProps {
-	type: 'user' | 'travel'
+	type: 'user' | 'travelCreate' | 'travelEdit'
 	nameStatus: NameMessageType | TravelMessageType
 }
 const EditProfileSubmit = ({ type, nameStatus }: EditProfileSubmitProps) => {
@@ -17,7 +17,7 @@ const EditProfileSubmit = ({ type, nameStatus }: EditProfileSubmitProps) => {
 			}`}
 			disabled={isDisabled}
 		>
-			{type ? '여행 생성' : '수정 완료'}
+			{type ? '완료' : '수정 완료'}
 		</button>
 	)
 }

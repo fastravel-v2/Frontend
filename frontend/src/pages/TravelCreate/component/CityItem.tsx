@@ -2,12 +2,6 @@ import { DefaultLocation } from 'src/assets/svgs'
 import { useSelectedCityStore } from '../store'
 import { useMemo } from 'react'
 
-interface CityItemInfo {
-	id: number
-	name: string
-	children: string[]
-}
-
 interface CityItemProps {
 	cityInfo: CityItemInfo
 }
@@ -16,7 +10,7 @@ const CityItem = ({ cityInfo }: CityItemProps) => {
 		useSelectedCityStore()
 
 	const isSelected = useMemo(
-		() => selectedCities.includes(cityInfo.id),
+		() => selectedCities.includes(cityInfo),
 		[selectedCities, cityInfo.id]
 	)
 
@@ -27,7 +21,7 @@ const CityItem = ({ cityInfo }: CityItemProps) => {
 			removeSelectedCity(cityInfo.id)
 		} else {
 			console.log('selected')
-			addSelectedCity(cityInfo.id)
+			addSelectedCity(cityInfo)
 		}
 	}
 

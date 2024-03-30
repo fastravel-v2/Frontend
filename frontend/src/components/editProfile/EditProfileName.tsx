@@ -22,7 +22,7 @@ const validateNameWithoutDuplicate = (name: string): NameMessageType => {
 }
 
 interface EditProfileNameProps {
-	type: 'user' | 'travel'
+	type: 'user' | 'travelCreate' | 'travelEdit'
 	name: string
 	setName: React.Dispatch<React.SetStateAction<string>>
 	setNameStatus: React.Dispatch<React.SetStateAction<NameMessageType>>

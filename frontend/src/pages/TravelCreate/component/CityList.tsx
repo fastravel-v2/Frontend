@@ -6,7 +6,7 @@ const CityList = () => {
 	const { searchedCities } = useSearchCityStore()
 
 	return (
-		<ul className="flex flex-col gap-4">
+		<ul className="flex flex-col gap-4 ">
 			{searchedCities.length === 0 &&
 				Object.values(cityInfo).map((city) => {
 					return <CityItem key={`city-category-${city.id}`} cityInfo={city} />

@@ -31,6 +31,7 @@ const SearchHeader = ({ placeHolder, handleSearch }: HeaderProps) => {
 				<IoArrowBackOutline size="2rem" className="text-black" />
 			</button>
 			<input
+				name="searchTextInput"
 				type="text"
 				value={searchText}
 				placeholder={placeHolder}

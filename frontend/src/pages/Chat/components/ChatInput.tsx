@@ -37,7 +37,7 @@ const ChatInput: React.FC = () => {
 		document.getElementById('image-upload')!.click()
 	}
 
-  const triggerVideoInput = () => {
+	const triggerVideoInput = () => {
 		document.getElementById('media-upload')!.click()
 	}
 
@@ -58,10 +58,10 @@ const ChatInput: React.FC = () => {
 		const file = event.target.files?.[0]
 		if (file) {
 			// 비디오 파일 크기나 타입을 검사하는 로직을 여기에 추가할 수 있습니다.
-      if (file.size > 1000000) {
-        alert('비디오 파일은 1MB 이하로 제한됩니다.');
-        return; // 파일 크기가 1MB를 초과하면 여기서 함수 종료
-    }
+			if (file.size > 1000000) {
+				alert('비디오 파일은 1MB 이하로 제한됩니다.')
+				return // 파일 크기가 1MB를 초과하면 여기서 함수 종료
+			}
 			const reader = new FileReader()
 			reader.onload = () => {
 				// 파일 읽기 성공 시, 비디오 URL로 메시지 추가
@@ -73,32 +73,34 @@ const ChatInput: React.FC = () => {
 	}
 
 	return (
-		<div className="flex">
+		<div className="flex w-full">
 			<button onClick={toggleModal} className="bg-transparent border-none p-0">
 				<img
 					src={'../src/assets/mushroom.gif'}
 					alt="Open Modal"
-					className="w-8 h-8"
+					className="w-[32px] h-8"
 				/>
 			</button>
-			<input
-				type="text"
-				value={input}
-				onChange={(e) => setInput(e.target.value)}
-				onKeyDown={handleKeyDown}
-				className="border-2 border-gray-300 py-2 px-4 rounded-lg mx-2"
-				placeholder="주황버섯을 눌러 초록버섯 보기"
-			/>
-			<button
-				onClick={handleSend}
-				className="bg-blue-500 text-white px-3 rounded-lg"
-			>
-				Send
-			</button>
+			<div>
+				<input
+					type="text"
+					value={input}
+					onChange={(e) => setInput(e.target.value)}
+					onKeyDown={handleKeyDown}
+					className="border-2 border-gray-300 py-2 px-4 rounded-lg mx-2"
+					placeholder="주황버섯을 눌러 초록버섯 보기"
+				/>
+				<button
+					onClick={handleSend}
+					className="bg-blue-500 text-white px-3 rounded-lg"
+				>
+					Send
+				</button>
+			</div>
 			{isModalOpen && (
 				<ChatFunctionModal
 					onImageSend={triggerImageInput}
-          onVideoSend={triggerVideoInput}
+					onVideoSend={triggerVideoInput}
 					closeModal={closeModal}
 				/>
 			)}

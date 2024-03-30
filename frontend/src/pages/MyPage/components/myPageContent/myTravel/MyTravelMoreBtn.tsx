@@ -13,11 +13,12 @@ const MyTravelMoreBtn: React.FC<MyTravelMoreBtnProps> = () => {
 	const { travelId } = useParams()
 
 	const handleClickModifyButton = () => {
-		routeTo(`/travel/modify/${travelId}`)
+		routeTo(`/travel/edit/${travelId}`)
 	}
 
 	const handleClickDeleteButton = async () => {
 		if (!travelId) {
+			alert('travelId가 없습니다.')
 			return
 		}
 
