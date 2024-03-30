@@ -1,4 +1,3 @@
-import DefaultLayout from 'src/components/layout/DefaultLayout'
 import SearchResult from '../component/SearchResult'
 import SearchHeader from 'src/components/header/SearchHeader'
 import CitySubmit from '../component/CitySubmit'
@@ -15,14 +14,14 @@ const SelectCity = () => {
 	}
 
 	return (
-		<DefaultLayout>
+		<>
 			<SearchHeader
 				placeHolder="어디로 떠나시나요?"
 				handleSearch={handleSearch}
 			/>
 			<SearchResult />
 			{selectedCities.length > 0 ? <SelectedCitiesContainer /> : <CitySubmit />}
-		</DefaultLayout>
+		</>
 	)
 }
 

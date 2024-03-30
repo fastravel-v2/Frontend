@@ -7,6 +7,7 @@ import {
 import SelectCity from './SelectCity'
 import SelectDate from './SelectDate'
 import WriteProfile from './WriteProfile'
+import DefaultLayout from 'src/components/layout/DefaultLayout'
 
 const TravelCreate = () => {
 	const { setSelectedCities } = useSelectedCityStore()
@@ -23,7 +24,7 @@ const TravelCreate = () => {
 	}, [])
 
 	return (
-		<>
+		<DefaultLayout>
 			{pageType === 'city' ? (
 				<SelectCity />
 			) : pageType === 'date' ? (
@@ -31,7 +32,7 @@ const TravelCreate = () => {
 			) : (
 				<WriteProfile />
 			)}
-		</>
+		</DefaultLayout>
 	)
 }
 
