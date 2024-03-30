@@ -21,6 +21,7 @@ export enum NameMessageInfo {
 	'valid' = '가능한 닉네임입니다.',
 }
 
+// Todo: 이렇게 사용할 거면 여행 프로필 전용 문구도 관리하는게 좋을 것 같다.
 export enum TravelNameMessageInfo {}
 
 interface EditProfileProps {
@@ -53,7 +54,7 @@ const EditProfile = ({
 	}, [profileName])
 
 	const setAdditionalTravelInfo = (formData: FormData) => {
-		formData.append('startDate', startDate.toISOString())
+		formData.append('startDate', startDate ? startDate.toISOString() : '')
 		formData.append('endDate', endDate ? endDate.toISOString() : '')
 		formData.append(
 			'cities',
