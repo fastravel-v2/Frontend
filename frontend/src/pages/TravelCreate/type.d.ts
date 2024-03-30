@@ -11,6 +11,6 @@ interface TravelInfo {
 	profileName: string
 	profileImage: string | null
 	startDate: string
-	endDate: string
+	endDate: string | null
 	cities: CityItemInfo[]
 }
