@@ -3,7 +3,7 @@ import CitySubmit from './CitySubmit'
 import SelectedCityItem from './SelectedCityItem'
 
 // Todo : UI CSS 개선 필요
-// - ul tag의 gap 값을 직접 계산하는 방식이 아니라 이쁘게 디자인을 하는 방향으로 접근해야한다.
+// Todo : ul tag의 gap 값을 직접 계산하는 방식이 아니라 이쁘게 디자인을 하는 방향으로 접근해야한다.
 const SelectedCitiesContainer = () => {
 	const { selectedCities } = useSelectedCityStore()
 
