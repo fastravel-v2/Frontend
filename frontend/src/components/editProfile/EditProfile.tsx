@@ -5,11 +5,16 @@ import { useRouter } from 'src/hooks/useRouter'
 import NameMessage from './NameMessage'
 import EditProfileSubmit from './EditProfileSubmit'
 import { NameMessageType, TravelMessageType } from '../../pages/MyPage/type'
-import { putTravelProfile, putUserProfile } from '../../pages/MyPage/api'
 import {
 	useSelectedCityStore,
 	useTravelDateStore,
 } from 'src/pages/TravelCreate/store'
+import {
+	putTravelProfileCreate,
+	putTravelProfileEdit,
+} from 'src/pages/TravelCreate/api'
+import { putUserProfile } from 'src/pages/MyPage/api'
+import { useParams } from 'react-router-dom'
 
 export enum NameMessageInfo {
 	'initial' = '',
@@ -25,13 +30,13 @@ export enum NameMessageInfo {
 export enum TravelNameMessageInfo {}
 
 interface EditProfileProps {
-	type: 'user' | 'travel'
+	type: 'user' | 'travelCreate' | 'travelEdit'
 	profileName: string
 	profileImage: string | null
 	isLoading: boolean
 }
 
-// Todo: 여행 생성, 사용자 프로필 수정 페이지에서 사용되는데 컴포넌트의 재사용성이 여기에만 국한된 거 같아서 분리해서 사용하는 방법을 찾아보기
+// Todo: 여행 생성, 여행 수정, 사용자 프로필 수정 페이지에서 사용되는데 컴포넌트의 재사용성이 여기에만 국한된 거 같아서 분리해서 사용하는 방법을 찾아보기
 const EditProfile = ({
 	type,
 	profileName,
@@ -44,8 +49,11 @@ const EditProfile = ({
 	const [nameStatus, setNameStatus] = useState<
 		NameMessageType | TravelMessageType
 	>('initial')
+
+	// For travel profile
 	const { startDate, endDate } = useTravelDateStore()
 	const { selectedCities } = useSelectedCityStore()
+	const { travelId } = useParams()
 
 	useEffect(() => {
 		if (profileName) {
@@ -68,8 +76,8 @@ const EditProfile = ({
 
 		// make formdata &&  select api function
 		const profileFormData = new FormData(event.currentTarget)
-		type === 'travel' && setAdditionalTravelInfo(profileFormData)
-		const putProfile = type === 'user' ? putUserProfile : putTravelProfile
+		type === 'travelCreate' ||
+			(type === 'travelEdit' && setAdditionalTravelInfo(profileFormData))
 
 		// :: Check formdata
 		// console.log(profileFormData.get('profile-name'))
@@ -78,8 +86,20 @@ const EditProfile = ({
 		// console.log(profileFormData.get('endDate'))
 		// console.log(profileFormData.get('cities'))
 
-		const editRes = await putProfile(profileFormData)
-		if (editRes === 'success') {
+		// api call
+		let profileApiRes
+		if (type === 'user') {
+			profileApiRes = await putUserProfile(profileFormData)
+		} else if (type === 'travelCreate') {
+			profileApiRes = await putTravelProfileCreate(profileFormData)
+		} else if (travelId) {
+			profileApiRes = await putTravelProfileEdit(
+				profileFormData,
+				parseInt(travelId)
+			)
+		}
+
+		if (profileApiRes === 'success') {
 			goBack()
 		}
 	}

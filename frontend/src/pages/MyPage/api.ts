@@ -1,8 +1,9 @@
 // import { tokenInstance } from 'src/utility/apis/axios'
-import { tokenInstance, tokenMultipartInstance } from 'src/utility/apis/axios'
+import { tokenInstance } from 'src/utility/apis/axios'
 import { LikeLocation, MyTravel } from './type'
 // import { tokenMultipartInstance } from 'src/utility/apis/axios'
 import { NameMessageType } from './type'
+import axios from 'axios'
 
 // const dummyData = {
 // 	data: [
@@ -51,15 +52,6 @@ export const getMyTravel = async (): Promise<MyTravel[]> => {
 	// return new Promise((resolve) => {
 	// 	resolve(dummyData.data)
 	// })
-}
-
-// TODO: API 연결할 때는 매개변수로 travelId를 받아서 해당 여행을 삭제하도록 수정
-export const deleteMyTravel = async (
-	travelId: string
-): Promise<'success' | 'fail'> => {
-	// :: after api is ready
-	const deleteRes = await tokenInstance.delete(`/travel/list?id=${travelId}`)
-	return deleteRes.data
 }
 
 // const dummyLikeData = {
@@ -140,15 +132,23 @@ export const putUserProfile = async (
 	return 'success'
 }
 
-export const putTravelProfile = async (
-	profileFormData: FormData
+export const deleteMyTravel = async (
+	travelId: string
 ): Promise<'success' | 'fail'> => {
-	const editRes = await tokenMultipartInstance.put(
-		'core/travel/create',
-		profileFormData
-	)
+	// :: For production api
+	// const deleteRes = await tokenInstance.delete(
+	// 	'core/travel/create',
+	// )
 
-	return editRes.data
+	// :: For development api
+	const deleteRes = await axios.delete(`core/travel/delete?id=${travelId}`, {
+		headers: {
+			'Content-Type': 'application/json',
+			withCredentials: true,
+		},
+	})
+
+	return deleteRes.data
 }
 
 export const putMemoSave = async (
