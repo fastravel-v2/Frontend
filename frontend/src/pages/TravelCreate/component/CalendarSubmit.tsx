@@ -15,7 +15,7 @@ const CalendarSubmit = () => {
 			<button
 				onClick={handleClickNextPage}
 				disabled={isDisable}
-				className={`fixed bottom-0 w-full text-white text-lg font-bold border-[1px] py-4 rounded-[5px] bg-green1 ${
+				className={`fixed bottom-4 w-[calc(100%-40px)] mx-5 left-0 text-white text-lg font-bold border-[1px] py-4 rounded-[5px] bg-green1 ${
 					isDisable && 'bg-green5 cursor-not-allowed'
 				} transition-colors`}
 			>
