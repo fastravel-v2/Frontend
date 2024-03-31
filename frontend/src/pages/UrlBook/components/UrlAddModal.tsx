@@ -5,7 +5,7 @@ import React, {
 	ChangeEvent,
 	KeyboardEvent,
 } from 'react'
-import { useAddUrl } from '../hooks/useAddUrl'
+import { useUrlAdd } from '../hooks/useUrlAdd'
 
 interface UrlAddModalProps {
 	doCloseModal: () => void
@@ -15,7 +15,7 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 	const [url, setUrl] = useState<string>('')
 	const [isInvalidUrl, setIsInvalidUrl] = useState<boolean>(false)
 	const urlInputRef = useRef<HTMLTextAreaElement>(null)
-	const mutation = useAddUrl()
+	const mutation = useUrlAdd()
 
 	useEffect(() => {
 		urlInputRef.current?.focus()
@@ -89,8 +89,8 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 						<div className="items-center px-4 py-3">
 							<button
 								className="px-4 py-2 bg-green4 text-white text-base 
-                  font-medium rounded-md w-full shadow-sm hover:bg-green2 
-                  focus:outline-none focus:ring-2 focus:ring-blue-300"
+									font-medium rounded-md w-full shadow-sm hover:bg-green2 
+									focus:outline-none focus:ring-2 focus:ring-blue-300"
 								onClick={handleSubmit}
 							>
 								Add
@@ -99,8 +99,8 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 						<div className="items-center px-4 py-3">
 							<button
 								className="px-4 py-2 bg-darkGray4 text-base 
-                font-medium rounded-md w-full shadow-sm hover:bg-darkGray1
-                focus:outline-none focus:ring-2 focus:ring-blue-300"
+									font-medium rounded-md w-full shadow-sm hover:bg-darkGray1
+									focus:outline-none focus:ring-2 focus:ring-blue-300"
 								onClick={doCloseModal}
 							>
 								Cancel

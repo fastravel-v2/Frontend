@@ -16,7 +16,6 @@ const IUrlItemWithIndex: React.FC<IUrlItemWithIndex> = ({
 	status,
 }) => {
 	const [details, setDetails] = React.useState<IUrlItem | null>(null)
-	// const checked = useUrlStore((state) => state.urls[index].checked) // Store의 checked 상태 가져오기
 	const toggleCheck = useUrlStore((state) => state.toggleCheck)
 
 	useEffect(() => {

@@ -5,6 +5,7 @@ const UrlUpdater = () => {
 	const addCompletedUrl = useUrlStore((state) => state.addCompletedUrl)
 
 	useEffect(() => {
+		//수정: 서버 SSE 엔드포인트 URL 입력
 		const eventSource = new EventSource('서버의 SSE 엔드포인트 URL')
 
 		eventSource.onmessage = (event) => {

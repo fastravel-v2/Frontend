@@ -1,21 +1,23 @@
-// src/pages/UrlBook/components/UrlResultDummy.tsx
-
-
 import { useEffect, useState } from 'react'
-import {
-	fetchUrlResults,
-	UrlDummyResult,
-} from 'src/pages/UrlBook/dummyData/urlDummyResult'
+import { fetchUrlResults } from '../dummyData/urlDummyResult'
 import { Link } from 'react-router-dom'
-import PlaceSection from 'src/components/PlaceSection'// PlaceSection 컴포넌트를 임포트합니다.
+// 얘는 title 들어간걸로 가져와야 더미로 테스트하지..
+import { IDummyPlaceSectionProps } from '../dummyData/urlDummyResult'
+import PlaceSection from 'src/components/PlaceSection'
+
+
 
 const UrlResultDummy = () => {
-	const [urlData, setUrlData] = useState<UrlDummyResult | null>(null)
+	const [urlData, setUrlData] = useState<IDummyPlaceSectionProps[] | null>(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const data = await fetchUrlResults()
-			setUrlData(data)
+			try {
+				const data = await fetchUrlResults() // 수정된 fetchUrlResults 함수 호출
+				setUrlData(data)
+			} catch (error) {
+				console.error('Error fetching URL results:', error)
+			}
 		}
 		fetchData()
 	}, [])
@@ -29,10 +31,16 @@ const UrlResultDummy = () => {
 						Back To Url
 					</Link>
 				</div>
-				{urlData &&
-					Object.entries(urlData).map(([urlKey, places]) => (
-						<PlaceSection key={urlKey} urlKey={urlKey} places={places} />
-					))}
+				<div>
+					{/* 각 URL 섹션의 제목을 출력하고 해당 섹션에 대한 장소를 나열합니다 */}
+					{urlData &&
+						urlData.map((section, index) => (
+							<div key={index}>
+								<h1 className='mb-2'>{section.title}</h1>
+								<PlaceSection places={section.places} />
+							</div>
+						))}
+				</div>
 			</div>
 		</div>
 	)
