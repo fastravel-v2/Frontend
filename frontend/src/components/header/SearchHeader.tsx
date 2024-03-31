@@ -21,8 +21,9 @@ const SearchHeader = ({ placeHolder, handleSearch }: HeaderProps) => {
 		goBack()
 	}
 	const handleChangeInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchText(e.target.value)
-		await handleSearch(searchText)
+		const inputText = e.currentTarget.value
+		setSearchText(inputText)
+		await handleSearch(inputText)
 	}
 
 	return (
