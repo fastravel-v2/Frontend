@@ -1,10 +1,11 @@
 import React from 'react'
 import Lottie from 'react-lottie'
 import { travelBusOptions } from 'src/assets/lottie/LottieOptions'
-import { useCheckedUrlsLogger, useUrlStore } from '../store'
+import { useUrlStore } from '../store'
 import UrlItem from './UrlItem'
 import { IUrlItem } from '../types'
 import useFetchUrlList from '../hooks/useFetchUrlList'
+import { useCheckedUrlsLogger } from '../hooks/useCheckedUrlsLoger'
 
 
 const UrlList: React.FC = () => {
