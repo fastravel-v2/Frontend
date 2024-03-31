@@ -1,5 +1,4 @@
-// import { IMenu, IMenuFunc } from 'src/types/layout'
-import { useState } from 'react'
+import { debounce } from 'lodash'
 import { useRouter } from 'src/hooks/useRouter'
 import { IoArrowBackOutline } from 'react-icons/io5'
 
@@ -7,14 +6,25 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 // - DefaultHeader.tsx에서 검색 기능을 추가로 수행하는 Header 컴포넌트
 // - 현재 검색어를 관리
 // - 전역 저장소를 props로 전달 받아 검색 결과를 전역으로 저장해주는 역할을 수행한다.
+
+// Todo: handleSearch props 이름을 storeSearchedData로 변경하기
 export interface HeaderProps {
 	placeHolder: string
+	setSearchText: (text: string) => void
 	handleSearch: (searchText: string) => Promise<void>
 }
 
-const SearchHeader = ({ placeHolder, handleSearch }: HeaderProps) => {
-	const [searchText, setSearchText] = useState('')
+const SearchHeader = ({
+	placeHolder,
+	setSearchText,
+	handleSearch,
+}: HeaderProps) => {
 	const { goBack } = useRouter()
+
+	// :: Functions
+	const StoreSearchedResultWithDebounce = debounce(async (text: string) => {
+		await handleSearch(text)
+	}, 500)
 
 	// :: Event Handlers
 	const handleGoBack = () => {
@@ -23,7 +33,7 @@ const SearchHeader = ({ placeHolder, handleSearch }: HeaderProps) => {
 	const handleChangeInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const inputText = e.currentTarget.value
 		setSearchText(inputText)
-		await handleSearch(inputText)
+		StoreSearchedResultWithDebounce(inputText)
 	}
 
 	return (
@@ -34,7 +44,6 @@ const SearchHeader = ({ placeHolder, handleSearch }: HeaderProps) => {
 			<input
 				name="searchTextInput"
 				type="text"
-				value={searchText}
 				placeholder={placeHolder}
 				onChange={handleChangeInput}
 				className="w-full py-2 font-medium focus:outline-none text-darkGray2"
