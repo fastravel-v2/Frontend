@@ -93,7 +93,7 @@ const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
                         <span className="text-sm font-semibold mr-2">day {visibleDay ? visibleDay : currentDay}</span>
                         <select 
                             className="text-xs font-semibold text-darkGray1"
-                            defaultValue={selectedDate}
+                            value={selectedDate}
                             
                             onChange={handleDateChange}
                         >
