@@ -111,7 +111,7 @@ const routerData: RouterElement[] = [
 	},
 	{
 		path: '/urlbook/result',
-		element: <UrlResult/>,
+		element: <UrlResult />,
 		label: 'urlBook',
 	},
 	{

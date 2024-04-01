@@ -44,9 +44,21 @@ import axios from 'axios'
 
 // export const getMyTravel = async () => {
 export const getMyTravel = async (): Promise<MyTravel[]> => {
-	// :: after api is ready
-	const myTravelRes = await tokenInstance.get('travel/list')
-	console.log(myTravelRes.data)
+	// :: For production api
+	// const myTravelRes = await tokenInstance.get('/core/travel/list')
+
+	// :: For development api
+	const myTravelRes = await axios.get(
+		`${import.meta.env.VITE_CORE_BASE_URL}/travel/list`,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
+
 	return myTravelRes.data
 
 	// return new Promise((resolve) => {
@@ -136,18 +148,19 @@ export const deleteMyTravel = async (
 	travelId: string
 ): Promise<'success' | 'fail'> => {
 	// :: For production api
-	// const deleteRes = await tokenInstance.delete(
-	// 	'core/travel/create',
-	// )
+	// const deleteRes = await tokenInstance.delete(`core/travel?planId=${travelId}`)
 
 	// :: For development api
-	const deleteRes = await axios.delete(`core/travel/delete?id=${travelId}`, {
-		headers: {
-			'Content-Type': 'application/json',
-			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
-		},
-		withCredentials: true,
-	})
+	const deleteRes = await axios.delete(
+		`${import.meta.env.VITE_CORE_BASE_URL}/travel?planId=${travelId}`,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
 
 	return deleteRes.data
 }

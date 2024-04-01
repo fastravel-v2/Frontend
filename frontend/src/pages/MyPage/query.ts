@@ -21,7 +21,7 @@ export const useMyTravelListQuery = () => {
 export const useDeleteTravelMutation = () => {
 	const queryClient = useQueryClient() // React Query Client 인스턴스를 가져옴
 
-	const { mutate, status } = useMutation({
+	const deleteTravelMutation = useMutation({
 		mutationFn: deleteMyTravel,
 		onSuccess: () => {
 			// 'myTravel' 쿼리 키로 캐시된 데이터를 무효화하여, 삭제 후 목록을 갱신
@@ -29,7 +29,7 @@ export const useDeleteTravelMutation = () => {
 		},
 	})
 
-	return { mutate, status }
+	return deleteTravelMutation
 }
 
 export const useLikeLocationListQuery = () => {
