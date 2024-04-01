@@ -6,6 +6,7 @@ import React, {
 	KeyboardEvent,
 } from 'react'
 import { useUrlAdd } from '../hooks/useUrlAdd'
+import useUrlBook from '../hooks/useUrlBook'
 
 interface UrlAddModalProps {
 	doCloseModal: () => void
@@ -16,6 +17,7 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 	const [isInvalidUrl, setIsInvalidUrl] = useState<boolean>(false)
 	const urlInputRef = useRef<HTMLTextAreaElement>(null)
 	const mutation = useUrlAdd()
+	const { unSelectAllUrls } = useUrlBook()
 
 	useEffect(() => {
 		urlInputRef.current?.focus()
@@ -39,6 +41,15 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 		if (isValidUrl(formattedUrl)) {
 			mutation.mutate(formattedUrl)
 			doCloseModal()
+			unSelectAllUrls()
+			const checkboxes = document.querySelectorAll<HTMLInputElement>(
+				'input[type="checkbox"]'
+			)
+			checkboxes.forEach((checkbox) => {
+				checkbox.checked = false
+			})
+
+
 		} else {
 			setIsInvalidUrl(true)
 		}

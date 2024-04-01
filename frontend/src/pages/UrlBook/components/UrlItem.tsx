@@ -5,6 +5,8 @@ import { IUrlItem } from '../types'
 import { useUrlStore } from '../store'
 import { fetchUrlInfo } from '../api'
 import useSingleUrlDelete from '../hooks/useSingleUrlDelete'
+import { loadingPlaneOption } from 'src/assets/lottie/LottieOptions'
+import Lottie from 'react-lottie'
 
 interface IUrlItemWithIndex extends IUrlItem {
 	index: number // index는 더 이상 사용하지 않으므로 제거해도 좋습니다.
@@ -16,7 +18,6 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({
 	url_id,
 	status,
 }) => {
-  
 	const [details, setDetails] = React.useState<IUrlItem | null>(null)
 	// toggleCheck를 포함한 여러 상태와 액션을 한 번에 추출합니다.
 	const { toggleCheck, sendingUrls } = useUrlStore((state) => ({
@@ -47,9 +48,8 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({
 		toggleCheck(url_id) // 변경된 toggleCheck 함수 사용
 	}
 
-  const { handleDelete } = useSingleUrlDelete();
-  const onClickDelete = () => handleDelete(url_id);
-
+	const { handleDelete } = useSingleUrlDelete()
+	const onClickDelete = () => handleDelete(url_id)
 
 	return (
 		<div className="flex items-center px-3 py-1 bg-white rounded shadow mb-2">
@@ -61,7 +61,10 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({
 					className="form-checkbox h-5 w-5 mr-2 text-blue-600"
 				/>
 			)}
-			{isSending && <span className="mr-2">전송 중...</span>}
+
+			{isSending && (
+				<Lottie options={loadingPlaneOption} height={60} width={60} />
+			)}
 			{/* Thumbnail */}
 			{details && (
 				<img
@@ -70,7 +73,7 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({
 						(e.currentTarget.src = '../src/assets/mushroom-green.gif')
 					}
 					alt="URL thumbnail"
-					className="w-16 h-16 rounded"
+					className="w-16 h-16 rounded ml-2"
 				/>
 			)}
 
