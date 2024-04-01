@@ -8,6 +8,7 @@ const useFetchUrlList = () => {
     const { data, isLoading, isError } = useQuery<IUrlItem[], Error>({
         queryKey: ['urls'],
         queryFn: fetchUrlList,
+        
     });
 
     return { data, isLoading, isError };

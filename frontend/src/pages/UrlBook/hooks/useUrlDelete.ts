@@ -21,7 +21,6 @@ const useUrlDelete = () => {
                 await mutation.mutateAsync(url.url_id);
             } catch (error) {
                 console.error('Error deleting URL:', error);
-                // 에러 처리 로직 추가
             }
         });
 

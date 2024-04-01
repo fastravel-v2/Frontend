@@ -1,0 +1,1 @@
+//src/pages/Main/types.ts

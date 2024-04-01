@@ -1,27 +1,35 @@
-// src/pages/UrlBook/components/UrlItem.tsx
+//src/pages/UrlBook/components/UrlItem.tsx
+
 import React, { useEffect } from 'react'
 import { IUrlItem } from '../types'
 import { useUrlStore } from '../store'
 import { fetchUrlInfo } from '../api'
+import useSingleUrlDelete from '../hooks/useSingleUrlDelete'
 
 interface IUrlItemWithIndex extends IUrlItem {
-	index: number
+	index: number // index는 더 이상 사용하지 않으므로 제거해도 좋습니다.
 }
 
-const IUrlItemWithIndex: React.FC<IUrlItemWithIndex> = ({
-	index,
+const UrlItem: React.FC<IUrlItemWithIndex> = ({
 	url,
 	checked,
 	url_id,
 	status,
 }) => {
+  
 	const [details, setDetails] = React.useState<IUrlItem | null>(null)
-	const toggleCheck = useUrlStore((state) => state.toggleCheck)
+	// toggleCheck를 포함한 여러 상태와 액션을 한 번에 추출합니다.
+	const { toggleCheck, sendingUrls } = useUrlStore((state) => ({
+		toggleCheck: state.toggleCheck,
+		sendingUrls: state.sendingUrls,
+		removeUrl: state.removeUrl, // 상태 업데이트를 위한 removeUrl 액션
+	}))
+	const isSending = sendingUrls.includes(url_id)
 
 	useEffect(() => {
 		const fetchData = async () => {
 			const data = await fetchUrlInfo(url_id)
-			console.log(data)
+			console.log(data) // 개발 단계에서 확인용 로그, 실제 배포 시에는 제거하는 것이 좋습니다.
 			setDetails(data)
 		}
 		fetchData()
@@ -30,18 +38,22 @@ const IUrlItemWithIndex: React.FC<IUrlItemWithIndex> = ({
 	const handleTitleClick = (
 		e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
 	) => {
-		e.preventDefault() // 기본 이벤트를 막습니다.
+		e.preventDefault()
 		window.open(url, '_blank')
 	}
 
+	// 인덱스 대신 url_id를 사용합니다.
 	const handleCheckboxChange = () => {
-		toggleCheck(index) // 체크박스 상태를 변경합니다.
+		toggleCheck(url_id) // 변경된 toggleCheck 함수 사용
 	}
+
+  const { handleDelete } = useSingleUrlDelete();
+  const onClickDelete = () => handleDelete(url_id);
+
 
 	return (
 		<div className="flex items-center px-3 py-1 bg-white rounded shadow mb-2">
-			{/* status가 true일 때만 체크박스를 표시 */}
-			{!status && (
+			{!status && !isSending && (
 				<input
 					type="checkbox"
 					checked={checked}
@@ -49,6 +61,7 @@ const IUrlItemWithIndex: React.FC<IUrlItemWithIndex> = ({
 					className="form-checkbox h-5 w-5 mr-2 text-blue-600"
 				/>
 			)}
+			{isSending && <span className="mr-2">전송 중...</span>}
 			{/* Thumbnail */}
 			{details && (
 				<img
@@ -70,12 +83,21 @@ const IUrlItemWithIndex: React.FC<IUrlItemWithIndex> = ({
 				>
 					{details ? details.title : 'Loading...'}
 				</a>
-				<span className="text-sm text-gray-500 line-clamp-2">
+				<span className="text-sm text-gray-500 line-clamp-1">
 					{details ? details.description : 'Loading...'}
 				</span>
 			</div>
+
+			{status === true && (
+				<button
+					onClick={onClickDelete}
+					className="ml-auto font-bold py-1 px-2 rounded"
+				>
+					🗑️
+				</button>
+			)}
 		</div>
 	)
 }
 
-export default IUrlItemWithIndex
+export default UrlItem

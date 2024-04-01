@@ -1,11 +1,11 @@
 import React from 'react'
 import useUrlBook from '../hooks/useUrlBook'
 
-const UnselectAllButton: React.FC = () => {
-	const { selectAllUrls } = useUrlBook()
+const SelectAllPendingButton: React.FC = () => {
+	const { selectAllPendingUrls } = useUrlBook()
 
 	const handleSelectAllButtonClick = () => {
-		selectAllUrls()
+		selectAllPendingUrls()
 		const checkboxes = document.querySelectorAll<HTMLInputElement>(
 			'input[type="checkbox"]'
 		)
@@ -15,7 +15,7 @@ const UnselectAllButton: React.FC = () => {
 	}
 	return (
 		<button
-			className="font-bold py-2 px-4 rounded text-darkGray"
+			className="px-4 text-darkGray1 font-bold rounded"
 			onClick={handleSelectAllButtonClick}
 		>
 			전체 선택
@@ -23,4 +23,4 @@ const UnselectAllButton: React.FC = () => {
 	)
 }
 
-export default UnselectAllButton
+export default SelectAllPendingButton

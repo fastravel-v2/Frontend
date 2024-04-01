@@ -1,0 +1,1 @@
+//src/pages/Main/store.ts
