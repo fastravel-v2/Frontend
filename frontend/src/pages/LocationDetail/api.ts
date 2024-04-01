@@ -1,27 +1,34 @@
-// import { instance } from "src/utility/apis/axios";
-import axios from 'axios'
+import { instance } from "src/utility/apis/axios";
+// import axios from 'axios'
 import { LocationDetailType } from './type'
+
+interface IPlaceInfo {
+	spot_id: string
+	image_url: string
+	name: string
+	address: string
+}
 
 export const getLocationDetail = async (
 	id: string
 ): Promise<LocationDetailType> => {
 	// api
-	// const locationDetail = await instance.get(`location/${id}`)
-	// return locationDetail.data
-	try {
-		const response = await axios.get(
-			`https://j10d204.p.ssafy.io/api/core/spot/${id}`,
-			{
-				headers: {
-					INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
-				},
-			}
-		)
-		return response.data
-	} catch (error) {
-		console.error('error', error)
-		throw error
-	}
-	// console.log(id)
-	// return dummyData.data
+	const locationDetail = await instance.get(`spot/${id}`)
+	return locationDetail.data
+}
+
+export const getRecommendationGlobal = async (
+	id: string
+): Promise<IPlaceInfo[]> => {
+	const RecommendationGlobal = await instance.get(`recommendation/${id}/global`)
+	return RecommendationGlobal.data
+	
+}
+
+export const getRecommendationLocal = async (
+	id: string
+): Promise<IPlaceInfo[]> => {
+	const RecommendationLocal = await instance.get(`recommendation/${id}/local`)
+	return RecommendationLocal.data
+	
 }

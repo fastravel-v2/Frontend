@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { IMenu, IMenuFunc } from "src/types/layout"
-import { getLocationDetail } from "./api"
+import { getLocationDetail, getRecommendationGlobal, getRecommendationLocal } from "./api"
 import { LocationDetailType } from "./type"
 import WithHeaderLayout from "src/components/layout/WithHeaderLayout"
 import Header from "./components/Header"
@@ -13,16 +13,30 @@ import Properties from "./components/Properties"
 import MapComponent from "./components/MapComponent"
 import { FaArrowLeft } from "react-icons/fa6";
 import { useRouter } from "src/hooks/useRouter"
+import PlaceSection from "src/components/PlaceSection"
+
+interface IPlaceInfo {
+	spot_id: string
+	image_url: string
+	name: string
+	address: string
+}
 
 const LocationDetail = () => {
   const [locationData, setLocationData] = useState<LocationDetailType | undefined>(undefined)
+  const [recommendLocal, setRecommendLocal] = useState<IPlaceInfo[]>([])
+  const [recommendGlobal, setRecommendGlobal] = useState<IPlaceInfo[]>([])
   const {id} = useParams()
   const router = useRouter()
 
   const refetch = async () => {
     if (id) {
       const fetchedData = await getLocationDetail(id)
+      const fetchRecommendLocal = await getRecommendationLocal(id)
+      const fetchRecommendGlobal = await getRecommendationGlobal(id)
       setLocationData(fetchedData)
+      setRecommendLocal(fetchRecommendLocal)
+      setRecommendGlobal(fetchRecommendGlobal)
     }
   }
 
@@ -72,6 +86,14 @@ const LocationDetail = () => {
       <Description description={locationData.description} />
       <MapComponent lat={Number(locationData.lat)} long={Number(locationData.long)}/>
       <Properties properties={properties}/>
+      <div className="mt-4">
+        <h3 className="text-lg font-bold text-black mb-3">{locationData.name} 근처의 추천 장소</h3>
+        <PlaceSection places={recommendLocal} />
+      </div>
+      <div className="mt-4 mb-8">
+      <h3 className="text-lg font-bold text-black mb-3">{locationData.name}와/과 유사한 장소</h3>
+        <PlaceSection places={recommendGlobal} />
+      </div>
     </WithHeaderLayout>
   )
 }
