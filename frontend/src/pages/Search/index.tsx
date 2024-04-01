@@ -12,7 +12,7 @@ const Search = () => {
 	const { setSearchText } = useSearchLocationTextStore()
 
 	// :: Event Handlers
-	const handleSearch = useCallback(
+	const storeSearchedData = useCallback(
 		async (searchText: string) => {
 			const searchResult = await getSearchedLocation(searchText)
 			console.log(searchText, searchResult)
@@ -26,7 +26,7 @@ const Search = () => {
 			<SearchHeader
 				placeHolder="여행지를 검색해주세요."
 				setSearchText={setSearchText}
-				handleSearch={handleSearch}
+				storeSearchedData={storeSearchedData}
 			/>
 		</DefaultLayout>
 	)

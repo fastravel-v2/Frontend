@@ -9,7 +9,7 @@ const SelectCity = () => {
 	const { setSearchCityText } = useSearchCityTextStore()
 
 	// Todo: 도시 검색 함수 구현을 이용하고 검색 결과 가져오기
-	const handleSearch = async (searchText: string) => {
+	const storeSearchedData = async (searchText: string) => {
 		console.log(searchText)
 	}
 
@@ -18,7 +18,7 @@ const SelectCity = () => {
 			<SearchHeader
 				placeHolder="어디로 떠나시나요?"
 				setSearchText={setSearchCityText}
-				handleSearch={handleSearch}
+				storeSearchedData={storeSearchedData}
 			/>
 			<SearchResult />
 			{selectedCities.length > 0 ? <SelectedCitiesContainer /> : <CitySubmit />}

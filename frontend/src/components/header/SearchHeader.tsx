@@ -11,19 +11,19 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 export interface HeaderProps {
 	placeHolder: string
 	setSearchText: (text: string) => void
-	handleSearch: (searchText: string) => Promise<void>
+	storeSearchedData: (searchText: string) => Promise<void>
 }
 
 const SearchHeader = ({
 	placeHolder,
 	setSearchText,
-	handleSearch,
+	storeSearchedData,
 }: HeaderProps) => {
 	const { goBack } = useRouter()
 
 	// :: Functions
 	const StoreSearchedResultWithDebounce = debounce(async (text: string) => {
-		await handleSearch(text)
+		await storeSearchedData(text)
 	}, 500)
 
 	// :: Event Handlers
