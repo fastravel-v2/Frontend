@@ -22,7 +22,7 @@ export const getTravelInfo = async ({
 	return travelInfoRes.data
 }
 
-export const putTravelProfileCreate = async (
+export const postTravelProfileCreate = async (
 	profileFormData: FormData
 ): Promise<'success' | 'fail'> => {
 	// :: For production api
@@ -32,13 +32,17 @@ export const putTravelProfileCreate = async (
 	// )
 
 	// :: For development api
-	const createRes = await axios.put(`core/travel/create`, profileFormData, {
-		headers: {
-			'Content-Type': 'multipart/form-data',
-			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
-		},
-		withCredentials: true,
-	})
+	const createRes = await axios.post(
+		`${import.meta.env.VITE_CORE_BASE_URL}/travel`,
+		profileFormData,
+		{
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
 
 	return createRes.data
 }
