@@ -1,11 +1,10 @@
 interface HeaderProps {
     headerInfo: {
         name: string;
-        profileImage: string;
+        profileImage: string | null;
         startDate: string;
         endDate: string;
-        travelTags: string[];
-        cities: string[];
+        cities: number[];
     }
 }
 
@@ -16,12 +15,6 @@ const Header = ({headerInfo}: HeaderProps) => {
             <div>
                 <div className="text-xl font-bold mb-2">{headerInfo.name}</div>
                 <div className="text-xs text-darkGray3 mb-2">{headerInfo.startDate} ~ {headerInfo.endDate}</div>
-                <div className="text-xs text-darkGray3 mb-2">{headerInfo.travelTags.map((tag, index) => (
-                    <span key={index}>
-                        {tag}
-                        {index !== headerInfo.travelTags.length - 1 && ' | '}
-                    </span>
-                ))}</div>
                 <button className="px-3 py-1.5 rounded-full text-xs font-semibold bg-green1 text-white"> + 친구 초대</button>
             </div>
             <div className="mt-1 mr-1">

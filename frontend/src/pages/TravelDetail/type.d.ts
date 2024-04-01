@@ -2,11 +2,10 @@ export interface ITravelDetail {
     id: string;
     info: {
         name: string;
-        profileImage: string;
+        profileImage: string | null;
         startDate: string;
         endDate: string;
-        travelTags: string[];
-        cities: string[];
+        cities: number[];
     }
     plan: IPlan;
 }
@@ -20,7 +19,7 @@ export interface IPlan {
 interface IPlace {
     id: string;
     name: string;
-    category: string[];
+    category: number[];
     lat: string;
     long: string;
 }
