@@ -6,9 +6,11 @@ import {
 	useSearchLocationTextStore,
 } from './store'
 import { useCallback } from 'react'
+import NoSearchResult from './component/NoSearchResult'
+import SearchResultItem from './component/SearchResultItem'
 
 const Search = () => {
-	const { setSearchResult } = useSearchLocationResultStore()
+	const { searchResult, setSearchResult } = useSearchLocationResultStore()
 	const { setSearchText } = useSearchLocationTextStore()
 
 	// :: Event Handlers
@@ -28,6 +30,13 @@ const Search = () => {
 				setSearchText={setSearchText}
 				storeSearchedData={storeSearchedData}
 			/>
+			{searchResult.length === 0 ? (
+				<NoSearchResult />
+			) : (
+				<div className="pt-16">
+					<SearchResultItem resultItem={searchResult[0]} />
+				</div>
+			)}
 		</DefaultLayout>
 	)
 }
