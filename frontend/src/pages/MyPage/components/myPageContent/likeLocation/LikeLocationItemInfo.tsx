@@ -15,13 +15,10 @@ const LikeLocationItemInfo = ({ locationInfo }: ILikeLocationItemInfoProps) => {
 				<LocationIcon className="inline-block w-4 mr-[2px]" />
 				<span>{locationInfo.locationAddress}</span>
 			</p>
-			{locationInfo.locationMemo ? (
-				<p className="text-[10px] font-light text-darkGray1 truncate">
-					{locationInfo.locationMemo}
-				</p>
-			) : (
-				<MemoButton locationId={locationInfo.locationId} />
-			)}
+			<MemoButton
+				locationId={locationInfo.locationId}
+				locationMemo={locationInfo.locationMemo}
+			/>
 			<LikeButton locationId={locationInfo.locationId} />
 		</div>
 	)

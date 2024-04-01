@@ -1,6 +1,5 @@
 // import { tokenInstance } from 'src/utility/apis/axios'
-import { tokenInstance } from 'src/utility/apis/axios'
-import { LikeLocation, MyTravel } from './type'
+import { LikeLocationItemRes, MyTravel } from './type'
 // import { tokenMultipartInstance } from 'src/utility/apis/axios'
 import { NameMessageType } from './type'
 import axios from 'axios'
@@ -113,16 +112,6 @@ export const getMyTravel = async (): Promise<MyTravel[]> => {
 // 	],
 // }
 
-export const getLikeLocation = async (): Promise<LikeLocation[]> => {
-	// :: after api is ready
-	const myLikeRes = await tokenInstance.get('travel/like/list')
-	return myLikeRes.data
-
-	// return new Promise((resolve) => {
-	// 	resolve(dummyLikeData.data)
-	// })
-}
-
 export const getNameIsDuplicated = async (
 	name: string
 ): Promise<NameMessageType> => {
@@ -165,33 +154,81 @@ export const deleteMyTravel = async (
 	return deleteRes.data
 }
 
-export const putMemoSave = async (
-	locationId: number,
-	memoText: string
-): Promise<'success' | 'fail'> => {
-	// const editRes = await tokenInstance.put(`/user/like/memo/${locationId}`, { memoText })
-	// return editRes.data
+// :: Like location
+export const getLikeLocation = async (): Promise<LikeLocationItemRes[]> => {
+	// :: For production api
+	// const myLikeRes = await tokenInstance.get('/core/travel/like/list')
 
-	console.log(locationId, memoText)
-	return 'success'
-}
+	// :: For development api
+	const myLikeRes = await axios.get(
+		`${import.meta.env.VITE_CORE_BASE_URL}/my_spot/list`,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
 
-export const deleteLikeLocation = async (
-	locationId: number
-): Promise<'success' | 'fail'> => {
-	// const deleteRes = await tokenInstance.delete(`user/like/${locationId}`)
-	// return deleteRes.data
+	return myLikeRes.data
 
-	console.log(locationId)
-	return 'success'
+	// return new Promise((resolve) => {
+	// 	resolve(dummyLikeData.data)
+	// })
 }
 
 export const postLikeLocation = async (
-	locationId: number
+	locationId: string,
+	memoText: string
 ): Promise<'success' | 'fail'> => {
-	// const postRes = await tokenInstance.post('user/like', locationId)
-	// return postRes.data
+	// :: For production api
+	// const editRes = await tokenInstance.put(`my_spot/${locationId}`, { spot_id: locationId, memo: memoText },)
+	// return editRes.data
 
-	console.log(locationId)
-	return 'success'
+	// :: For development api
+	try {
+		await axios.post(
+			`${import.meta.env.VITE_CORE_BASE_URL}/my_spot/${locationId}`,
+			{ spot_id: locationId, memo: memoText },
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+				},
+				withCredentials: true,
+			}
+		)
+
+		return 'success'
+	} catch (error) {
+		console.log(error)
+		return 'fail'
+	}
+}
+
+export const deleteLikeLocation = async (
+	locationId: string
+): Promise<'success' | 'fail'> => {
+	// :: For production api
+	// const deleteRes = await tokenInstance.delete(`core/my_spot/${locationId}`)
+
+	// :: For development api
+	try {
+		await axios.delete(
+			`${import.meta.env.VITE_CORE_BASE_URL}/my_spot/${locationId}`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+				},
+				withCredentials: true,
+			}
+		)
+
+		return 'success'
+	} catch (error) {
+		console.log(error)
+		return 'fail'
+	}
 }

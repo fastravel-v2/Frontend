@@ -1,19 +1,25 @@
 import { useRef } from 'react'
 
 interface MemoModalProps {
-	requestId: number
-	memoReqFunc: (Id: number, memoText: string) => Promise<'success' | 'fail'>
+	requestId: string
+	memoReqFunc: (Id: string, memoText: string) => Promise<'success' | 'fail'>
 	onClose: () => void
+	memoText: string | null
 }
 
-const MemoModal = ({ requestId, memoReqFunc, onClose }: MemoModalProps) => {
+const MemoModal = ({
+	requestId,
+	memoReqFunc,
+	onClose,
+	memoText, // 기존 정보를 띄울지 여부에서 사용
+}: MemoModalProps) => {
 	const memoRef = useRef<HTMLTextAreaElement>(null)
 
 	const handleSaveMemo = async () => {
-		const memoText = memoRef.current?.value
-		if (memoText === undefined) return alert('메모를 입력해주세요')
+		const inputText = memoRef.current?.value
+		if (!inputText) return alert('메모를 입력해주세요')
 
-		const saveRes = await memoReqFunc(requestId, memoText)
+		const saveRes = await memoReqFunc(requestId, inputText)
 		if (saveRes === 'success') {
 			onClose()
 		}
@@ -34,7 +40,9 @@ const MemoModal = ({ requestId, memoReqFunc, onClose }: MemoModalProps) => {
 					className="mt-4 mb-2 h-[140px] w-[268px] text-sm p-4 bg-lightGray4 rounded resize-none outline-none focus:outline-none"
 					placeholder="메모를 작성해주세요"
 					ref={memoRef}
-				></textarea>
+				>
+					{memoText !== null && memoText.length > 0 && memoText}
+				</textarea>
 				<div className="flex justify-between">
 					<button
 						className="w-32 h-10 text-xs font-bold rounded bg-lightGray4"

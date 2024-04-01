@@ -2,7 +2,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { deleteMyTravel, getLikeLocation, getMyTravel } from './api'
 import { sortDatesBasedOnCurrent } from './service'
 import { useMemo } from 'react'
+import { LikeLocation } from './type'
 
+// :: My Travel List
 export const useMyTravelListQuery = () => {
 	const { isLoading, data } = useQuery({
 		queryKey: ['myTravel'],
@@ -17,7 +19,6 @@ export const useMyTravelListQuery = () => {
 	return { isLoading, sortedMyTravelList }
 }
 
-// useMutation을 사용하여 여행 삭제 로직을 수행하는 Hook
 export const useDeleteTravelMutation = () => {
 	const queryClient = useQueryClient() // React Query Client 인스턴스를 가져옴
 
@@ -32,11 +33,25 @@ export const useDeleteTravelMutation = () => {
 	return deleteTravelMutation
 }
 
+// :: Like Location List
 export const useLikeLocationListQuery = () => {
 	const { isLoading, data } = useQuery({
 		queryKey: ['likeLocation'],
 		queryFn: getLikeLocation,
 	})
 
-	return { isLoading, data }
+	const likeLocationList: LikeLocation[] = useMemo(() => {
+		if (!data) {
+			return [] as LikeLocation[]
+		}
+
+		return data.map((likeLocationInfo) => ({
+			locationId: likeLocationInfo.spot_id,
+			locationName: likeLocationInfo.name,
+			locationAddress: likeLocationInfo.address || '',
+			locationImage: likeLocationInfo.image_url || '',
+			locationMemo: likeLocationInfo.memo || null,
+		}))
+	}, [data])
+	return { isLoading, likeLocationList }
 }
