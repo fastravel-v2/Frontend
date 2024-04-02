@@ -2,7 +2,11 @@ import { useState } from "react";
 import EditTravelPlan from "./TravelPlanEdit/EditTravelPlan";
 import TravelPlan from "./TravelPlan"
 
-const TravelPlanHeader = () => {
+interface TravelPlanHeaderProps {
+    cities: number[]
+}
+
+const TravelPlanHeader = ({cities}: TravelPlanHeaderProps) => {
     const [isEdit, setIsEdit] = useState(false)
 
     const toggleIsEdit = () => {
@@ -13,7 +17,7 @@ const TravelPlanHeader = () => {
         <div>
             {isEdit 
                 ? <EditTravelPlan toggleIsEdit={toggleIsEdit} />
-                : <TravelPlan toggleIsEdit={toggleIsEdit} />}
+                : <TravelPlan toggleIsEdit={toggleIsEdit} cities={cities} />}
         </div>
     )
 }

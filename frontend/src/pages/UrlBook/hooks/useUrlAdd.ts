@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { addUrl } from '../api'
 
-export const useAddUrl = () => {
+export const useUrlAdd = () => {
 	const queryClient = useQueryClient()
 
 	const mutation = useMutation({

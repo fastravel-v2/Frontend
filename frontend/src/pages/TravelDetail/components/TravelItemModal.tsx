@@ -4,15 +4,28 @@ import { FaRegClock } from "react-icons/fa6"
 import { useRouter } from "src/hooks/useRouter"
 import { useState } from "react"
 import MemoModal from "./MemoModal"
+import { categoryInfo } from "src/utility/constants/location";
 
 interface TravelItemModalProps {
     place: IPlace
     onClose: () => void
 }
 
+const reverseMapping = (obj: {[key: string]: number}) => {
+    const reversed: {[key: number]: string} = {}
+    Object.keys(obj).forEach(key => {
+        const value = obj[key]
+        reversed[value] = key
+    })
+    return reversed
+}
+
 const TravelItemModal = ({ place, onClose }: TravelItemModalProps) => {
     const router = useRouter()
     const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const categoryNamesMapping = reverseMapping(categoryInfo)
+    const categoryNames = place.category.map(id => categoryNamesMapping[id]).join(', ')
 
     const openModal = () => {
         setIsModalOpen(true)
@@ -36,17 +49,17 @@ const TravelItemModal = ({ place, onClose }: TravelItemModalProps) => {
                     <h3 className="font-semibold">{place.name}</h3>
                     <MdOutlineKeyboardArrowRight onClick={handleClick}/>
                 </div>
-                <div className="text-xs text-darkGray3 mb-2">{place.category}</div>
+                <div className="text-xs text-darkGray3 mb-2">{categoryNames}</div>
                 <div className="text-xs text-blue1 font-bold">영업시간</div>
                 <div className="h-5 mt-1.5 mb-3 text-darkGray3 flex items-center">
                     <FaRegClock className="h-4 w-4"/>
                     <div className="text-xs ml-1">시간 추가</div>
                 </div>
-                <div className="flex justify-between">
-                    <button className="h-10 w-36 border border-lightGray3 rounded" onClick={openModal}>
+                <div className="flex justify-between gap-4">
+                    <button className="h-10 w-full border border-lightGray3 rounded" onClick={openModal}>
                         메모 추가
                     </button>
-                    <button className="h-10 w-36 border border-lightGray3 rounded">
+                    <button className="h-10 w-full border border-lightGray3 rounded">
                         길찾기
                     </button>
                 </div>

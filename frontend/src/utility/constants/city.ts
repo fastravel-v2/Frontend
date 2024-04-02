@@ -1,7 +1,19 @@
-export const cityInfo = {
+export interface ICityInfo {
+	[key: string]: {
+		id: number
+		name: string
+		lat: number
+		long: number
+		children: string[]
+	}
+}
+
+export const cityInfo: ICityInfo = {
 	'1': {
 		id: 1,
 		name: '서울특별시',
+		lat: 37.566764,
+		long: 126.978231,
 		children: [
 			'종로구',
 			'중구',
@@ -33,6 +45,8 @@ export const cityInfo = {
 	'2': {
 		id: 2,
 		name: '부산광역시',
+		lat: 35.179787,
+		long: 129.0748,
 		children: [
 			'중구',
 			'서구',
@@ -55,6 +69,8 @@ export const cityInfo = {
 	'3': {
 		id: 3,
 		name: '인천광역시',
+		lat: 37.456078,
+		long: 126.705185,
 		children: [
 			'중구',
 			'동구',
@@ -71,6 +87,8 @@ export const cityInfo = {
 	'4': {
 		id: 4,
 		name: '대구광역시',
+		lat: 35.871535,
+		long: 128.601492,
 		children: [
 			'중구',
 			'동구',
@@ -86,21 +104,29 @@ export const cityInfo = {
 	'5': {
 		id: 5,
 		name: '대전광역시',
+		lat: 36.350509,
+		long: 127.384857,
 		children: ['동구', '중구', '서구', '유성구', '대덕구', '세종특별자치시'],
 	},
 	'6': {
 		id: 6,
 		name: '광주광역시',
+		lat: 35.160021,
+		long: 126.851339,
 		children: ['동구', '서구', '남구', '북구', '광산구'],
 	},
 	'7': {
 		id: 7,
 		name: '울산광역시',
+		lat: 35.539678,
+		long: 129.311565,
 		children: ['중구', '남구', '동구', '북구', '울주군'],
 	},
 	'8': {
 		id: 8,
 		name: '경상북도',
+		lat: 36.575996,
+		long: 128.505679,
 		children: [
 			'포항시',
 			'경주시',
@@ -129,6 +155,8 @@ export const cityInfo = {
 	'9': {
 		id: 9,
 		name: '경기도',
+		lat: 37.289317,
+		long: 127.053577,
 		children: [
 			'수원시',
 			'용인시',
@@ -166,6 +194,8 @@ export const cityInfo = {
 	'10': {
 		id: 10,
 		name: '충청북도',
+		lat: 36.635761,
+		long: 127.491226,
 		children: [
 			'청주시',
 			'충주시',
@@ -183,6 +213,8 @@ export const cityInfo = {
 	'11': {
 		id: 11,
 		name: '충청남도',
+		lat: 36.658798,
+		long: 126.673651,
 		children: [
 			'천안시',
 			'공주시',
@@ -204,6 +236,8 @@ export const cityInfo = {
 	'12': {
 		id: 12,
 		name: '전라남도',
+		lat: 34.816188,
+		long: 126.462893,
 		children: [
 			'목포시',
 			'여수시',
@@ -232,6 +266,8 @@ export const cityInfo = {
 	'13': {
 		id: 13,
 		name: '경상남도',
+		lat: 35.237807,
+		long: 128.691932,
 		children: [
 			'창원시',
 			'진주시',
@@ -256,6 +292,8 @@ export const cityInfo = {
 	'14': {
 		id: 14,
 		name: '강원도',
+		lat: 37.885374,
+		long: 127.729815,
 		children: [
 			'춘천시',
 			'원주시',
@@ -280,6 +318,8 @@ export const cityInfo = {
 	'15': {
 		id: 15,
 		name: '전라북도',
+		lat: 35.820339,
+		long: 127.108836,
 		children: [
 			'전주시',
 			'군산시',
@@ -300,6 +340,8 @@ export const cityInfo = {
 	'16': {
 		id: 16,
 		name: '제주특별자치도',
+		lat: 33.489186,
+		long: 126.498368,
 		children: ['제주시', '서귀포시'],
 	},
 }

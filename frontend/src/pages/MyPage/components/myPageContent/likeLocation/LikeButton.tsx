@@ -1,19 +1,24 @@
-import { useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import { deleteLikeLocation, postLikeLocation } from 'src/pages/MyPage/api'
 
 import { HeartIcon } from 'src/assets/svgs'
 
 interface ILikeButtonProps {
-	locationId: number
+	locationId: string
+	locationMemo?: string
 }
-const LikeButton = ({ locationId }: ILikeButtonProps) => {
+const LikeButton = ({ locationId, locationMemo }: ILikeButtonProps) => {
 	const [isLiked, setIsLiked] = useState(true)
 
-	const handleClickLike = async () => {
+	const handleClickLike = async (event: MouseEvent<HTMLButtonElement>) => {
+		// Link tag 동작을 막기 위한 코드
+		event.stopPropagation()
+		event.preventDefault()
+
 		let requestResult = 'fail'
 		const requestMethod = isLiked ? deleteLikeLocation : postLikeLocation
 
-		requestResult = await requestMethod(locationId)
+		requestResult = await requestMethod(locationId, locationMemo ?? '')
 		if (requestResult === 'success') setIsLiked(!isLiked)
 	}
 

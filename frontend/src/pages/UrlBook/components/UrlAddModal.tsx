@@ -5,7 +5,8 @@ import React, {
 	ChangeEvent,
 	KeyboardEvent,
 } from 'react'
-import { useAddUrl } from '../hooks/useAddUrl'
+import { useUrlAdd } from '../hooks/useUrlAdd'
+import useUrlBook from '../hooks/useUrlBook'
 
 interface UrlAddModalProps {
 	doCloseModal: () => void
@@ -15,7 +16,8 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 	const [url, setUrl] = useState<string>('')
 	const [isInvalidUrl, setIsInvalidUrl] = useState<boolean>(false)
 	const urlInputRef = useRef<HTMLTextAreaElement>(null)
-	const mutation = useAddUrl()
+	const mutation = useUrlAdd()
+	const { unSelectAllUrls } = useUrlBook()
 
 	useEffect(() => {
 		urlInputRef.current?.focus()
@@ -39,6 +41,15 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 		if (isValidUrl(formattedUrl)) {
 			mutation.mutate(formattedUrl)
 			doCloseModal()
+			unSelectAllUrls()
+			const checkboxes = document.querySelectorAll<HTMLInputElement>(
+				'input[type="checkbox"]'
+			)
+			checkboxes.forEach((checkbox) => {
+				checkbox.checked = false
+			})
+
+
 		} else {
 			setIsInvalidUrl(true)
 		}
@@ -81,7 +92,7 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 						/>
 						{isInvalidUrl && (
 							<p className="text-lg text-rose-400">
-								올바른 URL 주소가 아닙니다.
+								올바른 URL 주소가 아닙니다.	
 							</p>
 						)}
 					</div>
@@ -89,8 +100,8 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 						<div className="items-center px-4 py-3">
 							<button
 								className="px-4 py-2 bg-green4 text-white text-base 
-                  font-medium rounded-md w-full shadow-sm hover:bg-green2 
-                  focus:outline-none focus:ring-2 focus:ring-blue-300"
+									font-medium rounded-md w-full shadow-sm hover:bg-green2 
+									focus:outline-none focus:ring-2 focus:ring-blue-300"
 								onClick={handleSubmit}
 							>
 								Add
@@ -99,8 +110,8 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 						<div className="items-center px-4 py-3">
 							<button
 								className="px-4 py-2 bg-darkGray4 text-base 
-                font-medium rounded-md w-full shadow-sm hover:bg-darkGray1
-                focus:outline-none focus:ring-2 focus:ring-blue-300"
+									font-medium rounded-md w-full shadow-sm hover:bg-darkGray1
+									focus:outline-none focus:ring-2 focus:ring-blue-300"
 								onClick={doCloseModal}
 							>
 								Cancel

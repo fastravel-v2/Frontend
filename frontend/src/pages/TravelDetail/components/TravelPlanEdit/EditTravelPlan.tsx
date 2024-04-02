@@ -7,12 +7,15 @@ import { IoTrashSharp } from "react-icons/io5"
 import { LuArrowUpDown } from "react-icons/lu"
 import { IDay, IPlace } from "../../type"
 import MapSpace from "../MapSpace"
+import { useParams } from "react-router-dom"
+import { putTravelDetail } from "../../api"
 
 interface EditTravelPlanProps {
     toggleIsEdit: () => void
 }
 
 const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
+    const {id} = useParams()
     const router = useRouter()
     const {plan, currentDay, setCurrentDay} = usePlanStore()
     const [selectedDate, setSelectedDate] = useState<string | undefined>('')
@@ -62,7 +65,7 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
         }
     }, [state])
 
-    if (!plan || !state) {
+    if (!plan || !state || !id) {
         router.routeTo('/notFound')
         return null
     }
@@ -87,6 +90,14 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
     }
 
     const handleSave= () => {
+        const planDays = state.days
+        const dayPlacePairs = Object.keys(planDays).flatMap(date => {
+            return planDays[date].placeIds.map(placeId => {
+                return {date, spotId: placeId}
+            })
+        })
+        putTravelDetail(id, dayPlacePairs)
+
         usePlanStore.getState().setPlan(state)
         usePlanStore.getState().clearSelectedItems()
         toggleIsEdit()
@@ -191,7 +202,7 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
                         <span className="text-sm font-semibold mr-2">day {visibleDay ? visibleDay : currentDay}</span>
                         <select
                             className="text-xs font-semibold text-darkGray1"
-                            defaultValue={selectedDate}
+                            value={selectedDate}
                             onChange={handleDateChange}
                         >
                             {state.dayOrder.map((day, index) => (

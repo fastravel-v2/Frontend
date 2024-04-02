@@ -1,3 +1,4 @@
+import { cityInfo } from "src/utility/constants/city";
 import usePlanStore from "../store"
 import TravelDayEmptyItem from "./TravelDayEmptyItem";
 import TravelDayItem from "./TravelDayItem";
@@ -5,12 +6,19 @@ import TravelDayItem from "./TravelDayItem";
 interface TravelDayProps {
     day: string;
     index: number;
+    cities: number[]
 }
 
-const TravelDay = ({day, index}: TravelDayProps) => {
+const getCityById = (cityId: number) => {
+    return cityInfo[cityId.toString() as keyof typeof cityInfo]
+}
+
+const TravelDay = ({day, index, cities}: TravelDayProps) => {
     const dayPlan = usePlanStore.getState().plan?.days[day]
 
     if (!dayPlan) return null
+
+    const city = getCityById(cities[0])
 
     return (
         <div>
@@ -27,7 +35,7 @@ const TravelDay = ({day, index}: TravelDayProps) => {
                             </div>
                         )
                     })
-                    : <TravelDayEmptyItem />
+                    : <TravelDayEmptyItem lat={city.lat} long={city.long} />
                 }
             </div>
             <div className="w-full h-[88px] flex justify-center">

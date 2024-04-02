@@ -1,28 +1,26 @@
-import { QueryFunctionContext } from '@tanstack/react-query'
 import axios from 'axios'
 // import { tokenInstance, tokenMultipartInstance } from 'src/utility/apis/axios'
 
-export const getTravelInfo = async ({
-	queryKey,
-}: QueryFunctionContext): Promise<TravelInfo> => {
-	const [, travelId] = queryKey
-
+export const getTravelInfo = async (): Promise<TravelInfoRes[]> => {
 	// :: For production api
-	// const travelInfoRes = await tokenInstance.get(`travel/info/${travelId}`)
+	// const travelInfoRes = await tokenInstance.get(`core/travel/info/${travelId}`)
 	// return travelInfoRes.data
 
 	// :: For development api
-	const travelInfoRes = await axios.get(`core/travel/info/${travelId}`, {
-		headers: {
-			'Content-Type': 'application/json',
-			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
-		},
-		withCredentials: true,
-	})
+	const travelInfoRes = await axios.get(
+		`${import.meta.env.VITE_CORE_BASE_URL}/travel/list`,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
 	return travelInfoRes.data
 }
 
-export const putTravelProfileCreate = async (
+export const postTravelProfileCreate = async (
 	profileFormData: FormData
 ): Promise<'success' | 'fail'> => {
 	// :: For production api
@@ -32,20 +30,23 @@ export const putTravelProfileCreate = async (
 	// )
 
 	// :: For development api
-	const createRes = await axios.put(`core/travel/create`, profileFormData, {
-		headers: {
-			'Content-Type': 'multipart/form-data',
-			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
-		},
-		withCredentials: true,
-	})
+	const createRes = await axios.post(
+		`${import.meta.env.VITE_CORE_BASE_URL}/travel`,
+		profileFormData,
+		{
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
 
 	return createRes.data
 }
 
 export const putTravelProfileEdit = async (
 	profileFormData: FormData,
-	travelId: number
 ): Promise<'success' | 'fail'> => {
 	// :: For production api
 	// const editRes = await tokenMultipartInstance.put(
@@ -55,7 +56,7 @@ export const putTravelProfileEdit = async (
 
 	// :: For development api
 	const editRes = await axios.put(
-		`core/travel/edit/${travelId}`,
+		`${import.meta.env.VITE_CORE_BASE_URL}/travel/`,
 		profileFormData,
 		{
 			headers: {

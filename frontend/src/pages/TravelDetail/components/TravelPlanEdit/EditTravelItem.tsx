@@ -3,6 +3,7 @@ import { IPlace } from "../../type"
 import { IoMenu } from "react-icons/io5";
 import { IoMdCheckmark } from "react-icons/io";
 import usePlanStore from "../../store";
+import { categoryInfo } from "src/utility/constants/location";
 
 interface EditTravelItemProps {
     place: IPlace;
@@ -10,11 +11,23 @@ interface EditTravelItemProps {
     hasNext: boolean;
 }
 
+const reverseMapping = (obj: {[key: string]: number}) => {
+    const reversed: {[key: number]: string} = {}
+    Object.keys(obj).forEach(key => {
+        const value = obj[key]
+        reversed[value] = key
+    })
+    return reversed
+}
+
 const EditTravelItem = ({place, index, hasNext}: EditTravelItemProps) => {
 
     const {togglePlaceSelection, selectedPlaceIds} = usePlanStore()
 
     const isSelected = selectedPlaceIds.includes(place.id)
+
+    const categoryNamesMapping = reverseMapping(categoryInfo)
+    const categoryNames = place.category.map(id => categoryNamesMapping[id]).join(', ')
 
     const handleSelect = () => {
         togglePlaceSelection(place.id)
@@ -39,7 +52,7 @@ const EditTravelItem = ({place, index, hasNext}: EditTravelItemProps) => {
                         <div className="flex items-center">
                             <div className="border w-full h-[60px] mr-4 border-lightGray3 bg-white rounded" onClick={handleSelect}>
                                 <div className="mt-1.5 ml-3 mb-1 font-semibold">{place.name}</div>
-                                <div className="ml-3 text-xs text-darkGray1">{place.category}</div>
+                                <div className="ml-3 text-xs text-darkGray1">{categoryNames}</div>
                             </div>
                             <div className="w-5 h-5 mr-4"
                                 {...provided.dragHandleProps}

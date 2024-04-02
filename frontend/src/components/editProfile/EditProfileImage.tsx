@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { DefaultLocation, DefaultProfile } from 'src/assets/svgs'
 import { useUserProfileImage } from 'src/pages/MyPage/hooks/useUserProfileImage'
 import { isValidImageFile } from 'src/pages/MyPage/util'
 
@@ -34,17 +35,17 @@ const EditProfileImage = ({
 
 	return (
 		<label className="self-center">
-			<img
-				src={
-					profileUrl
-						? profileUrl
-						: type === 'user'
-						? '/src/assets/svgs/defaultProfile.svg'
-						: '/src/assets/svgs/defaultLocation.svg'
-				}
-				alt="프로필 이미지"
-				className="w-20 h-20 rounded-full"
-			/>
+			{profileUrl ? (
+				<img
+					src={profileUrl}
+					alt="프로필 이미지"
+					className="w-20 h-20 rounded-full"
+				/>
+			) : type === 'user' ? (
+				<DefaultProfile />
+			) : (
+				<DefaultLocation />
+			)}
 			<input
 				type="file"
 				name="profileImage"

@@ -7,10 +7,12 @@ import { FaArrowLeft } from "react-icons/fa6"
 import Header from "./components/Header"
 import TravelPlanHeader from "./components/TravelPlanHeader"
 import DefaultHeader from "src/components/header/DefaultHeader"
+import { useRouter } from "src/hooks/useRouter"
 
 const TravelDetail = () => {
   const [travelData, setTravelData] = useState<ITravelDetail | undefined>(undefined)
   const {id} = useParams()
+  const router = useRouter()
 
   const refetch =async () => {
     if (id) {
@@ -30,19 +32,20 @@ const TravelDetail = () => {
   }
 
   const headerFunc: IMenuFunc = {
-    left_func: undefined,
+    left_func: router.goBack,
     right_func: undefined
   }
 
   if (!travelData) {
-    return null
+    router.routeTo('/notFound')
+    return
   }
 
   return (
     <div>
       <DefaultHeader menu={headerMenu} func={headerFunc} />
       <Header headerInfo={travelData.info} />
-      <TravelPlanHeader />
+      <TravelPlanHeader cities={travelData.info.cities}/>
     </div>
   )
 }

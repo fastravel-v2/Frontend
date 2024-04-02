@@ -1,12 +1,25 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { NameMessageType, TravelMessageType } from '../../pages/MyPage/type'
 
 interface EditProfileSubmitProps {
 	type: 'user' | 'travelCreate' | 'travelEdit'
+	name: string
 	nameStatus: NameMessageType | TravelMessageType
 }
-const EditProfileSubmit = ({ type, nameStatus }: EditProfileSubmitProps) => {
-	const isDisabled = useMemo(() => nameStatus !== 'valid', [nameStatus])
+const EditProfileSubmit = ({
+	type,
+	name,
+	nameStatus,
+}: EditProfileSubmitProps) => {
+	const isDisabled = useMemo(
+		() =>
+			(nameStatus !== 'valid' && nameStatus !== 'initial') || name.length === 0,
+		[nameStatus, name]
+	)
+
+	useEffect(() => {
+		console.log(isDisabled, nameStatus, name)
+	}, [isDisabled])
 
 	// :: Rendering
 	return (

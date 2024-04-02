@@ -12,7 +12,6 @@ const useFetchUrlInfo = (url_id: number) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true)
-
 			try {
 				const response = await fetchUrlInfo(url_id)
 				setData(response)

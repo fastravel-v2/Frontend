@@ -1,28 +1,33 @@
 import { Menu, Transition } from '@headlessui/react'
 import { AiOutlineMore } from 'react-icons/ai'
-import { useParams } from 'react-router'
+// import { useParams } from 'react-router'
 import { useRouter } from 'src/hooks/useRouter'
-import { deleteMyTravel } from 'src/pages/MyPage/api'
+import { useDeleteTravelMutation } from 'src/pages/MyPage/query'
 
 interface MyTravelMoreBtnProps {
 	// Define your props here
+	travelId: string
 }
 
-const MyTravelMoreBtn: React.FC<MyTravelMoreBtnProps> = () => {
+const MyTravelMoreBtn: React.FC<MyTravelMoreBtnProps> = ({
+	travelId,
+}: MyTravelMoreBtnProps) => {
 	const { routeTo } = useRouter()
-	const { travelId } = useParams()
+	const { mutate: deleteTravel } = useDeleteTravelMutation()
+
+	// const { travelId } = useParams()
 
 	const handleClickModifyButton = () => {
 		routeTo(`/travel/edit/${travelId}`)
 	}
 
-	const handleClickDeleteButton = async () => {
+	const handleClickDeleteButton = () => {
 		if (!travelId) {
 			alert('travelId가 없습니다.')
 			return
 		}
 
-		await deleteMyTravel(travelId)
+		deleteTravel(travelId)
 	}
 
 	return (

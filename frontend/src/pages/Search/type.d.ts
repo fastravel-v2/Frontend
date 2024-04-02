@@ -8,3 +8,9 @@ interface SearchLocationInfo {
 	address: string
 	image_url: string | null
 }
+
+interface SelectDayType {
+	dayNumber: string // n일차
+	date: Date // mm.dd
+	day: string // 요일
+}

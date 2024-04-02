@@ -6,7 +6,6 @@ import Login from './pages/Login'
 import MyPage from './pages/MyPage'
 import LikeLocationInfo from './pages/MyPage/components/myPageContent/likeLocation/LikeLocationInfo'
 import MyTravelInfo from './pages/MyPage/components/myPageContent/myTravel/MyTravelInfo'
-import MyUrlInfo from './pages/MyPage/components/myPageContent/MyUrlInfo'
 import Alarm from './pages/Alerm'
 import Search from './pages/Search'
 import AddPlace from './pages/Search/AddPlace'
@@ -71,12 +70,6 @@ const routerData: RouterElement[] = [
 				label: 'likeLocationInfo',
 				headerText: '내 여행지',
 			},
-			{
-				path: 'url',
-				element: <MyUrlInfo />,
-				label: 'myUrlInfo',
-				headerText: '내 URL',
-			},
 		],
 	},
 	{
@@ -111,7 +104,7 @@ const routerData: RouterElement[] = [
 	},
 	{
 		path: '/urlbook/result',
-		element: <UrlResult/>,
+		element: <UrlResult />,
 		label: 'urlBook',
 	},
 	{

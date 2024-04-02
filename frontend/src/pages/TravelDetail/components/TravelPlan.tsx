@@ -6,9 +6,10 @@ import MapSpace from "./MapSpace"
 
 interface TravelPlanProps {
     toggleIsEdit: () => void
+    cities: number[];
 }
 
-const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
+const TravelPlan = ({toggleIsEdit, cities}: TravelPlanProps) => {
     const router = useRouter()
     const [selectedDate, setSelectedDate] = useState<string | undefined>('')
     const [visibleDay, setVisibleDay] = useState<number | null>()
@@ -93,7 +94,7 @@ const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
                         <span className="text-sm font-semibold mr-2">day {visibleDay ? visibleDay : currentDay}</span>
                         <select 
                             className="text-xs font-semibold text-darkGray1"
-                            defaultValue={selectedDate}
+                            value={selectedDate}
                             
                             onChange={handleDateChange}
                         >
@@ -110,7 +111,7 @@ const TravelPlan = ({toggleIsEdit}: TravelPlanProps) => {
             <div className="pb-[336px]">
                 {plan.dayOrder.map((day, index) => (
                     <div key={index} ref={dayRefs.current[index]} data-day-index={index+1}>
-                        <TravelDay day={day} index={index + 1} />
+                        <TravelDay day={day} index={index + 1} cities={cities} />
                     </div>
                 )
                 )}
