@@ -8,6 +8,7 @@ import { LuArrowUpDown } from "react-icons/lu"
 import { IDay, IPlace } from "../../type"
 import MapSpace from "../MapSpace"
 import { useParams } from "react-router-dom"
+import { putTravelDetail } from "../../api"
 
 interface EditTravelPlanProps {
     toggleIsEdit: () => void
@@ -92,14 +93,10 @@ const EditTravelPlan = ({toggleIsEdit}: EditTravelPlanProps) => {
         const planDays = state.days
         const dayPlacePairs = Object.keys(planDays).flatMap(date => {
             return planDays[date].placeIds.map(placeId => {
-                return {date, spotId: parseInt(placeId)}
+                return {date, spotId: placeId}
             })
         })
-        const editedPlan = {
-            planId: parseInt(id),
-            plans: dayPlacePairs
-        }
-        console.log(editedPlan)
+        putTravelDetail(id, dayPlacePairs)
 
         usePlanStore.getState().setPlan(state)
         usePlanStore.getState().clearSelectedItems()

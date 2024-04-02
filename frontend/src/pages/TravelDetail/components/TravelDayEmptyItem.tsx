@@ -1,12 +1,39 @@
-const TravelDayEmptyItem = () => {
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getNearbyLocations } from "../api";
+import PlaceSection from "src/components/PlaceSection";
+
+interface TravelDayEmptyItemProps {
+    lat: number;
+    long: number;
+}
+
+interface IPlaceInfo {
+	spot_id: string
+	image_url: string
+	name: string
+	address: string
+}
+
+const TravelDayEmptyItem = ({lat, long}:TravelDayEmptyItemProps) => {
+    const {id} = useParams()
+    const [nearbyLocations, setNearbyLocations] = useState<IPlaceInfo[]>([])
+
+    const refetch = async () => {
+        const fetchedData = await getNearbyLocations(lat, long)
+        setNearbyLocations(fetchedData)
+    }
+    
+    useEffect(() => {
+        refetch()
+    }, [id])
 
     return (
         <div className="flex relative h-[188px]">
             <div className="bg-lightGray1 min-w-px h-full absolute left-9"></div>
             <div className="z-10 absolute left-[26px] top-[18px] h-5 w-5 bg-green3 rounded-full flex justify-center items-center text-white text-xs font-semibold"></div>
-            <div className="ml-[60px] mt-2 border w-full h-[168px] border-lightGray3 rounded">
-                    <div className="mt-1.5 ml-3 mb-1 font-semibold">{'test'}</div>
-                    <div className="ml-3 text-xs text-darkGray1">{'test2'}</div>
+            <div className="ml-[60px] mt-2 h-[168px] overflow-x-auto">
+                <PlaceSection places={nearbyLocations} />
             </div>
         </div>
     )
