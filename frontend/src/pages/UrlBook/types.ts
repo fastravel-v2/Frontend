@@ -17,7 +17,12 @@ export interface UrlStore {
 	addSendingUrl: (urlId: number) => void
 	removeSendingUrl: (urlId: number) => void
 	removeUrl: (urlId: number) => void // 스토어에서 URL을 제거하는 함수
-	setUrlError: (urlId: number) => void;
+	setUrlError: (urlId: number) => void
+
+	// 전송 후 일정시간 뒤 재 렌더링용
+	refreshTrigger: boolean; // 재렌더링을 위한 트리거 상태 추가
+	triggerRefresh: () => void; // refreshTrigger 상태를 변경하는 메소드
+
 }
 
 export interface IUrlItem {
@@ -27,9 +32,10 @@ export interface IUrlItem {
 	url: string
 	title?: string
 	description?: string
-	status: boolean
+	status: string
 	image?: string
-	error?: boolean // 에러 상태 추가
+	error?: boolean // 에러 상태 추가\ 
+	sending?: boolean
 }
 
 // export interface IPlaceInfo {

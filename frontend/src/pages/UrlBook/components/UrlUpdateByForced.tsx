@@ -13,7 +13,7 @@ const UrlUpdateByForced: React.FC = () => {
 				const isDuplicate = completed_urls.some(
 					(completedUrl) => completedUrl.url_id === url.url_id
 				)
-				if (!isDuplicate && url.status === true) {
+				if (!isDuplicate && url.status === 'True') {
 					addCompletedUrl(url)
 				}
 			})

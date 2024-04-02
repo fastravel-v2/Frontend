@@ -15,8 +15,8 @@ const UrlUpdater = () => {
 		eventSource.onmessage = (event) => { // 서버에서 메시지를 받을 때마다 호출
 			const data = JSON.parse(event.data) // event.data에 담겨있고 Json 형태로 파싱
 
-			// 데이터의 상태가 'true'인 경우에만 스토어 업데이트
-			if (data.status) {
+			// 데이터의 상태가 'True'인 경우에만 스토어 업데이트
+			if (data.status === 'True') {
 				addCompletedUrl(data)
 				removeSendingUrl(data.url_id)
 			}

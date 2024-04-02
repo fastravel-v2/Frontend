@@ -5,8 +5,11 @@ import { UrlStore } from './types'
 
 export const useUrlStore = create<UrlStore>((set) => ({
 	urls: [], // types.ts에서 타입 선언해놨습니다~
-	completed_urls: [], // SSE로 확인하고 status:true가 된urls 저장하고싶어요~
+	completed_urls: [], // SSE로 확인하고 status:True가 된urls 저장하고싶어요~
 	sendingUrls: [], // 전송 중인 URL의 ID를 저장하는 배열
+	refreshTrigger: false,
+	triggerRefresh: () =>
+		set((state) => ({ ...state, refreshTrigger: !state.refreshTrigger })),
 
 	removeUrl: (urlId) =>
 		set((state) => ({
@@ -30,7 +33,7 @@ export const useUrlStore = create<UrlStore>((set) => ({
 		set((state) => ({
 			sendingUrls: state.sendingUrls.filter((id) => id !== urlId),
 		})),
-		
+
 	setUrlError: (urlId: number) =>
 		set((state) => ({
 			urls: state.urls.map((url) =>
@@ -71,8 +74,8 @@ export const useUrlStore = create<UrlStore>((set) => ({
 		set((state) => ({
 			urls: state.urls.map((url) => ({
 				...url,
-				// status가 문자열 "false"인 경우에만 checked를 true로 설정
-				checked: url.status === false,
+				// status가 문자열 "None"인 경우에만 checked를 true로 설정
+				checked: url.status === 'None',
 			})),
 		}))
 	},
