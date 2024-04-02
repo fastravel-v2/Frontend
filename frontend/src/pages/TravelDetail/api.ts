@@ -83,6 +83,7 @@ const generateDaysObject = (dayOrder: string[], days: Record<string, string[]>):
 export const getTravelDetail = async (id:string):Promise<ITravelDetail> => {
     // api
     const travelDetail: {data: IRTravel} = await tokenInstance.get(`core/travel/plan/${id}`)
+    // const travelDetail: {data: IRTravel} = await tokenInstance.get(`travel/plan/${id}`)
 
     const dayOrder = generateDayOrder(travelDetail.data.info.info.startDate, travelDetail.data.info.info.endDate)
     const days = generateDaysObject(dayOrder, travelDetail.data.plan.days)
