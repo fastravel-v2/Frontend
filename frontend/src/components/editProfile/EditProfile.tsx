@@ -10,7 +10,7 @@ import {
 	useTravelDateStore,
 } from 'src/pages/TravelCreate/store'
 import {
-	putTravelProfileCreate,
+	postTravelProfileCreate,
 	putTravelProfileEdit,
 } from 'src/pages/TravelCreate/api'
 import { putUserProfile } from 'src/pages/MyPage/api'
@@ -76,8 +76,9 @@ const EditProfile = ({
 
 		// make formdata &&  select api function
 		const profileFormData = new FormData(event.currentTarget)
-		type === 'travelCreate' ||
-			(type === 'travelEdit' && setAdditionalTravelInfo(profileFormData))
+		if (type === 'travelCreate' || type === 'travelEdit') {
+			setAdditionalTravelInfo(profileFormData)
+		}
 
 		// :: Check formdata
 		// console.log(profileFormData.get('profile-name'))
@@ -91,7 +92,7 @@ const EditProfile = ({
 		if (type === 'user') {
 			profileApiRes = await putUserProfile(profileFormData)
 		} else if (type === 'travelCreate') {
-			profileApiRes = await putTravelProfileCreate(profileFormData)
+			profileApiRes = await postTravelProfileCreate(profileFormData)
 		} else if (travelId) {
 			profileApiRes = await putTravelProfileEdit(
 				profileFormData,
@@ -118,7 +119,7 @@ const EditProfile = ({
 						name={name}
 						setName={setName}
 					/>
-					<EditProfileSubmit type={type} nameStatus={nameStatus} />
+					<EditProfileSubmit type={type} nameStatus={nameStatus} name={name} />
 					<p className="text-xs text-darkGray1">
 						한글/영어/숫자/./밑줄을 사용할 수 있습니다.
 					</p>

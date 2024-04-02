@@ -32,8 +32,16 @@ export interface MyTravel {
 	numOfCity: number
 }
 
+export interface LikeLocationItemRes {
+	spot_id: string
+	name: string
+	address: string | null
+	image_url: string | null
+	memo: string | null
+}
+
 export interface LikeLocation {
-	locationId: number
+	locationId: string
 	locationImage: string
 	locationName: string
 	locationAddress: string

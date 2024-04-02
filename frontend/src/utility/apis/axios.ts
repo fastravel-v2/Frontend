@@ -7,7 +7,10 @@ import axios, {
 
 // :: create Instance
 const baseConfig = {
-	baseURL: import.meta.env.VITE_BASE_URL,
+	// For development api
+	headers: {
+		INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+	},
 	timeout: 10 * 1000,
 }
 

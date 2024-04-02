@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { NameMessageType } from './type'
 
-// :: Bucket Detail
+// :: Username Message Type
 interface IUserNameMessageTypeStore {
 	nameStatus: NameMessageType
 	setNameStatus: (nameStatus: NameMessageType) => void
