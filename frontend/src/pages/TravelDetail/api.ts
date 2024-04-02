@@ -82,7 +82,7 @@ const generateDaysObject = (dayOrder: string[], days: Record<string, string[]>):
 
 export const getTravelDetail = async (id:string):Promise<ITravelDetail> => {
     // api
-    const travelDetail: {data: IRTravel} = await tokenInstance.get(`travel/plan/${id}`)
+    const travelDetail: {data: IRTravel} = await tokenInstance.get(`core/travel/plan/${id}`)
 
     const dayOrder = generateDayOrder(travelDetail.data.info.info.startDate, travelDetail.data.info.info.endDate)
     const days = generateDaysObject(dayOrder, travelDetail.data.plan.days)
@@ -112,7 +112,7 @@ interface IPutPlan {
 }
 
 export const putTravelDetail =async (id: string, plans: IPutPlan[]) => {
-    await tokenInstance.put(`travel/plan/${id}`, {
+    await tokenInstance.put(`core/travel/plan/${id}`, {
         planId: parseInt(id),
         plans
     })
@@ -126,6 +126,6 @@ interface IPlaceInfo {
 }
 
 export const getNearbyLocations = async (lat: number, long: number):Promise<IPlaceInfo[]> => {
-    const nearbyLocations: {data: IPlaceInfo[]} = await tokenInstance.post(`recommendation/location`, {lat, long})
+    const nearbyLocations: {data: IPlaceInfo[]} = await tokenInstance.post(`core/recommendation/location`, {lat, long})
     return nearbyLocations.data
 }
