@@ -42,7 +42,7 @@ const TravelDetail = () => {
     <div>
       <DefaultHeader menu={headerMenu} func={headerFunc} />
       <Header headerInfo={travelData.info} />
-      <TravelPlanHeader />
+      <TravelPlanHeader cities={travelData.info.cities}/>
     </div>
   )
 }
