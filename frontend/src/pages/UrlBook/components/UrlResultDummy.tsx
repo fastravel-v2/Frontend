@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { fetchUrlResults } from '../dummyData/urlDummyResult'
+import { fetchUrlResults } from '../dummyData/urlDummyResullt'
 import { Link } from 'react-router-dom'
 // 얘는 title 들어간걸로 가져와야 더미로 테스트하지..
-import { IDummyPlaceSectionProps } from '../dummyData/urlDummyResult'
+import { IDummyPlaceSectionProps } from '../dummyData/urlDummyResullt'
 import PlaceSection from 'src/components/PlaceSection'
 
 

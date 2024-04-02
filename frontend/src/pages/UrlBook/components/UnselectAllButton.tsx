@@ -15,7 +15,7 @@ const UnselectAllButton: React.FC = () => {
 	}
 	return (
 		<button
-			className="font-bold py-2 px-4 rounded text-darkGray"
+			className="px-4 text-darkGray1 font-bold rounded"
 			onClick={handleUnSelectAllButtonClick}
 		>
 			전체 선택 해제

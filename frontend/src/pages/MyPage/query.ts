@@ -34,7 +34,7 @@ export const useDeleteTravelMutation = () => {
 
 export const useLikeLocationListQuery = () => {
 	const { isLoading, data } = useQuery({
-		queryKey: ['likeLocation'],
+		queryKey: ['likeLocation'], 
 		queryFn: getLikeLocation,
 	})
 

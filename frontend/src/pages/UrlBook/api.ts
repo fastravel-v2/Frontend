@@ -5,7 +5,9 @@ const BASE_URL = 'http://j10d204.p.ssafy.io:8000'
 
 export const fetchUrlList = async () => {
 	const response = await axios.get(`${BASE_URL}/url/list`, {
-		headers: { Accept: 'application/json' },
+		headers: { Accept: 'application/json',
+		INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+	},
 	})
 	return response.data
 }
@@ -25,6 +27,7 @@ export const fetchUrlResults = async (url_id: number) => {
 	return axios.get(`${BASE_URL}/url/result/${url_id}`, {
 		headers: {
 			Accept: 'application/json',
+			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
 		},
 	})
 }
@@ -47,15 +50,6 @@ export const addUrl = async (newUrl: string) => {
 	})
 }
 
-// export const addNewUrl = async (newUrl: string) => {
-// 	return axios.post(`${BASE_URL}/url/`, null, {
-// 		params: { target_url: newUrl },
-// 		headers: {
-// 			Accept: 'application/json',
-// 			INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
-// 		},
-// 	})
-// }
 
 export const calculateUrl = async (urlId: number) => {
 	return axios.put(

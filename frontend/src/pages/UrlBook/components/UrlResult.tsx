@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 import PlaceSection from 'src/components/PlaceSection'
 import useUrlResults from '../hooks/useUrlResults'
 
-const UrlResult = () => {
+const UrlResult = () => {	
 	const { urlResultData } = useUrlResults()
+	console.log(urlResultData)
 
 	return (
 		<div className="bg-white rounded-lg overflow-hidden mr-4">

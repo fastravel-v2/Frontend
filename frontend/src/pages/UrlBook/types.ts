@@ -6,9 +6,18 @@ export interface UrlStore {
 	completed_urls: IUrlItem[] // 완료된 URL들을 저장할 배열
 	setUrls: (newUrls: IUrlItem[]) => void // 맨처음 urls에다가 URL들 세팅
 	toggleCheck: (index: number) => void // 체크된 URL들 스토어에서 관리
+	addUrl: (urlItem: IUrlItem) => void // URL 추가 메소드
 	addCompletedUrl: (urlItem: IUrlItem) => void // 완료된 URL 추가 메소드
 	selectAllUrls: () => void // 전부 체크 항상 렌더링하기 아까워서 사용하는곳에서 낙관적 UI로 체크박스 전부 true로 만들어버림
 	unSelectAllUrls: () => void
+	selectAllPendingUrls: () => void
+
+	// Url 전송 전/중/후
+	sendingUrls: number[]
+	addSendingUrl: (urlId: number) => void
+	removeSendingUrl: (urlId: number) => void
+	removeUrl: (urlId: number) => void // 스토어에서 URL을 제거하는 함수
+	setUrlError: (urlId: number) => void;
 }
 
 export interface IUrlItem {
@@ -18,10 +27,10 @@ export interface IUrlItem {
 	url: string
 	title?: string
 	description?: string
-	status: string
+	status: boolean
 	image?: string
+	error?: boolean // 에러 상태 추가
 }
-
 
 // export interface IPlaceInfo {
 // 	spot_id: string
