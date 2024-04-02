@@ -55,11 +55,11 @@ const TravelItemModal = ({ place, onClose }: TravelItemModalProps) => {
                     <FaRegClock className="h-4 w-4"/>
                     <div className="text-xs ml-1">시간 추가</div>
                 </div>
-                <div className="flex justify-between">
-                    <button className="h-10 w-36 border border-lightGray3 rounded" onClick={openModal}>
+                <div className="flex justify-between gap-4">
+                    <button className="h-10 w-full border border-lightGray3 rounded" onClick={openModal}>
                         메모 추가
                     </button>
-                    <button className="h-10 w-36 border border-lightGray3 rounded">
+                    <button className="h-10 w-full border border-lightGray3 rounded">
                         길찾기
                     </button>
                 </div>
