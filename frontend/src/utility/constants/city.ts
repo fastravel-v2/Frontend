@@ -1,4 +1,14 @@
-export const cityInfo = {
+export interface ICityInfo {
+	[key: string]: {
+		id: number
+		name: string
+		lat: number
+		long: number
+		children: string[]
+	}
+}
+
+export const cityInfo: ICityInfo = {
 	'1': {
 		id: 1,
 		name: '서울특별시',
@@ -36,7 +46,7 @@ export const cityInfo = {
 		id: 2,
 		name: '부산광역시',
 		lat: 35.179787,
-		long: 129.074800,
+		long: 129.0748,
 		children: [
 			'중구',
 			'서구',

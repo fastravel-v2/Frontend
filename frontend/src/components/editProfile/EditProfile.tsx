@@ -79,6 +79,9 @@ const EditProfile = ({
 		if (type === 'travelCreate' || type === 'travelEdit') {
 			setAdditionalTravelInfo(profileFormData)
 		}
+		if (type === 'travelEdit') {
+			profileFormData.append('travelId', String(travelId))
+		}
 
 		// :: Check formdata
 		// console.log(profileFormData.get('profile-name'))
@@ -94,10 +97,7 @@ const EditProfile = ({
 		} else if (type === 'travelCreate') {
 			profileApiRes = await postTravelProfileCreate(profileFormData)
 		} else if (travelId) {
-			profileApiRes = await putTravelProfileEdit(
-				profileFormData,
-				parseInt(travelId)
-			)
+			profileApiRes = await putTravelProfileEdit(profileFormData)
 		}
 
 		if (profileApiRes === 'success') {
