@@ -51,7 +51,7 @@ const LocationDetail = () => {
   }
 
   const headerFunc: IMenuFunc = {
-    left_func: undefined,
+    left_func: router.goBack(),
     right_func: undefined
   }
 
