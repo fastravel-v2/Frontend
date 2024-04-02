@@ -119,7 +119,7 @@ const EditProfile = ({
 						name={name}
 						setName={setName}
 					/>
-					<EditProfileSubmit type={type} nameStatus={nameStatus} />
+					<EditProfileSubmit type={type} nameStatus={nameStatus} name={name} />
 					<p className="text-xs text-darkGray1">
 						한글/영어/숫자/./밑줄을 사용할 수 있습니다.
 					</p>

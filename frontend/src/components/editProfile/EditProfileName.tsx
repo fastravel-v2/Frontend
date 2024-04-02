@@ -50,6 +50,7 @@ const EditProfileName = ({
 		// :: 중복 검사
 		if (type === 'user') {
 			currentStatus = await getNameIsDuplicated(currentName)
+			console.log('duplicate check res', currentStatus)
 			if (currentName === nameRef.current) {
 				setNameStatus(currentStatus)
 			}

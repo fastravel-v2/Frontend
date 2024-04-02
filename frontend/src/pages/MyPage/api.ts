@@ -41,7 +41,7 @@ import axios from 'axios'
 // 	],
 // }
 
-// export const getMyTravel = async () => {
+// :: My Travel
 export const getMyTravel = async (): Promise<MyTravel[]> => {
 	// :: For production api
 	// const myTravelRes = await tokenInstance.get('/core/travel/list')
@@ -63,6 +63,27 @@ export const getMyTravel = async (): Promise<MyTravel[]> => {
 	// return new Promise((resolve) => {
 	// 	resolve(dummyData.data)
 	// })
+}
+
+export const deleteMyTravel = async (
+	travelId: string
+): Promise<'success' | 'fail'> => {
+	// :: For production api
+	// const deleteRes = await tokenInstance.delete(`core/travel?planId=${travelId}`)
+
+	// :: For development api
+	const deleteRes = await axios.delete(
+		`${import.meta.env.VITE_CORE_BASE_URL}/travel?planId=${travelId}`,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
+
+	return deleteRes.data
 }
 
 // const dummyLikeData = {
@@ -112,15 +133,27 @@ export const getMyTravel = async (): Promise<MyTravel[]> => {
 // 	],
 // }
 
+// :: Profile
 export const getNameIsDuplicated = async (
 	name: string
 ): Promise<NameMessageType> => {
-	// const res = await tokenInstance.post('/user/duplicate', { name })
-	// return res.data
+	// :: For production api
+	// const duplicateRes = await tokenInstance.get(`/profile/${name}/duplicate`)
+	// return duplicateRes.data.data
 
-	await new Promise((resolve) => setTimeout(resolve, 2000)) // 2초 대기
-	console.log(name)
-	return 'valid' // 현재는 테스트를 위해 항상 valid를 반환
+	// :: For development api
+	const duplicateRes = await axios.get(
+		`${import.meta.env.VITE_CORE_BASE_URL}/profile/${name}/duplicate`,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
+
+	return duplicateRes.data.data
 }
 
 export const putUserProfile = async (
@@ -131,27 +164,6 @@ export const putUserProfile = async (
 
 	console.log(profileFormData)
 	return 'success'
-}
-
-export const deleteMyTravel = async (
-	travelId: string
-): Promise<'success' | 'fail'> => {
-	// :: For production api
-	// const deleteRes = await tokenInstance.delete(`core/travel?planId=${travelId}`)
-
-	// :: For development api
-	const deleteRes = await axios.delete(
-		`${import.meta.env.VITE_CORE_BASE_URL}/travel?planId=${travelId}`,
-		{
-			headers: {
-				'Content-Type': 'application/json',
-				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
-			},
-			withCredentials: true,
-		}
-	)
-
-	return deleteRes.data
 }
 
 // :: Like location
