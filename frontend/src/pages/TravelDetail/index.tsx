@@ -32,7 +32,7 @@ const TravelDetail = () => {
   }
 
   const headerFunc: IMenuFunc = {
-    left_func: router.goBack(),
+    left_func: router.goBack,
     right_func: undefined
   }
 
