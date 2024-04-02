@@ -1,6 +1,6 @@
 //src/pages/UrlBook/components/UrlAddBtn.tsx
 
-import UrlAddModal from './UrlAddModal'
+import UrlAddModal from '../pages/UrlBook/components/UrlAddModal'
 import React, { useState } from 'react'
 
 const UrlAddBtn: React.FC = () => {

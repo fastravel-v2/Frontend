@@ -1,35 +1,28 @@
-//src/pages/UrlBook/components/UrlItem.tsx
-
-import React, { useEffect } from 'react'
-import { IUrlItem } from '../types'
+import React, { useEffect, useState } from 'react'
 import { useUrlStore } from '../store'
+import { IUrlItem } from '../types'
 import { fetchUrlInfo } from '../api'
 import useSingleUrlDelete from '../hooks/useSingleUrlDelete'
-import { LoadingPlaneOption } from 'src/assets/lottie/LottieOptions'
+import { FailOption, LoadingPlaneOption } from 'src/assets/lottie/LottieOptions'
 import Lottie from 'react-lottie'
 
 interface IUrlItemWithIndex extends IUrlItem {
 	index: number // index는 더 이상 사용하지 않으므로 제거해도 좋습니다.
 }
 
-const UrlItem: React.FC<IUrlItemWithIndex> = ({
-	url,
-	checked,
-	url_id,
-	status,
-	error,
-}) => {
-	const [details, setDetails] = React.useState<IUrlItem | null>(null)
-	const { toggleCheck, sendingUrls } = useUrlStore((state) => ({
-		toggleCheck: state.toggleCheck,
-		sendingUrls: state.sendingUrls,
-	}))
-	const isSending = sendingUrls.includes(url_id) && status !== true
-
+const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
+	const urlItem = useUrlStore((state) =>
+		state.urls.find((url) => url.url_id === url_id)
+	)
+	const { toggleCheck, sendingUrls } = useUrlStore()
+	const [details, setDetails] = useState<IUrlItem | null>(null)
+	// const isSending = sendingUrls.includes(url_id);
+	const isSendingWithoutTrue =
+		sendingUrls.includes(url_id) && urlItem?.status !== 'True'
 	useEffect(() => {
 		const fetchData = async () => {
 			const data = await fetchUrlInfo(url_id)
-			console.log(data) // Remember to remove or comment out logs before production deployment
+			console.log(data) // 실제 제품에서는 로그를 제거해야 합니다.
 			setDetails(data)
 		}
 		fetchData()
@@ -39,7 +32,7 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({
 		e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
 	) => {
 		e.preventDefault()
-		window.open(url, '_blank')
+		window.open(urlItem?.url, '_blank')
 	}
 
 	const handleCheckboxChange = () => {
@@ -51,18 +44,18 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({
 
 	return (
 		<div className="flex px-3 py-1 items-center bg-white rounded shadow mb-2">
-			{!status && !isSending && !error && (
+			{urlItem?.error ? (
+				<Lottie options={FailOption} height={24} width={20} />
+			) : isSendingWithoutTrue ? (
+				<Lottie options={LoadingPlaneOption} height={60} width={30} />
+			) : urlItem?.status === 'None' ? (
 				<input
 					type="checkbox"
-					checked={checked}
+					checked={urlItem?.checked}
 					onChange={handleCheckboxChange}
 					className="form-checkbox h-5 w-5 text-blue-600"
 				/>
-			)}
-			{error && <div className="text-red-500 font-bold">X</div>}
-			{isSending && (
-				<Lottie options={LoadingPlaneOption} height={60} width={30} />
-			)}
+			) : null}
 			{/* Thumbnail */}
 			{details && (
 				<div className="w-16 h-16 flex justify-center rounded ml-2 overflow-hidden">
@@ -92,7 +85,7 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({
 				</div>
 			</div>
 
-			{status === true && (
+			{(urlItem?.status === 'True' || urlItem?.status === 'False') && (
 				<button
 					onClick={onClickDelete}
 					className="ml-auto font-bold py-1 px-2 rounded"

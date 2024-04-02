@@ -1,15 +1,22 @@
-// src/pages/UrlBook/components/DummyResultButton.tsx
-import React from 'react';
-import useUrlBook from '../hooks/useUrlBook';
+// src/pages/UrlBook/components/UrlResultButton.tsx
+import React from 'react'
+import useUrlBook from '../hooks/useUrlBook'
 
-const UrlResultButton: React.FC = () => {
-    const { handleButtonClickToResult } = useUrlBook();
+interface UrlResultButtonProps {
+	className?: string // 선택적으로 className을 받아들임
+}
 
-    return (
-        <button className="px-4 text-darkGray1 font-bold rounded" onClick={handleButtonClickToResult}>
-            결과보기
-        </button>
-    );
-};
+const UrlResultButton: React.FC<UrlResultButtonProps> = ({ className }) => {
+	const { handleButtonClickToResult } = useUrlBook()
 
-export default UrlResultButton;
+	return (
+		<button
+			className={`url-result-button ${className}`}
+			onClick={handleButtonClickToResult}
+		>
+			URL 결과보기
+		</button>
+	)
+}
+
+export default UrlResultButton

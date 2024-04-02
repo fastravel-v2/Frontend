@@ -92,7 +92,7 @@ const UrlAddModal: React.FC<UrlAddModalProps> = ({ doCloseModal }) => {
 						/>
 						{isInvalidUrl && (
 							<p className="text-lg text-rose-400">
-								올바른 URL 주소가 아닙니다.
+								올바른 URL 주소가 아닙니다.	
 							</p>
 						)}
 					</div>
