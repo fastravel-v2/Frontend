@@ -26,17 +26,21 @@ const LocationDetail = () => {
   const [locationData, setLocationData] = useState<LocationDetailType | undefined>(undefined)
   const [recommendLocal, setRecommendLocal] = useState<IPlaceInfo[]>([])
   const [recommendGlobal, setRecommendGlobal] = useState<IPlaceInfo[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const {id} = useParams()
   const router = useRouter()
 
   const refetch = async () => {
     if (id) {
+      setIsLoading(true)
       const fetchedData = await getLocationDetail(id)
       const fetchRecommendLocal = await getRecommendationLocal(id)
       const fetchRecommendGlobal = await getRecommendationGlobal(id)
       setLocationData(fetchedData)
       setRecommendLocal(fetchRecommendLocal)
       setRecommendGlobal(fetchRecommendGlobal)
+      window.scrollTo(0, 0)
+      setIsLoading(false)
     }
   }
 
@@ -51,8 +55,16 @@ const LocationDetail = () => {
   }
 
   const headerFunc: IMenuFunc = {
-    left_func: router.goBack(),
+    left_func: router.goBack,
     right_func: undefined
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>Loading...</p>
+      </div>
+    )
   }
 
   if (!locationData) {
