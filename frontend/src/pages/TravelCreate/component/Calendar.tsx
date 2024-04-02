@@ -11,6 +11,7 @@ import {
 	isSameMonth,
 	isToday,
 	parse,
+	startOfDay,
 	startOfToday,
 } from 'date-fns'
 import { useState } from 'react'
@@ -21,8 +22,14 @@ const Calendar = () => {
 	const { startDate, endDate, setStartDate, setEndDate } = useTravelDateStore()
 
 	const today = startOfToday()
-	const [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
-	const firstDayCurrentMonth = parse(currentMonth, 'MMM-yyyy', new Date())
+	const [currentMonth, setCurrentMonth] = useState(
+		format(startDate ?? today, 'MMM-yyyy')
+	)
+	const firstDayCurrentMonth = parse(
+		currentMonth,
+		'MMM-yyyy',
+		startDate || today
+	)
 
 	const days = eachDayOfInterval({
 		start: firstDayCurrentMonth,
@@ -121,60 +128,71 @@ const Calendar = () => {
 						<div className="text-blue-700">토</div>
 					</div>
 					<ul className="grid grid-cols-7 mt-2 text-base text-black">
-						{days.map((day, dayIdx) => (
-							<li
-								key={day.toString()}
-								data-index={dayIdx}
-								className={`${
-									dayIdx === 0 && colStartClasses[getDay(day)]
-								} py-1.5`}
-							>
-								<button
-									type="button"
-									onClick={handleSelectDate}
-									className={[
-										isToday(day) &&
-										((endDate && !isEqual(day, endDate)) ||
-											(startDate && !isEqual(day, startDate)))
-											? 'text-green1'
-											: '',
-										!isToday(day) &&
-										!isSameMonth(day, firstDayCurrentMonth) &&
-										((startDate && !isEqual(day, startDate)) ||
-											(endDate && !isEqual(day, endDate)))
-											? 'text-lightGray2'
-											: '',
-										startDate &&
-										!isEqual(day, startDate) &&
-										endDate &&
-										!isEqual(day, endDate)
-											? 'hover:bg-gray-200'
-											: '',
-										(startDate && isEqual(day, startDate)) ||
-										(endDate && isEqual(day, endDate)) ||
-										isToday(day)
-											? 'font-semibold'
-											: '',
-										startDate && isEqual(day, startDate)
-											? 'text-white bg-black'
-											: '',
-										endDate && isEqual(day, endDate)
-											? 'text-white bg-black'
-											: '',
-										getDay(day) === 0 ? 'text-rose-600' : '',
-										getDay(day) === 6 ? 'text-blue-700' : '',
-										isDateInBetweenStartAndEnd(day) ? '!text-lightGray2' : '',
-										'mx-auto flex h-8 w-8 items-center justify-center rounded-full',
-									]
-										.filter(Boolean)
-										.join(' ')}
+						{days.map((day, dayIdx) => {
+							if (startDate && endDate) {
+								console.log(
+									day,
+									startDate,
+									endDate,
+									isEqual(day, startOfDay(startDate)),
+									isEqual(day, startOfDay(endDate))
+								)
+							}
+							return (
+								<li
+									key={day.toString()}
+									data-index={dayIdx}
+									className={`${
+										dayIdx === 0 && colStartClasses[getDay(day)]
+									} py-1.5`}
 								>
-									<time dateTime={format(day, 'yyyy-MM-dd')}>
-										{format(day, 'd')}
-									</time>
-								</button>
-							</li>
-						))}
+									<button
+										type="button"
+										onClick={handleSelectDate}
+										className={[
+											isToday(day) &&
+											((endDate && !isEqual(day, endDate)) ||
+												(startDate && !isEqual(day, startDate)))
+												? 'text-green1'
+												: '',
+											!isToday(day) &&
+											!isSameMonth(day, firstDayCurrentMonth) &&
+											((startDate && !isEqual(day, startDate)) ||
+												(endDate && !isEqual(day, endDate)))
+												? 'text-lightGray2'
+												: '',
+											startDate &&
+											!isEqual(day, startDate) &&
+											endDate &&
+											!isEqual(day, endDate)
+												? 'hover:bg-gray-200'
+												: '',
+											(startDate && isEqual(day, startDate)) ||
+											(endDate && isEqual(day, endDate)) ||
+											isToday(day)
+												? 'font-semibold'
+												: '',
+											startDate && isEqual(day, startDate)
+												? 'text-white bg-black'
+												: '',
+											endDate && isEqual(day, endDate)
+												? 'text-white bg-black'
+												: '',
+											getDay(day) === 0 ? 'text-rose-600' : '',
+											getDay(day) === 6 ? 'text-blue-700' : '',
+											isDateInBetweenStartAndEnd(day) ? '!text-lightGray2' : '',
+											'mx-auto flex h-8 w-8 items-center justify-center rounded-full',
+										]
+											.filter(Boolean)
+											.join(' ')}
+									>
+										<time dateTime={format(day, 'yyyy-MM-dd')}>
+											{format(day, 'd')}
+										</time>
+									</button>
+								</li>
+							)
+						})}
 					</ul>
 				</div>
 			</div>

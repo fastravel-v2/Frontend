@@ -9,7 +9,7 @@ import SelectCity from './SelectCity'
 import SelectDate from './SelectDate'
 import WriteProfile from './WriteProfile'
 import DefaultLayout from 'src/components/layout/DefaultLayout'
-import { startOfToday } from 'date-fns'
+import { startOfDay, startOfToday } from 'date-fns'
 import { useTravelInfoQuery } from './query'
 import { useParams } from 'react-router-dom'
 
@@ -21,14 +21,19 @@ const TravelCreate = () => {
 	const { setStartDate, setEndDate, resetDate } = useTravelDateStore()
 
 	const { travelId } = useParams()
-	const { data, isLoading } = useTravelInfoQuery(travelId)
+	const { travelData, isLoading } = useTravelInfoQuery(travelId)
 
 	// page 나갈 때 해당 내용 초기화
 	useEffect(() => {
-		if (data) {
-			setSelectedCities(data.cities)
-			setStartDate(new Date(data.startDate))
-			data.endDate && setEndDate(new Date(data.endDate))
+		if (travelData) {
+			// console.log(
+			// 	travelData.cities,
+			// 	new Date(travelData.startDate),
+			// 	travelData.endDate && new Date(travelData.endDate)
+			// )
+			setSelectedCities(travelData.cities)
+			setStartDate(startOfDay(new Date(travelData.startDate)))
+			travelData.endDate && setEndDate(startOfDay(new Date(travelData.endDate)))
 		} else {
 			setStartDate(startOfToday())
 		}
@@ -39,7 +44,7 @@ const TravelCreate = () => {
 			setPageType('city')
 			resetDate()
 		}
-	}, [data])
+	}, [travelData])
 
 	return (
 		<DefaultLayout>
@@ -49,8 +54,8 @@ const TravelCreate = () => {
 				<SelectDate />
 			) : (
 				<WriteProfile
-					profileName={data?.profileName}
-					profileImage={data?.profileImage}
+					profileName={travelData?.profileName}
+					profileImage={travelData?.profileImage}
 					isLoading={isLoading}
 				/>
 			)}
