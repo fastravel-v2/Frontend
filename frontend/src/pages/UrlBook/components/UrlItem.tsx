@@ -5,7 +5,7 @@ import { IUrlItem } from '../types'
 import { useUrlStore } from '../store'
 import { fetchUrlInfo } from '../api'
 import useSingleUrlDelete from '../hooks/useSingleUrlDelete'
-import { loadingPlaneOption } from 'src/assets/lottie/LottieOptions'
+import { LoadingPlaneOption } from 'src/assets/lottie/LottieOptions'
 import Lottie from 'react-lottie'
 
 interface IUrlItemWithIndex extends IUrlItem {
@@ -17,20 +17,19 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({
 	checked,
 	url_id,
 	status,
+	error,
 }) => {
 	const [details, setDetails] = React.useState<IUrlItem | null>(null)
-	// toggleCheck를 포함한 여러 상태와 액션을 한 번에 추출합니다.
 	const { toggleCheck, sendingUrls } = useUrlStore((state) => ({
 		toggleCheck: state.toggleCheck,
 		sendingUrls: state.sendingUrls,
-		removeUrl: state.removeUrl, // 상태 업데이트를 위한 removeUrl 액션
 	}))
-	const isSending = sendingUrls.includes(url_id)
+	const isSending = sendingUrls.includes(url_id) && status !== true
 
 	useEffect(() => {
 		const fetchData = async () => {
 			const data = await fetchUrlInfo(url_id)
-			console.log(data) // 개발 단계에서 확인용 로그, 실제 배포 시에는 제거하는 것이 좋습니다.
+			console.log(data) // Remember to remove or comment out logs before production deployment
 			setDetails(data)
 		}
 		fetchData()
@@ -43,52 +42,54 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({
 		window.open(url, '_blank')
 	}
 
-	// 인덱스 대신 url_id를 사용합니다.
 	const handleCheckboxChange = () => {
-		toggleCheck(url_id) // 변경된 toggleCheck 함수 사용
+		toggleCheck(url_id)
 	}
 
 	const { handleDelete } = useSingleUrlDelete()
 	const onClickDelete = () => handleDelete(url_id)
 
 	return (
-		<div className="flex items-center px-3 py-1 bg-white rounded shadow mb-2">
-			{!status && !isSending && (
+		<div className="flex px-3 py-1 items-center bg-white rounded shadow mb-2">
+			{!status && !isSending && !error && (
 				<input
 					type="checkbox"
 					checked={checked}
 					onChange={handleCheckboxChange}
-					className="form-checkbox h-5 w-5 mr-2 text-blue-600"
+					className="form-checkbox h-5 w-5 text-blue-600"
 				/>
 			)}
-
+			{error && <div className="text-red-500 font-bold">X</div>}
 			{isSending && (
-				<Lottie options={loadingPlaneOption} height={60} width={60} />
+				<Lottie options={LoadingPlaneOption} height={60} width={30} />
 			)}
 			{/* Thumbnail */}
 			{details && (
-				<img
-					src={details.image}
-					onError={(e) =>
-						(e.currentTarget.src = '../src/assets/mushroom-green.gif')
-					}
-					alt="URL thumbnail"
-					className="w-16 h-16 rounded ml-2"
-				/>
+				<div className="w-16 h-16 flex justify-center rounded ml-2 overflow-hidden">
+					<img
+						src={details.image}
+						onError={(e) =>
+							(e.currentTarget.src = '../src/assets/mushroom-green.gif')
+						}
+						alt="URL thumbnail"
+						className="object-cover h-full"
+					/>
+				</div>
 			)}
-
 			{/* Content */}
-			<div className="flex flex-col ml-4">
-				<a
-					href="#!"
-					onClick={handleTitleClick}
-					className="text-lg font-bold line-clamp-1 cursor-pointer"
-				>
-					{details ? details.title : 'Loading...'}
-				</a>
-				<span className="text-sm text-gray-500 line-clamp-1">
-					{details ? details.description : 'Loading...'}
-				</span>
+			<div className="ml-4 w-[260px]">
+				<div className="">
+					<a
+						href="#!"
+						onClick={handleTitleClick}
+						className="text-lg font-bold line-clamp-1 cursor-pointer"
+					>
+						{details ? details.title : 'Loading...'}
+					</a>
+					<span className="text-sm text-gray-500 line-clamp-1">
+						{details ? details.description : 'Loading...'}
+					</span>
+				</div>
 			</div>
 
 			{status === true && (

@@ -3,6 +3,7 @@ import { useUrlStore } from '../store'
 
 const UrlUpdater = () => {
 	const addCompletedUrl = useUrlStore((state) => state.addCompletedUrl)
+	const removeSendingUrl = useUrlStore((state) => state.removeSendingUrl)
 	const BASE_URL = 'http://j10d204.p.ssafy.io:8000'
 
 
@@ -17,6 +18,7 @@ const UrlUpdater = () => {
 			// 데이터의 상태가 'true'인 경우에만 스토어 업데이트
 			if (data.status) {
 				addCompletedUrl(data)
+				removeSendingUrl(data.url_id)
 			}
 		}
 

@@ -1,4 +1,5 @@
 // src/pages/UrlBook/store.ts
+
 import { create } from 'zustand'
 import { UrlStore } from './types'
 
@@ -28,6 +29,13 @@ export const useUrlStore = create<UrlStore>((set) => ({
 	removeSendingUrl: (urlId) =>
 		set((state) => ({
 			sendingUrls: state.sendingUrls.filter((id) => id !== urlId),
+		})),
+		
+	setUrlError: (urlId: number) =>
+		set((state) => ({
+			urls: state.urls.map((url) =>
+				url.url_id === urlId ? { ...url, error: true } : url
+			),
 		})),
 
 	// addCompletedUrl: (urlItem) => {

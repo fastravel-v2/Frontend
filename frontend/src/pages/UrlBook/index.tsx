@@ -4,6 +4,7 @@ import UrlSendButton from './components/UrlSendBtn'
 import UrlDeleteBtn from './components/UrlDeleteBtn'
 import { useUrlStore } from './store' // useUrlStore를 직접 사용합니다.
 import UrlUpdateByForced from './components/UrlUpdateByForced'; // 컴포넌트를 불러옵니다.
+import TopNavBar from 'src/components/TopNavBar'
 
 export const UrlBook = () => {
 	// useUrlStore 훅에서 urls 상태를 가져옵니다.
@@ -14,6 +15,7 @@ export const UrlBook = () => {
 	return (
 		<div className="min-h-screen bg-gray-100">
 			<UrlUpdateByForced />
+			<TopNavBar/>
 			<UrlAddBtn />
 			<div className="flex justify-between mt-2">
 				{/* 조건부 렌더링: 체크된 URL이 하나 이상 있을 때만 UrlSendButton과 UrlDeleteBtn을 렌더링합니다. */}

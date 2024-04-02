@@ -16,8 +16,8 @@ export interface UrlStore {
 	sendingUrls: number[]
 	addSendingUrl: (urlId: number) => void
 	removeSendingUrl: (urlId: number) => void
-	removeUrl: (urlId: number) => void; // 스토어에서 URL을 제거하는 함수
-
+	removeUrl: (urlId: number) => void // 스토어에서 URL을 제거하는 함수
+	setUrlError: (urlId: number) => void;
 }
 
 export interface IUrlItem {
@@ -29,6 +29,7 @@ export interface IUrlItem {
 	description?: string
 	status: boolean
 	image?: string
+	error?: boolean // 에러 상태 추가
 }
 
 // export interface IPlaceInfo {

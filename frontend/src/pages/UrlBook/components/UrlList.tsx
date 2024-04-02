@@ -1,6 +1,6 @@
 import React from 'react'
 import Lottie from 'react-lottie'
-import { travelBusOptions } from 'src/assets/lottie/LottieOptions'
+import { TravelBusOption } from 'src/assets/lottie/LottieOptions'
 import { useUrlStore } from '../store'
 import UrlItem from './UrlItem'
 import { IUrlItem } from '../types'
@@ -25,7 +25,6 @@ const UrlList: React.FC = () => {
 	useCheckedUrlsLogger()
 
 	const checkedCount = urls.filter((url) => url.checked).length // 현재 선택된 URL의 개수를 계산합니다.
-
 	const completedUrls = data?.filter((url) => url.status) || []
 	const pendingUrls = data?.filter((url) => !url.status) || []
 
@@ -57,6 +56,7 @@ const UrlList: React.FC = () => {
 									url={url.url}
 									status={url.status}
 									checked={url.checked}
+									error={url.error} // error prop 추가
 								/>
 							))}
 						</div>
@@ -88,7 +88,7 @@ const UrlList: React.FC = () => {
 					{/* 데이터가 없을 경우 */}
 					{pendingUrls.length === 0 && completedUrls.length === 0 && (
 						<div className="text-center">
-							<Lottie options={travelBusOptions} height={260} width={300} />
+							<Lottie options={TravelBusOption} height={260} width={300} />
 							<h1 className="text-xl font-bold">삐뽀삐뽀 URL 추가 요망</h1>
 						</div>
 					)}
