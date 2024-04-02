@@ -1,45 +1,8 @@
 // import { tokenInstance } from 'src/utility/apis/axios'
-import { LikeLocationItemRes, MyTravel } from './type'
 // import { tokenMultipartInstance } from 'src/utility/apis/axios'
+import { LikeLocationItemRes, MyTravel } from './type'
 import { NameMessageType } from './type'
 import axios from 'axios'
-
-// const dummyData = {
-// 	data: [
-// 		{
-// 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
-// 			travelImage: '/src/assets/svgs/travelImage.svg',
-// 			travelName: '여수 여행',
-// 			startDate: '2024-03-16T19:20+01:00',
-// 			endDate: '2024-03-31T19:20+01:00',
-// 			numOfCity: 1,
-// 		},
-// 		{
-// 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
-// 			travelImage: '/src/assets/svgs/travelImage.svg',
-// 			travelName: '여수 여행',
-// 			startDate: '2024-03-13T19:20+01:00',
-// 			endDate: '2024-03-14T19:20+01:00',
-// 			numOfCity: 1,
-// 		},
-// 		{
-// 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
-// 			travelImage: '/src/assets/svgs/travelImage.svg',
-// 			travelName: '여수 여행',
-// 			startDate: '2024-03-01T19:20+01:00',
-// 			endDate: '2024-03-02T19:20+01:00',
-// 			numOfCity: 1,
-// 		},
-// 		{
-// 			travelId: 1, // 여행 상세 일정이나 url 상세 정보로 들억가기 위한 정보
-// 			travelImage: '/src/assets/svgs/travelImage.svg',
-// 			travelName: '여수 여행',
-// 			startDate: '2024-04-16T19:20+01:00',
-// 			endDate: '2024-04-17T19:20+01:00',
-// 			numOfCity: 1,
-// 		},
-// 	],
-// }
 
 // :: My Travel
 export const getMyTravel = async (): Promise<MyTravel[]> => {
@@ -59,10 +22,6 @@ export const getMyTravel = async (): Promise<MyTravel[]> => {
 	)
 
 	return myTravelRes.data
-
-	// return new Promise((resolve) => {
-	// 	resolve(dummyData.data)
-	// })
 }
 
 export const deleteMyTravel = async (
@@ -85,53 +44,6 @@ export const deleteMyTravel = async (
 
 	return deleteRes.data
 }
-
-// const dummyLikeData = {
-// 	data: [
-// 		{
-// 			locationId: 1,
-// 			locationImage: '/src/assets/svgs/travelImage.svg',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
-// 		},
-// 		{
-// 			locationId: 2,
-// 			locationImage: '/src/assets/svgs/travelImage.svg',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: null,
-// 		},
-// 		{
-// 			locationId: 3,
-// 			locationImage: '',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: '크림 쏟아버렸던 그 곳.. 찐맛이었다. 또 가고 싶다.',
-// 		},
-// 		{
-// 			locationId: 4,
-// 			locationImage: '',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: null,
-// 		},
-// 		{
-// 			locationId: 5,
-// 			locationImage: '/src/assets/svgs/travelImage.svg',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: null,
-// 		},
-// 		{
-// 			locationId: 6,
-// 			locationImage: '/src/assets/svgs/travelImage.svg',
-// 			locationName: '홉히',
-// 			locationAddress: '제주 시내(제주)',
-// 			locationMemo: null,
-// 		},
-// 	],
-// }
 
 // :: Profile
 export const getNameIsDuplicated = async (
@@ -159,11 +71,23 @@ export const getNameIsDuplicated = async (
 export const putUserProfile = async (
 	profileFormData: FormData
 ): Promise<'success' | 'fail'> => {
-	// const editRes = await tokenMultipartInstance.put('/user/profile', profileFormData)
-	// return editRes.data
+	// :: For production api
+	// const editRes = await tokenMultipartInstance.put('core/profile', profileFormData)
 
-	console.log(profileFormData)
-	return 'success'
+	// :: For development api
+	const editRes = await axios.put(
+		`${import.meta.env.VITE_CORE_BASE_URL}/profile`,
+		profileFormData,
+		{
+			headers: {
+				'Content-Type': 'multipart/form-data',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
+
+	return editRes.status === 200 ? 'success' : 'fail'
 }
 
 // :: Like location
@@ -201,7 +125,7 @@ export const postLikeLocation = async (
 	// :: For development api
 	try {
 		await axios.post(
-			`${import.meta.env.VITE_CORE_BASE_URL}/my_spot/${locationId}`,
+			`${import.meta.env.VITE_CORE_BASE_URL}/my_spot`,
 			{ spot_id: locationId, memo: memoText },
 			{
 				headers: {
@@ -243,4 +167,53 @@ export const deleteLikeLocation = async (
 		console.log(error)
 		return 'fail'
 	}
+}
+
+// :: My Location Memo
+export const getMyLocationMemoList = async (): Promise<
+	LikeLocationItemRes[]
+> => {
+	// :: For production api
+	// const myLikeRes = await tokenInstance.get('/core/my_spot/list')
+
+	// :: For development api
+	const myLikeRes = await axios.get(
+		`${import.meta.env.VITE_CORE_BASE_URL}/my_spot/list`,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
+
+	return myLikeRes.data
+}
+
+export const putMyLocationMemo = async ({
+	locationId,
+	memoText,
+}: {
+	locationId: string
+	memoText: string
+}): Promise<'success' | 'fail'> => {
+	// :: For production api
+	// const myLikeRes = await tokenInstance.get('/core/my_spot/list')
+
+	// :: For development api
+	const myLocationMemoRes = await axios.put(
+		`${
+			import.meta.env.VITE_CORE_BASE_URL
+		}/my_spot/memo?spot_id=${locationId}&memo=${memoText}`,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+			withCredentials: true,
+		}
+	)
+
+	return myLocationMemoRes.status === 200 ? 'success' : 'fail'
 }

@@ -13,6 +13,7 @@ const LikeButton = ({ locationId, locationMemo }: ILikeButtonProps) => {
 	const handleClickLike = async (event: MouseEvent<HTMLButtonElement>) => {
 		// Link tag 동작을 막기 위한 코드
 		event.stopPropagation()
+		event.preventDefault()
 
 		let requestResult = 'fail'
 		const requestMethod = isLiked ? deleteLikeLocation : postLikeLocation

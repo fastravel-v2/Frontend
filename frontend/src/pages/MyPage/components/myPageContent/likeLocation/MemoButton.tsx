@@ -1,8 +1,8 @@
 import MemoModal from 'src/components/MemoModal'
 import { createPortal } from 'react-dom'
 import { IoDocumentTextOutline } from 'react-icons/io5'
-import { postLikeLocation } from 'src/pages/MyPage/api'
 import { useState } from 'react'
+import { useMyLocationMemoListQuery } from 'src/pages/MyPage/query'
 
 interface MemoButtonProps {
 	locationId: string
@@ -10,6 +10,8 @@ interface MemoButtonProps {
 }
 const MemoButton = ({ locationId, locationMemo }: MemoButtonProps) => {
 	const [isOpen, setIsOpen] = useState(false)
+	// Todo: memo query랑 연결 필요
+	const { myLocationMemoList } = useMyLocationMemoListQuery()
 
 	// :: Event Handlers
 	const handleOpenMemoModal = () => {
@@ -20,34 +22,34 @@ const MemoButton = ({ locationId, locationMemo }: MemoButtonProps) => {
 	}
 
 	return (
-		<>
+		<div className="mx-1">
 			{locationMemo ? (
-				<p
+				<button
 					onClick={handleOpenMemoModal}
-					className="text-[10px] font-light text-darkGray1 truncate"
+					className="text-[10px] font-light text-darkGray1 truncate text-left w-full"
 				>
-					{locationMemo}
-				</p>
+					<span>{myLocationMemoList[locationId]}</span>
+					<IoDocumentTextOutline className="inline ml-1" />
+				</button>
 			) : (
 				<button
 					onClick={handleOpenMemoModal}
-					className="text-[10px] font-light text-darkGray1 flex items-center"
+					className="text-[10px] font-light text-darkGray1"
 				>
 					<span>메모 추가하기</span>
-					<IoDocumentTextOutline className="inline ml-[2px]" />
+					<IoDocumentTextOutline className="inline ml-1" />
 				</button>
 			)}
 			{isOpen &&
 				createPortal(
 					<MemoModal
 						requestId={locationId}
-						memoReqFunc={postLikeLocation}
 						onClose={handleCloseMemoModal}
-						memoText={locationMemo}
+						memoText={myLocationMemoList[locationId]}
 					/>,
 					document.body
 				)}
-		</>
+		</div>
 	)
 }
 

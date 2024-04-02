@@ -1,7 +1,7 @@
 import { LikeLocation } from 'src/pages/MyPage/type'
 import LikeLocationItemInfo from './LikeLocationItemInfo'
 import { DefaultLocation } from 'src/assets/svgs'
-import { Link } from 'react-router-dom'
+import MemoButton from './MemoButton'
 
 interface ILikeLocationItemProps {
 	locationInfo: LikeLocation
@@ -9,7 +9,7 @@ interface ILikeLocationItemProps {
 
 const LikeLocationItem = ({ locationInfo }: ILikeLocationItemProps) => {
 	return (
-		<Link to={'/location/' + locationInfo.locationId}>
+		<div>
 			{locationInfo.locationImage ? (
 				<div className="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden">
 					<img
@@ -22,7 +22,11 @@ const LikeLocationItem = ({ locationInfo }: ILikeLocationItemProps) => {
 			)}
 
 			<LikeLocationItemInfo locationInfo={locationInfo} />
-		</Link>
+			<MemoButton
+				locationId={locationInfo.locationId}
+				locationMemo={locationInfo.locationMemo}
+			/>
+		</div>
 	)
 }
 
