@@ -51,7 +51,7 @@ const AddLocationModal = ({ locationId, onClose }: IAddLocationModalProps) => {
 					onClick={onClose}
 				></button>
 			</div>
-			<div className="absolute bottom-0 z-30 bg-white w-full flex flex-col items-center">
+			<div className="absolute bottom-0 z-30 bg-white w-full flex flex-col items-center pt-16 rounded-t-2xl">
 				<h1 className="font-bold text-xl">
 					여행지를 추가할 일정을 <br />
 					선택해주세요!
@@ -94,8 +94,8 @@ const AddLocationModal = ({ locationId, onClose }: IAddLocationModalProps) => {
 				</div>
 				<button
 					className={
-						'absolute bottom-0 w-full py-4 font-bold text-white bg-green1 cursor-not-allowed ' +
-						(isDisabled && 'opacity-50')
+						'absolute bottom-0 w-full py-4 font-bold text-white bg-green1 ' +
+						(isDisabled && 'cursor-not-allowed opacity-50')
 					}
 					onClick={handleAddLocation}
 					disabled={isDisabled}
