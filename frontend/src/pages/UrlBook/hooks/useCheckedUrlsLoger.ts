@@ -6,5 +6,6 @@ export const useCheckedUrlsLogger = () => {
 	useEffect(() => {
 		const checkedUrls = urls.filter((item) => item.checked)
 		console.log('Checked URLs:', checkedUrls)
+		
 	}, [urls])
 }

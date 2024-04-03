@@ -1,7 +1,7 @@
 // src/pages/UrlBook/api.ts
 
 import axios from 'axios'
-const BASE_URL = 'http://j10d204.p.ssafy.io:8000'
+const BASE_URL = 'https://j10d204.p.ssafy.io/api/core'
 
 export const fetchUrlList = async () => {
 	const response = await axios.get(`${BASE_URL}/url/list`, {

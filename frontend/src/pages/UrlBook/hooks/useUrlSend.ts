@@ -1,9 +1,13 @@
 // src/pages/UrlBook/hooks/useUrlSend.ts
+import { QueryObserverResult } from '@tanstack/react-query'
 import { calculateUrl } from '../api'
 import { useUrlStore } from '../store'
+import { IUrlItem } from '../types'
 
-const useUrlSend = () => {
-	const { urls, addSendingUrl, unSelectAllUrls, setUrlError, triggerRefresh } = useUrlStore()
+const useUrlSend = (
+	refetch: () => Promise<QueryObserverResult<IUrlItem[], Error>>
+  ) => {	const { urls, addSendingUrl, unSelectAllUrls, setUrlError } =
+		useUrlStore()
 	const { removeSendingUrl } = useUrlStore()
 
 	const sendCheckedUrls = async () => {
@@ -22,19 +26,20 @@ const useUrlSend = () => {
 						const data = response.data
 						console.log(data)
 						setTimeout(() => {
-							triggerRefresh() // 5초 후 refreshTrigger 상태를 변경하여 재렌더링 트리거
-						}, 5000)
+							refetch() // 7초 후 refetch 함수 호출
+						}, 7000)
 					} catch (error) {
-						console.log('보낸URL번호 : ', url_id)
-						console.error('API 호출 중 오류 발생:', error)
+						// console.log('보낸URL번호 : ', url_id)
+						// console.error('API 호출 중 오류 발생:', error)
 						setUrlError(url_id) // 에러 상태 업데이트
 						removeSendingUrl(url_id)
 					}
 				})
 			)
+
 		} catch (error) {
-			console.log('보낸URL번호 : ', checkedUrlsId)
-			console.error('API 호출 중 오류 발생:', error)
+			// console.log('보낸URL번호 : ', checkedUrlsId)
+			// console.error('API 호출 중 오류 발생:', error)
 		}
 	}
 
@@ -42,3 +47,5 @@ const useUrlSend = () => {
 }
 
 export default useUrlSend
+
+ 

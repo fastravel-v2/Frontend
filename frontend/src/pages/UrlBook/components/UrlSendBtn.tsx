@@ -1,9 +1,11 @@
 import React from 'react'
 import useUrlSend from '../hooks/useUrlSend'
+import useFetchUrlList from '../hooks/useFetchUrlList'
 // import { useUrlStore } from '../store'
 
 const UrlSendButton: React.FC = () => {
-	const { sendCheckedUrls } = useUrlSend()
+	const { refetch } = useFetchUrlList();
+	const { sendCheckedUrls } = useUrlSend(refetch)
 	// const { urls } = useUrlStore()
 	// const checkedCount = urls.filter((url) => url.checked).length
 

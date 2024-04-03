@@ -4,7 +4,7 @@ import { useUrlStore } from '../store'
 const UrlUpdater = () => {
 	const addCompletedUrl = useUrlStore((state) => state.addCompletedUrl)
 	const removeSendingUrl = useUrlStore((state) => state.removeSendingUrl)
-	const BASE_URL = 'http://j10d204.p.ssafy.io:8000'
+	const BASE_URL = 'https://j10d204.p.ssafy.io:8000'
 
 
 	useEffect(() => {

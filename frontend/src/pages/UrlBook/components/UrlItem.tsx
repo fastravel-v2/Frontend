@@ -22,7 +22,7 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			const data = await fetchUrlInfo(url_id)
-			console.log(data) // 실제 제품에서는 로그를 제거해야 합니다.
+			// console.log(data) // 실제 제품에서는 로그를 제거해야 합니다.
 			setDetails(data)
 		}
 		fetchData()
@@ -47,7 +47,7 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 			{urlItem?.error ? (
 				<Lottie options={FailOption} height={24} width={20} />
 			) : isSendingWithoutTrue ? (
-				<Lottie options={LoadingPlaneOption} height={60} width={30} />
+				<Lottie options={LoadingPlaneOption} height={60} width={20} />
 			) : urlItem?.status === 'None' ? (
 				<input
 					type="checkbox"

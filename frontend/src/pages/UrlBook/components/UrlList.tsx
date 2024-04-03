@@ -5,7 +5,7 @@ import { useUrlStore } from '../store'
 import UrlItem from './UrlItem'
 import { IUrlItem } from '../types'
 import useFetchUrlList from '../hooks/useFetchUrlList'
-import { useCheckedUrlsLogger } from '../hooks/useCheckedUrlsLoger'
+// import { useCheckedUrlsLogger } from '../hooks/useCheckedUrlsLoger'
 import SelectAllPendingButton from './SelectAllPendingBtn'
 import UnselectAllButton from './UnselectAllButton' // UnselectAllButton을 임포트합니다.
 
@@ -14,13 +14,19 @@ const UrlList: React.FC = () => {
 	const { urls } = useUrlStore() // useUrlStore에서 urls 상태를 직접 사용합니다.
 	const { data, isLoading, isError } = useFetchUrlList()
 
+	// React.useEffect(() => {
+	// 	// refreshTrigger 상태가 변경될 때마다 데이터를 새로고침
+	// 	refetch()
+	// 	console.log('리페치 작동!')
+	// }, [refreshTrigger, refetch])
+
 	React.useEffect(() => {
 		if (data) {
 			setUrls(data)
 		}
 	}, [data, setUrls])
 
-	useCheckedUrlsLogger()
+	// useCheckedUrlsLogger()
 
 	const checkedCount = urls.filter((url) => url.checked).length // 현재 선택된 URL의 개수를 계산합니다.
 	const completedUrls = data?.filter((url) => url.status === 'True') || []
@@ -30,7 +36,6 @@ const UrlList: React.FC = () => {
 
 	return (
 		<div>
-
 			{isLoading ? (
 				<div>위잉위잉 데이터 가져오는 중 </div>
 			) : isError ? (
