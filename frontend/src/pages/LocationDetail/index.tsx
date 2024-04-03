@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { IMenu, IMenuFunc } from "src/types/layout"
-import { getLocationDetail, getRecommendationGlobal, getRecommendationLocal } from "./api"
+import { getLikeLocations, getLocationDetail, getRecommendationGlobal, getRecommendationLocal } from "./api"
 import { LocationDetailType } from "./type"
 import WithHeaderLayout from "src/components/layout/WithHeaderLayout"
 import Header from "./components/Header"
@@ -14,6 +14,7 @@ import MapComponent from "./components/MapComponent"
 import { FaArrowLeft } from "react-icons/fa6";
 import { useRouter } from "src/hooks/useRouter"
 import PlaceSection from "src/components/PlaceSection"
+import { useMyLocationMemoListQuery } from "../MyPage/query"
 
 interface IPlaceInfo {
 	spot_id: string
@@ -27,8 +28,11 @@ const LocationDetail = () => {
   const [recommendLocal, setRecommendLocal] = useState<IPlaceInfo[]>([])
   const [recommendGlobal, setRecommendGlobal] = useState<IPlaceInfo[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [memo, setMemo] = useState("")
+  const [isLiked, setIsLiked] = useState(false)
   const {id} = useParams()
   const router = useRouter()
+  const { myLocationMemoList } = useMyLocationMemoListQuery()
 
   const refetch = async () => {
     if (id) {
@@ -36,6 +40,13 @@ const LocationDetail = () => {
       const fetchedData = await getLocationDetail(id)
       const fetchRecommendLocal = await getRecommendationLocal(id)
       const fetchRecommendGlobal = await getRecommendationGlobal(id)
+      const fetchLikeLocations = await getLikeLocations()
+
+      setIsLiked(fetchLikeLocations.some(location => location.spot_id === id))
+      const likedLocation = fetchLikeLocations.find(location => location.spot_id === id)
+      if (likedLocation) {
+        setMemo(myLocationMemoList[id])
+      }
       setLocationData(fetchedData)
       setRecommendLocal(fetchRecommendLocal)
       setRecommendGlobal(fetchRecommendGlobal)
@@ -67,7 +78,7 @@ const LocationDetail = () => {
     )
   }
 
-  if (!locationData) {
+  if (!id || !locationData) {
     router.routeTo('/notFound')
     return
   }
@@ -77,7 +88,7 @@ const LocationDetail = () => {
 
   return (
     <WithHeaderLayout headerMenu={headerMenu} headerFunc={headerFunc}>
-      <Header name={locationData.name} address={locationData.address} />
+      <Header name={locationData.name} address={locationData.address} locationId={id} memo={memo} />
       {locationData.image_urls.length
         ? locationData.image_urls.length === 1
           ? <div className="flex justify-center">
@@ -92,7 +103,7 @@ const LocationDetail = () => {
         : <div className="flex justify-center"><div className="h-44 min-h-44 w-full bg-lightGray3 flex justify-center items-center"><span className="text-darkGray3">No image...</span></div></div>
       }
       <div className="flex justify-between w-full gap-4">
-        <LikeButton />
+        <LikeButton locationId={id} locationMemo={memo} likeProps={isLiked} />
         <AddToPlanButton />
       </div>
       <Description description={locationData.description} />
