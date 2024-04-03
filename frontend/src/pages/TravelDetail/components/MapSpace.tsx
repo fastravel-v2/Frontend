@@ -6,9 +6,11 @@ import { IPlan } from "../type";
 interface MapSpaceProps {
     plan: IPlan;
     day: number;
+    cityLat: number;
+    cityLong: number;
 }
 
-const MapSpace = ({day, plan}: MapSpaceProps) => {
+const MapSpace = ({day, plan, cityLat, cityLong}: MapSpaceProps) => {
     const router = useRouter()
     const mapRef = useRef<HTMLDivElement>(null)
     const [isMapVisible, setIsMapVisible] = useState(true)
@@ -22,7 +24,7 @@ const MapSpace = ({day, plan}: MapSpaceProps) => {
         const places = visibleDay.placeIds.map((placeId) => plan.places[placeId])
 
         const mapOptions = {
-            center: new window.naver.maps.LatLng(36.1073423, 128.4141895),
+            center: new window.naver.maps.LatLng(cityLat, cityLong),
             zoom: 11,
             scaleControl: false
         }
@@ -72,7 +74,7 @@ const MapSpace = ({day, plan}: MapSpaceProps) => {
             })
             
         } else {
-            map.setCenter(new window.naver.maps.LatLng(36.1073423, 128.4141895))
+            map.setCenter(new window.naver.maps.LatLng(cityLat, cityLong))
             map.setZoom(11)
         }
 
