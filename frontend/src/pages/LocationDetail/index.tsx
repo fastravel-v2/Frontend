@@ -15,6 +15,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { useRouter } from "src/hooks/useRouter"
 import PlaceSection from "src/components/PlaceSection"
 import { useMyLocationMemoListQuery } from "../MyPage/query"
+import { IoHomeOutline } from "react-icons/io5"
 
 interface IPlaceInfo {
 	spot_id: string
@@ -72,12 +73,12 @@ const LocationDetail = () => {
   const headerMenu: IMenu = {
     left: <FaArrowLeft />,
     center: null,
-    right: null
+    right: <IoHomeOutline/>
   }
 
   const headerFunc: IMenuFunc = {
     left_func: router.goBack,
-    right_func: undefined
+    right_func: () => router.routeTo('/')
   }
 
   if (isLoading) {
