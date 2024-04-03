@@ -47,7 +47,7 @@ export const getSurveyList = async ({
 	// :: For development api
 	const surveyRes = await axios.get(
 		`${
-			import.meta.env.VITE_SURVEY_BASE_URL
+			import.meta.env.VITE_DEPLOY_SURVEY_URL
 		}/survey/random_spot?category=${categoryId}&count=4`,
 		{
 			headers: {
