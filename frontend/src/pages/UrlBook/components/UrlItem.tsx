@@ -3,7 +3,11 @@ import { useUrlStore } from '../store'
 import { IUrlItem } from '../types'
 import { fetchUrlInfo } from '../api'
 import useSingleUrlDelete from '../hooks/useSingleUrlDelete'
-import { FailOption, LoadingPlaneOption, NoImageOption } from 'src/assets/lottie/LottieOptions'
+import {
+	FailOption,
+	LoadingPlaneOption,
+	NoImageOption,
+} from 'src/assets/lottie/LottieOptions'
 import Lottie from 'react-lottie'
 
 interface IUrlItemWithIndex extends IUrlItem {
@@ -14,10 +18,12 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 	const urlItem = useUrlStore((state) =>
 		state.urls.find((url) => url.url_id === url_id)
 	)
-	const { toggleCheck, sendingUrls } = useUrlStore()
+	const { toggleCheck, sendingUrls, removeUrl } = useUrlStore()
 	const [details, setDetails] = useState<IUrlItem | null>(null)
 	// const isSending = sendingUrls.includes(url_id);
 	const [imageError, setImageError] = useState(false) // 이미지 로딩 실패 여부를 추적하는 상태
+
+
 
 	const isSendingWithoutTrue =
 		sendingUrls.includes(url_id) && urlItem?.status !== 'True'
@@ -42,7 +48,11 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 	}
 
 	const { handleDelete } = useSingleUrlDelete()
-	const onClickDelete = () => handleDelete(url_id)
+	const onClickDelete = async () => {
+		await handleDelete(url_id)
+		// 삭제가 성공적으로 완료된 후, removeUrl을 호출하여 스토어에서 해당 URL을 제거합니다.
+		removeUrl(url_id)
+	}
 
 	return (
 		<div className="flex px-3 py-1 items-center bg-white rounded shadow mb-2">
