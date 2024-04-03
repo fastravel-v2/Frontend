@@ -5,7 +5,7 @@ import { fetchUrlInfo } from '../api'
 import useSingleUrlDelete from '../hooks/useSingleUrlDelete'
 import { FailOption, LoadingPlaneOption } from 'src/assets/lottie/LottieOptions'
 import Lottie from 'react-lottie'
-import { NoPlace } from 'src/assets/svgs'
+import { NoBasic } from 'src/assets/svgs'
 
 interface IUrlItemWithIndex extends IUrlItem {
 	index: number // index는 더 이상 사용하지
@@ -63,11 +63,11 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 					{details.image ? (
 						<img
 							src={details.image}
-							alt="URL thumbnail"
+							alt="Url thumbnail"
 							className="object-cover h-full"
 						/>
 					) : (
-						<NoPlace width="100%" height="100%" />
+						<NoBasic width="100%" height="100%" />
 					)}
 				</div>
 			)}
