@@ -71,7 +71,7 @@ export const putUserProfile = async (
 ): Promise<'success' | 'fail'> => {
 	// :: For production api
 	const editRes = await tokenMultipartInstance.put(
-		'core/profile',
+		'core/profile/',
 		profileFormData
 	)
 
