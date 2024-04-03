@@ -3,6 +3,7 @@ import LoadingPlane from './LoadingPlane.json'
 import Passport from './Passport.json'
 import UrlBook from './UrlBook.json'
 import Fail from './Fail.json'
+import NoImage from './NoImage.json'
 
 export const TravelBusOption = {
 	loop: true,
@@ -42,6 +43,14 @@ export const FailOption = {
 	loop: false,
 	autoplay: true,
 	animationData: Fail,
+	rendererSettings: {
+		preserveAspectRatio: 'xMidYMid slice',
+	},
+}
+export const NoImageOption = {
+	loop: false,
+	autoplay: true,
+	animationData: NoImage,
 	rendererSettings: {
 		preserveAspectRatio: 'xMidYMid slice',
 	},
