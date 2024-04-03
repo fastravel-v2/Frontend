@@ -44,14 +44,14 @@ const AddLocationModal = ({ locationId, onClose }: IAddLocationModalProps) => {
 		onClose()
 	}
 	return (
-		<div className="fixed inset-0 z-20 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none ">
+		<div className="fixed inset-0 z-[120] flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none ">
 			<div className="fixed inset-0 transition-opacity">
 				<button
 					className="absolute inset-0 bg-black opacity-50"
 					onClick={onClose}
 				></button>
 			</div>
-			<div className="absolute bottom-0 z-30 bg-white w-full flex flex-col items-center pt-16 rounded-t-2xl">
+			<div className="absolute bottom-0 z-[130] bg-white w-full flex flex-col items-center pt-16 rounded-t-2xl">
 				<h1 className="font-bold text-xl">
 					여행지를 추가할 일정을 <br />
 					선택해주세요!
