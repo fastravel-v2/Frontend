@@ -47,7 +47,7 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 	return (
 		<div className="flex px-3 py-1 items-center bg-white rounded shadow mb-2">
 			{urlItem?.error ? (
-				<Lottie options={FailOption} height={24} width={20} />
+				<Lottie options={FailOption} height={20} width={20} />
 			) : isSendingWithoutTrue ? (
 				<Lottie options={LoadingPlaneOption} height={60} width={20} />
 			) : urlItem?.status === 'None' ? (
