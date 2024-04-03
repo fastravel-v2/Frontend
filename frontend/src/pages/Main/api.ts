@@ -1,6 +1,7 @@
 //src/pages/Main/api.ts
 
 import axios from 'axios';
+import { instance, tokenInstance } from 'src/utility/apis/axios';
 
 const BASE_URL = 'https://j10d204.p.ssafy.io/api/core';
 
@@ -11,3 +12,21 @@ export const fetchRecommendations = async () => {
   });
   return response.data;
 };
+
+interface IPlaceInfo {
+	spot_id: string
+	image_url: string
+	name: string
+	address: string
+}
+
+export const getRecommendationsLocation = async (lat: number, long: number):Promise<IPlaceInfo[]> => {
+  // const response: {data: IPlaceInfo[]} = await tokenInstance.post(`core/recommendation/location`, {lat, long})
+  const response: {data: IPlaceInfo[]} = await tokenInstance.post(`recommendation/location`, {lat, long})
+  return response.data
+}
+export const getRecommendationsRandom =async ():Promise<IPlaceInfo[]> => {
+  // const response: {data: IPlaceInfo[]} = await tokenInstance.get(`core/recommendation/best_list`)
+  const response: {data: IPlaceInfo[]} = await instance.get(`recommendation/best_list`)
+  return response.data
+}
