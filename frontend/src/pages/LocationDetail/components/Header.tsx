@@ -1,30 +1,39 @@
+import MemoModal from 'src/components/MemoModal'
+import { createPortal } from 'react-dom'
 import { useState } from "react"
 import { PiNote } from "react-icons/pi";
-import MemoModal from "./MemoModal";
 
 interface HeaderProps {
+  locationId: string;
   name: string;
   address: string;
+  memo: string;
 }
 
-const Header = ({name, address}: HeaderProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+const Header = ({name, address, locationId, memo}: HeaderProps) => {
+  const [isOpen, setIsOpen] = useState(false)
 
-  const openModal = () => {
-    setIsModalOpen(true)
-  }
-
-  const closeModal = () => {
-    setIsModalOpen(false)
-  }
+  const handleOpenMemoModal = () => {
+		setIsOpen(true)
+	}
+	const handleCloseMemoModal = () => {
+		setIsOpen(false)
+	}
 
   return (
     <div className="mt-6 ml-1 mb-4">
       <h1 className="text-2xl font-bold">{name}</h1>
-      <div className="mb-1 text-darkGray3 flex items-center" onClick={openModal}><PiNote />메모 추가</div>
-      <div className="mb-1 text-xs font-semibold">like count</div>
+      <div className="mb-1 text-darkGray3 flex items-center" onClick={handleOpenMemoModal}><PiNote />메모하기</div>
       <div className="text-xs font-semibold">{address}</div>
-      {isModalOpen && <MemoModal onClose={closeModal}/>}
+      {isOpen &&
+				createPortal(
+					<MemoModal
+						requestId={locationId}
+						onClose={handleCloseMemoModal}
+						memoText={memo}
+					/>,
+					document.body
+				)}
     </div>
   )
 }

@@ -44,7 +44,7 @@ const MemoModal = ({
 					placeholder="메모를 작성해주세요"
 					ref={memoRef}
 				>
-					{memoText !== null && memoText.length > 0 && memoText}
+					{memoText && memoText.length > 0 && memoText}
 				</textarea>
 				<div className="flex justify-between">
 					<button
