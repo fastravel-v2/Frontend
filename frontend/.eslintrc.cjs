@@ -31,6 +31,7 @@ module.exports = {
 				ignore: ['click-to-react-component'],
 			},
 		],
+		'no-mixed-spaces-and-tabs': 0,
 	},
 	settings: {
 		react: {

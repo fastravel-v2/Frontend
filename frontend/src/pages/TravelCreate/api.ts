@@ -42,11 +42,11 @@ export const postTravelProfileCreate = async (
 		}
 	)
 
-	return createRes.data
+	return createRes.status === 200 ? 'success' : 'fail'
 }
 
 export const putTravelProfileEdit = async (
-	profileFormData: FormData,
+	profileFormData: FormData
 ): Promise<'success' | 'fail'> => {
 	// :: For production api
 	// const editRes = await tokenMultipartInstance.put(
@@ -67,5 +67,5 @@ export const putTravelProfileEdit = async (
 		}
 	)
 
-	return editRes.data
+	return editRes.status === 200 ? 'success' : 'fail'
 }

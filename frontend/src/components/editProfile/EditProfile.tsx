@@ -15,6 +15,7 @@ import {
 } from 'src/pages/TravelCreate/api'
 import { putUserProfile } from 'src/pages/MyPage/api'
 import { useParams } from 'react-router-dom'
+import { formatISO } from 'date-fns'
 
 export enum NameMessageInfo {
 	'initial' = '',
@@ -62,8 +63,20 @@ const EditProfile = ({
 	}, [profileName])
 
 	const setAdditionalTravelInfo = (formData: FormData) => {
-		formData.append('startDate', startDate ? startDate.toISOString() : '')
-		formData.append('endDate', endDate ? endDate.toISOString() : '')
+		formData.append(
+			'startDate',
+			startDate
+				? new Date(
+						formatISO(startDate, { representation: 'date' })
+				  ).toISOString()
+				: ''
+		)
+		formData.append(
+			'endDate',
+			endDate
+				? new Date(formatISO(endDate, { representation: 'date' })).toISOString()
+				: ''
+		)
 		formData.append(
 			'cities',
 			JSON.stringify(selectedCities.map((cityInfo) => cityInfo.id))
@@ -80,7 +93,7 @@ const EditProfile = ({
 			setAdditionalTravelInfo(profileFormData)
 		}
 		if (type === 'travelEdit') {
-			profileFormData.append('travelId', String(travelId))
+			profileFormData.append('planId', String(travelId))
 		}
 
 		// :: Check formdata

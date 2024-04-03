@@ -42,9 +42,9 @@ const EditProfileImage = ({
 					className="w-20 h-20 rounded-full"
 				/>
 			) : type === 'user' ? (
-				<DefaultProfile />
+				<DefaultProfile className="w-20 h-20 rounded-full" />
 			) : (
-				<DefaultLocation />
+				<DefaultLocation className="w-20 h-20 rounded-full" />
 			)}
 			<input
 				type="file"
