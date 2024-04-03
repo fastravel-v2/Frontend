@@ -5,6 +5,7 @@ import DefaultLayout from 'src/components/layout/DefaultLayout'
 import MyPageHeader from 'src/components/header/MyPageHeader'
 import MyPageContent from './components/myPageContent/MyPageContent'
 import { myPageHeaderData } from 'src/router'
+import NavbarLayout from 'src/components/layout/NavbarLayout'
 
 const MyPage = () => {
 	const { routeTo } = useRouter()
@@ -28,12 +29,14 @@ const MyPage = () => {
 	// :: Rendering
 	return (
 		<DefaultLayout>
-			<MyPageHeader menu={headerMenu} func={headerFunc} />
+			<NavbarLayout>
+				<MyPageHeader menu={headerMenu} func={headerFunc} />
 
-			<Profile />
-			<MyPageContent headerData={myPageHeaderData} />
-			{/* <div className="sticky top-20">sticky sticky</div> */}
-			{/* <div className="h-80">height for sticky</div> */}
+				<Profile />
+				<MyPageContent headerData={myPageHeaderData} />
+				{/* <div className="sticky top-20">sticky sticky</div> */}
+				{/* <div className="h-80">height for sticky</div> */}
+			</NavbarLayout>
 		</DefaultLayout>
 	)
 }

@@ -8,6 +8,7 @@ import {
 import { useCallback } from 'react'
 import NoSearchResult from './component/NoSearchResult'
 import SearchResultList from './component/SearchResultList'
+import NavbarLayout from 'src/components/layout/NavbarLayout'
 
 const Search = () => {
 	const { searchResult, setSearchResult } = useSearchLocationResultStore()
@@ -25,12 +26,14 @@ const Search = () => {
 
 	return (
 		<DefaultLayout>
-			<SearchHeader
-				placeHolder="여행지를 검색해주세요."
-				setSearchText={setSearchText}
-				storeSearchedData={storeSearchedData}
-			/>
-			{searchResult.length === 0 ? <NoSearchResult /> : <SearchResultList />}
+			<NavbarLayout>
+				<SearchHeader
+					placeHolder="여행지를 검색해주세요."
+					setSearchText={setSearchText}
+					storeSearchedData={storeSearchedData}
+				/>
+				{searchResult.length === 0 ? <NoSearchResult /> : <SearchResultList />}
+			</NavbarLayout>
 		</DefaultLayout>
 	)
 }
