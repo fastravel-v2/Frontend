@@ -34,7 +34,7 @@ export const getUserLogout = async (): Promise<'success' | 'fail'> => {
 	// const logoutRes = await tokenInstance.get('auth/logout/')
 
 	const logoutRes = await axios.get(
-		`${import.meta.env.VITE_DEPLOY_BASE_URL}/auth/logout/`,
+		`${import.meta.env.VITE_DEPLOY_BASE_URL}/auth/logout`,
 		{
 			withCredentials: true,
 			headers: {
