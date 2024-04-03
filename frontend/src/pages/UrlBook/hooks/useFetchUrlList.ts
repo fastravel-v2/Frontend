@@ -1,4 +1,4 @@
-
+//src/pages/UrlBook/hooks/useFetchUrlList.ts
 
 import { useQuery } from '@tanstack/react-query';
 import { fetchUrlList } from '../api';
@@ -11,7 +11,7 @@ const useFetchUrlList = () => {
         
     });
 
-    return { data, isLoading, isError, refetch };
+    return { data, isLoading, isError, refetch }; // refetch 추가
 };
 
 export default useFetchUrlList;
