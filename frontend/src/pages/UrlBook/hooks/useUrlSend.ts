@@ -6,8 +6,8 @@ import { IUrlItem } from '../types'
 
 const useUrlSend = (
 	refetch: () => Promise<QueryObserverResult<IUrlItem[], Error>>
-  ) => {	const { urls, addSendingUrl, unSelectAllUrls, setUrlError } =
-		useUrlStore()
+) => {
+	const { urls, addSendingUrl, unSelectAllUrls, setUrlError } = useUrlStore()
 	const { removeSendingUrl } = useUrlStore()
 
 	const sendCheckedUrls = async () => {
@@ -33,10 +33,12 @@ const useUrlSend = (
 						// console.error('API 호출 중 오류 발생:', error)
 						setUrlError(url_id) // 에러 상태 업데이트
 						removeSendingUrl(url_id)
+						setTimeout(() => {
+							refetch() // 7초 후 refetch 함수 호출
+						}, 7000)
 					}
 				})
 			)
-
 		} catch (error) {
 			// console.log('보낸URL번호 : ', checkedUrlsId)
 			// console.error('API 호출 중 오류 발생:', error)
@@ -47,5 +49,3 @@ const useUrlSend = (
 }
 
 export default useUrlSend
-
- 
