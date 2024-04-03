@@ -27,7 +27,9 @@ export const deleteMyTravel = async (
 	travelId: string
 ): Promise<'success' | 'fail'> => {
 	// :: For production api
-	const deleteRes = await tokenInstance.delete(`core/travel?planId=${travelId}`)
+	const deleteRes = await tokenInstance.delete(
+		`core/travel/?planId=${travelId}`
+	)
 
 	// :: For development api
 	// const deleteRes = await axios.delete(
