@@ -18,6 +18,8 @@ export interface UrlStore {
 	removeSendingUrl: (urlId: number) => void
 	removeUrl: (urlId: number) => void // 스토어에서 URL을 제거하는 함수
 	setUrlError: (urlId: number) => void
+	
+	removeCompletedUrl: (urlId: number) => void
 
 }
 
