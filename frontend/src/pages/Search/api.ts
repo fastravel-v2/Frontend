@@ -7,9 +7,7 @@ export const getSearchedLocation = async (
 ): Promise<SearchLocationInfo[]> => {
 	// :: For production api
 	const searchRes = await axios.get(
-		`${
-			import.meta.env.VITE_SEARCH_BASE_URL
-		}/search/auto-complete?query=${searchText}`,
+		`https://fastravel-search.duckdns.org/search/auto-complete?query=${searchText}`,
 		{
 			headers: {
 				'Content-Type': 'application/json',
