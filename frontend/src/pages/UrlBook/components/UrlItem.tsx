@@ -18,7 +18,7 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 	const urlItem = useUrlStore((state) =>
 		state.urls.find((url) => url.url_id === url_id)
 	)
-	const { toggleCheck, sendingUrls, removeCompletedUrl } = useUrlStore()
+	const { toggleCheck, sendingUrls, removeCompletedUrl, completed_urls } = useUrlStore()
 	const [details, setDetails] = useState<IUrlItem | null>(null)
 	// const isSending = sendingUrls.includes(url_id);
 	const [imageError, setImageError] = useState(false) // 이미지 로딩 실패 여부를 추적하는 상태
@@ -52,6 +52,7 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 		await handleDelete(url_id)
 		// 삭제가 성공적으로 완료된 후, removeCompletedUrl 호출하여 스토어에서 해당 URL을 제거합니다.
 		removeCompletedUrl(url_id)
+		console.log(completed_urls)
 	}
 
 	return (

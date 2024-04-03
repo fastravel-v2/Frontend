@@ -10,6 +10,7 @@ interface IUrlResultWithTitles extends IPlaceSectionProps {
 }
 const useUrlResult = () => {
 	const { completed_urls } = useUrlStore()
+	console.log(completed_urls)
 	const [urlResultData, setUrlResultData] = useState<IUrlResultWithTitles[]>([])
 	const fetchedUrlIdsRef = useRef<number[]>([])
 
