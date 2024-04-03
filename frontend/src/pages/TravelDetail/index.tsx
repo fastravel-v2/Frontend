@@ -8,6 +8,7 @@ import Header from "./components/Header"
 import TravelPlanHeader from "./components/TravelPlanHeader"
 import DefaultHeader from "src/components/header/DefaultHeader"
 import { useRouter } from "src/hooks/useRouter"
+import { IoHomeOutline } from "react-icons/io5"
 
 const TravelDetail = () => {
   const [travelData, setTravelData] = useState<ITravelDetail | undefined>(undefined)
@@ -28,12 +29,12 @@ const TravelDetail = () => {
   const headerMenu: IMenu = {
     left: <FaArrowLeft />,
     center: null,
-    right: null,
+    right: <IoHomeOutline />,
   }
 
   const headerFunc: IMenuFunc = {
     left_func: router.goBack,
-    right_func: undefined
+    right_func: () => router.routeTo('/')
   }
 
   if (!travelData) {
