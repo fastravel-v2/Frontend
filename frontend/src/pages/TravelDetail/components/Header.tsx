@@ -29,8 +29,8 @@ const Header = ({headerInfo}: HeaderProps) => {
                         ))}
                     </div>
                 </div>
-                {headerInfo.profileImage && <div className="mt-1 mr-1 h-20 w-20">
-                    <img src={headerInfo.profileImage} alt="" />
+                {headerInfo.profileImage && <div className="mt-1 mr-1 h-20 w-20 rounded-full">
+                    <img src={headerInfo.profileImage} alt="" className="w-full h-full rounded-full" />
                 </div>}
             </div>
         </div>
