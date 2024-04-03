@@ -17,8 +17,6 @@ const Main = () => {
 			<RecommendSection />
 			<RecommendLocation />
 			<RecommendationRandom />
-			<RecommendSection />
-			<RecommendSection />
 			<BottomNavBar />
 		</div>
 	)
