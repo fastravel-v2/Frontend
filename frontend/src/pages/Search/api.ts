@@ -1,12 +1,21 @@
 // import axios from 'axios'
-import { instance, tokenInstance } from 'src/utility/apis/axios'
+import axios from 'axios'
+import { tokenInstance } from 'src/utility/apis/axios'
 
 export const getSearchedLocation = async (
 	searchText: string
 ): Promise<SearchLocationInfo[]> => {
 	// :: For production api
-	const searchRes = await instance.get(
-		`/core/search/auto-complete?query=${searchText}`
+	const searchRes = await axios.get(
+		`${
+			import.meta.env.VITE_SEARCH_BASE_URL
+		}/search/auto-complete?query=${searchText}`,
+		{
+			headers: {
+				'Content-Type': 'application/json',
+				INTERNAL_ID_HEADER: '8b5b03b7-ae9f-458e-a2b9-558eac541629',
+			},
+		}
 	)
 
 	// :: For development api
