@@ -6,9 +6,8 @@ import { useMyLocationMemoListQuery } from 'src/pages/MyPage/query'
 
 interface MemoButtonProps {
 	locationId: string
-	locationMemo: string | null
 }
-const MemoButton = ({ locationId, locationMemo }: MemoButtonProps) => {
+const MemoButton = ({ locationId }: MemoButtonProps) => {
 	const [isOpen, setIsOpen] = useState(false)
 	// Todo: memo query랑 연결 필요
 	const { myLocationMemoList } = useMyLocationMemoListQuery()
@@ -23,7 +22,7 @@ const MemoButton = ({ locationId, locationMemo }: MemoButtonProps) => {
 
 	return (
 		<div className="mx-1">
-			{locationMemo ? (
+			{myLocationMemoList[locationId] ? (
 				<button
 					onClick={handleOpenMemoModal}
 					className="text-[10px] font-light text-darkGray1 truncate text-left w-full"

@@ -22,10 +22,7 @@ const LikeLocationItem = ({ locationInfo }: ILikeLocationItemProps) => {
 			</div>
 
 			<LikeLocationItemInfo locationInfo={locationInfo} />
-			<MemoButton
-				locationId={locationInfo.locationId}
-				locationMemo={locationInfo.locationMemo}
-			/>
+			<MemoButton locationId={locationInfo.locationId} />
 		</div>
 	)
 }
