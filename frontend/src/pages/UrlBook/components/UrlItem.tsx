@@ -47,7 +47,7 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 			{urlItem?.error ? (
 				<Lottie options={FailOption} height={24} width={20} />
 			) : isSendingWithoutTrue ? (
-				<Lottie options={LoadingPlaneOption} height={60} width={30} />
+				<Lottie options={LoadingPlaneOption} height={60} width={20} />
 			) : urlItem?.status === 'None' ? (
 				<input
 					type="checkbox"

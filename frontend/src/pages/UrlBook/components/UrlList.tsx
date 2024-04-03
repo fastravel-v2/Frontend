@@ -14,6 +14,12 @@ const UrlList: React.FC = () => {
 	const { urls } = useUrlStore() // useUrlStore에서 urls 상태를 직접 사용합니다.
 	const { data, isLoading, isError } = useFetchUrlList()
 
+	// React.useEffect(() => {
+	// 	// refreshTrigger 상태가 변경될 때마다 데이터를 새로고침
+	// 	refetch()
+	// 	console.log('리페치 작동!')
+	// }, [refreshTrigger, refetch])
+
 	React.useEffect(() => {
 		if (data) {
 			setUrls(data)
@@ -30,7 +36,6 @@ const UrlList: React.FC = () => {
 
 	return (
 		<div>
-
 			{isLoading ? (
 				<div>위잉위잉 데이터 가져오는 중 </div>
 			) : isError ? (
