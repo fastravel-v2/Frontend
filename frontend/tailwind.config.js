@@ -12,5 +12,20 @@ export default {
 			},
 		},
 	},
-	plugins: [require('@tailwindcss/aspect-ratio')],
+	plugins: [
+		require('@tailwindcss/aspect-ratio'),
+		function ({ addUtilities }) {
+			const newUtilities = {
+				'.scrollbar-hide': {
+					/* Firefox */
+					'scrollbar-width': 'none',
+					/* Safari and Chrome */
+					'&::-webkit-scrollbar': {
+						display: 'none',
+					},
+				},
+			}
+			addUtilities(newUtilities)
+		},
+	],
 }

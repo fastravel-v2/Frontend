@@ -1,6 +1,21 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
+// :: Selected city store
+interface ISearchCityTextStore {
+	searchCityText: string
+	setSearchCityText: (searchText: string) => void
+}
+export const useSearchCityTextStore = create<ISearchCityTextStore>()(
+	devtools((set) => ({
+		searchCityText: '',
+		setSearchCityText: (searchText: string) =>
+			set(() => ({
+				searchCityText: searchText,
+			})),
+	}))
+)
+
 // :: Searched cities store
 interface ISearchCityStore {
 	searchedCities: string[]
