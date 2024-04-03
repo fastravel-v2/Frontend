@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { NoBasic } from 'src/assets/svgs'
+import { NoBasic} from 'src/assets/svgs'
 
 // 공통 컴포넌트라 UrlBook/types에서 빼고 여기서 직접 타입 지정함
 interface IPlaceInfo {
