@@ -6,3 +6,6 @@ export { ReactComponent as TravelImage } from './travelImage.svg'
 export { ReactComponent as LikeLocationImage } from './likeLocation.svg'
 export { ReactComponent as LocationIcon } from './locationIcon.svg'
 export { ReactComponent as HeartIcon } from './heartIcon.svg'
+export { ReactComponent as NoBasic } from './noBasic.svg'
+export { ReactComponent as NoPlace } from './noPlace.svg'
+
