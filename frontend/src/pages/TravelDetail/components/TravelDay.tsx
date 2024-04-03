@@ -2,6 +2,7 @@ import { cityInfo } from "src/utility/constants/city";
 import usePlanStore from "../store"
 import TravelDayEmptyItem from "./TravelDayEmptyItem";
 import TravelDayItem from "./TravelDayItem";
+import { useRouter } from "src/hooks/useRouter";
 
 interface TravelDayProps {
     day: string;
@@ -15,6 +16,7 @@ const getCityById = (cityId: number) => {
 
 const TravelDay = ({day, index, cities}: TravelDayProps) => {
     const dayPlan = usePlanStore.getState().plan?.days[day]
+    const router = useRouter()
 
     if (!dayPlan) return null
 
@@ -39,7 +41,9 @@ const TravelDay = ({day, index, cities}: TravelDayProps) => {
                 }
             </div>
             <div className="w-full h-[88px] flex justify-center">
-                <button className="m-5 w-full h-10 border border-lightGray3 rounded">
+                <button className="m-5 w-full h-10 border border-lightGray3 rounded"
+                    onClick={() => router.routeTo('/search')}
+                >
                     장소 추가
                 </button>
             </div>
