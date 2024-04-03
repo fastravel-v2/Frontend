@@ -104,7 +104,7 @@ const LocationDetail = () => {
       }
       <div className="flex justify-between w-full gap-4">
         <LikeButton locationId={id} locationMemo={memo} likeProps={isLiked} />
-        <AddToPlanButton />
+        <AddToPlanButton locationId={id} />
       </div>
       <Description description={locationData.description} />
       <MapComponent lat={Number(locationData.lat)} long={Number(locationData.long)}/>
