@@ -8,4 +8,5 @@ export { ReactComponent as LocationIcon } from './locationIcon.svg'
 export { ReactComponent as HeartIcon } from './heartIcon.svg'
 export { ReactComponent as NoBasic } from './noBasic.svg'
 export { ReactComponent as NoPlace } from './noPlace.svg'
-
+export { ReactComponent as MainPageNavbarIcon } from './mainPageNavbarIcon.svg'
+export { ReactComponent as MyPageNavbarIcon } from './myPageNavbarIcon.svg'
