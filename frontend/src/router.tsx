@@ -18,7 +18,6 @@ import Survey from './pages/Survey'
 import Chat from './pages/Chat'
 import TravelDetail from './pages/TravelDetail'
 import TravelCreate from './pages/TravelCreate'
-import UrlResultDummy from './pages/UrlBook/components/UrlResultDummy'
 import UrlResult from './pages/UrlBook/components/UrlResult'
 
 // Router와 관련된 데이터를 관리하는 객체의 타입
@@ -95,11 +94,6 @@ const routerData: RouterElement[] = [
 	{
 		path: '/urlbook',
 		element: <UrlBook />,
-		label: 'urlBook',
-	},
-	{
-		path: '/urlbook/resultdummy',
-		element: <UrlResultDummy />,
 		label: 'urlBook',
 	},
 	{

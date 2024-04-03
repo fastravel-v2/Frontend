@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { NoBasic } from 'src/assets/svgs'
 
 // 공통 컴포넌트라 UrlBook/types에서 빼고 여기서 직접 타입 지정함
 interface IPlaceInfo {
@@ -32,11 +33,15 @@ const PlaceSection: React.FC<IPlaceSectionProps> = ({ places }) => {
 						className="flex-shrink-0 w-24 h-24 mr-4"
 						onClick={() => handlePlaceClick(place.spot_id)}
 					>
-						<img
-							src={place.image_url || '../src/assets/nobasic.jpg'} // 이미지 URL이 없으면 기본 이미지 경로 사용
-							alt={place.name}
-							className="w-full h-full object-cover rounded-lg"
-						/>
+						{place.image_url ? (
+							<img
+								src={place.image_url}
+								alt={place.name}
+								className="w-full h-full object-cover rounded-lg"
+							/>
+						) : (
+							<NoBasic className="w-full h-full rounded-lg" /> // SVG 컴포넌트 사용
+						)}
 						<div className="mt-2 text-sm font-semibold line-clamp-1">
 							{place.name}
 						</div>
