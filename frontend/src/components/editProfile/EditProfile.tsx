@@ -19,12 +19,12 @@ import { formatISO } from 'date-fns'
 
 export enum NameMessageInfo {
 	'initial' = '',
-	'empty' = '닉네임이 비어있습니다.',
-	'tooLong' = '닉네임은 최대 10자를 넘을 수 없습니다.',
+	'empty' = '이름이 비어있습니다.',
+	'tooLong' = '이름은 최대 10자를 넘을 수 없습니다.',
 	'invalidChar' = '유효하지 않은 문자 입력 입니다.',
-	'duplicate' = '이미 사용중인 닉네임 입니다.',
+	'duplicate' = '이미 사용중인 이름 입니다.',
 	'loading' = '중복 검사 중입니다..',
-	'valid' = '가능한 닉네임입니다.',
+	'valid' = '가능한 프로필 이름입니다.',
 }
 
 // Todo: 이렇게 사용할 거면 여행 프로필 전용 문구도 관리하는게 좋을 것 같다.
