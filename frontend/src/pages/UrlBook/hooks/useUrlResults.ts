@@ -51,7 +51,7 @@ const useUrlResult = () => {
 		}
 
 		fetchResults()
-	}, [completed_urls]) // completed_urls가 변경될 때마다 useEffect 실행
+	}, []) // completed_urls가 변경될 때마다 useEffect 실행
 
 	return { urlResultData }
 }
