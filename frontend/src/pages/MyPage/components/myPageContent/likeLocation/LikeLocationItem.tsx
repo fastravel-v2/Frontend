@@ -18,7 +18,7 @@ const LikeLocationItem = ({ locationInfo }: ILikeLocationItemProps) => {
 					/>
 				</div>
 			) : (
-				<DefaultLocation className="w-full h-[148px] rounded-lg " />
+				<DefaultLocation className="w-full rounded-lg aspect-w-1 aspect-h-1 overflow-hidden" />
 			)}
 
 			<LikeLocationItemInfo locationInfo={locationInfo} />
