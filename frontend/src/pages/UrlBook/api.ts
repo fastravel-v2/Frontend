@@ -4,12 +4,21 @@ import axios from 'axios'
 const BASE_URL = 'https://j10d204.p.ssafy.io/api/core'
 
 export const fetchUrlList = async () => {
-	const response = await axios.get(`${BASE_URL}/url/list`, {
+	try {
+	  const response = await axios.get(`${BASE_URL}/url/list`, {
 		headers: { Accept: 'application/json' },
 		withCredentials: true,
-	})
-	return response.data
-}
+	  });
+	  return response.data;
+	} catch (error) {
+	  if (axios.isAxiosError(error) && error.response?.status === 404) {
+		// 404 오류 발생 시 빈 배열 반환
+		return [];
+	  }
+	  // 그 외의 오류는 여전히 던져짐
+	  throw error;
+	}
+  };
 
 export const fetchUrlInfo = async (url_id: number) => {
 	const response = await axios.get(`${BASE_URL}/url/info?url_id=${url_id}`, {
