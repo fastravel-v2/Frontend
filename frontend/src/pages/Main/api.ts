@@ -21,12 +21,12 @@ interface IPlaceInfo {
 }
 
 export const getRecommendationsLocation = async (lat: number, long: number):Promise<IPlaceInfo[]> => {
-  // const response: {data: IPlaceInfo[]} = await tokenInstance.post(`core/recommendation/location`, {lat, long})
-  const response: {data: IPlaceInfo[]} = await tokenInstance.post(`recommendation/location`, {lat, long})
+  const response: {data: IPlaceInfo[]} = await tokenInstance.post(`core/recommendation/location`, {lat, long})
+  // const response: {data: IPlaceInfo[]} = await tokenInstance.post(`recommendation/location`, {lat, long})
   return response.data
 }
 export const getRecommendationsRandom =async ():Promise<IPlaceInfo[]> => {
-  // const response: {data: IPlaceInfo[]} = await tokenInstance.get(`core/recommendation/best_list`)
-  const response: {data: IPlaceInfo[]} = await instance.get(`recommendation/best_list`)
+  const response: {data: IPlaceInfo[]} = await instance.get(`core/recommendation/best_list`)
+  // const response: {data: IPlaceInfo[]} = await instance.get(`recommendation/best_list`)
   return response.data
 }
