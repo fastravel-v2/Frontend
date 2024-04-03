@@ -21,7 +21,10 @@ const LikeLocationItemInfo = ({ locationInfo }: ILikeLocationItemInfoProps) => {
 				</p>
 			)}
 
-			<LikeButton locationId={locationInfo.locationId} />
+			<LikeButton
+				locationId={locationInfo.locationId}
+				locationMemo={locationInfo.locationMemo}
+			/>
 		</Link>
 	)
 }

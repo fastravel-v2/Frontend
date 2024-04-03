@@ -5,7 +5,7 @@ import { HeartIcon } from 'src/assets/svgs'
 
 interface ILikeButtonProps {
 	locationId: string
-	locationMemo?: string
+	locationMemo: string | null
 }
 const LikeButton = ({ locationId, locationMemo }: ILikeButtonProps) => {
 	const [isLiked, setIsLiked] = useState(true)
