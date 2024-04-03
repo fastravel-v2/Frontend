@@ -5,6 +5,7 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 import EditProfile from '../../../components/editProfile/EditProfile'
 import { useCurrentUser } from './../../../store/queries/useCurrentUser'
 import NavbarLayout from 'src/components/layout/NavbarLayout'
+import LogoutButton from 'src/components/LogoutButton'
 
 const EditMyPage = () => {
 	const { goBack } = useRouter()
@@ -34,6 +35,7 @@ const EditMyPage = () => {
 					profileImage={currentUser ? currentUser.profileImage : null}
 					isLoading={isLoading}
 				/>
+				<LogoutButton />
 			</NavbarLayout>
 		</WithHeaderLayout>
 	)

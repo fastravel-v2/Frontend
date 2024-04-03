@@ -30,10 +30,10 @@ export const getUserInfo = async (): Promise<UserInfo> => {
 	return userInfoRes.data
 }
 
-export const deleteUserLogin = async (): Promise<'success' | 'fail'> => {
-	// const logoutRes = await tokenInstance.delete('auth/logout/')
+export const getUserLogout = async (): Promise<'success' | 'fail'> => {
+	// const logoutRes = await tokenInstance.get('auth/logout/')
 
-	const logoutRes = await axios.delete(
+	const logoutRes = await axios.get(
 		`${import.meta.env.VITE_DEPLOY_BASE_URL}/auth/logout/`,
 		{
 			withCredentials: true,
