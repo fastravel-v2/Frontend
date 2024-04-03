@@ -7,7 +7,7 @@ import { FailOption, LoadingPlaneOption, NoImageOption } from 'src/assets/lottie
 import Lottie from 'react-lottie'
 
 interface IUrlItemWithIndex extends IUrlItem {
-	index: number // index는 더 이상 사용하지
+	index: number // index는 더 이상 사용하지 않으므로 제거해도 좋습니다.
 }
 
 const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
@@ -17,6 +17,8 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 	const { toggleCheck, sendingUrls } = useUrlStore()
 	const [details, setDetails] = useState<IUrlItem | null>(null)
 	// const isSending = sendingUrls.includes(url_id);
+	const [imageError, setImageError] = useState(false) // 이미지 로딩 실패 여부를 추적하는 상태
+
 	const isSendingWithoutTrue =
 		sendingUrls.includes(url_id) && urlItem?.status !== 'True'
 	useEffect(() => {
@@ -59,15 +61,16 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 			{/* Thumbnail */}
 			{details && (
 				<div className="w-16 h-16 flex justify-center rounded ml-2 overflow-hidden">
-					{details.image ? (
+					{!imageError ? (
 						<img
 							src={details.image}
+							onError={() => setImageError(true)} // 이미지 로딩 실패 시 imageError 상태를 true로 설정
 							alt="Url thumbnail"
 							className="object-cover h-full"
 						/>
 					) : (
-						<Lottie options={NoImageOption}/>
-						)}
+						<Lottie options={NoImageOption} /> // 이미지 로딩 실패 시 Lottie 애니메이션 출력
+					)}
 				</div>
 			)}
 			{/* Content */}
