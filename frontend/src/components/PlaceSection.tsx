@@ -1,8 +1,9 @@
 //src/components/PlaceSection.tsx
 
 import React from 'react'
+import Lottie from 'react-lottie'
 import { useNavigate } from 'react-router-dom'
-import { NoBasic} from 'src/assets/svgs'
+import { NoImageOption } from 'src/assets/lottie/LottieOptions'
 
 // 공통 컴포넌트라 UrlBook/types에서 빼고 여기서 직접 타입 지정함
 interface IPlaceInfo {
@@ -40,7 +41,7 @@ const PlaceSection: React.FC<IPlaceSectionProps> = ({ places }) => {
 								className="w-full h-full object-cover rounded-lg"
 							/>
 						) : (
-							<NoBasic className="w-full h-full rounded-lg" /> // SVG 컴포넌트 사용
+							<Lottie options={NoImageOption}/>
 						)}
 						<div className="mt-2 text-sm font-semibold line-clamp-1">
 							{place.name}

@@ -3,9 +3,8 @@ import { useUrlStore } from '../store'
 import { IUrlItem } from '../types'
 import { fetchUrlInfo } from '../api'
 import useSingleUrlDelete from '../hooks/useSingleUrlDelete'
-import { FailOption, LoadingPlaneOption } from 'src/assets/lottie/LottieOptions'
+import { FailOption, LoadingPlaneOption, NoImageOption } from 'src/assets/lottie/LottieOptions'
 import Lottie from 'react-lottie'
-import { NoBasic } from 'src/assets/svgs'
 
 interface IUrlItemWithIndex extends IUrlItem {
 	index: number // index는 더 이상 사용하지
@@ -67,8 +66,8 @@ const UrlItem: React.FC<IUrlItemWithIndex> = ({ url_id }) => {
 							className="object-cover h-full"
 						/>
 					) : (
-						<NoBasic width="100%" height="100%" />
-					)}
+						<Lottie options={NoImageOption}/>
+						)}
 				</div>
 			)}
 			{/* Content */}
