@@ -14,7 +14,7 @@ export default defineConfig({
 		svgr(),
 		// ViteSvgSpriteWrapper({
 		// 	// sprite 이미지 만들 입력 폴더
-		// 	icons: './src/assets/svgs/*.svg',s
+		// 	icons: './src/assets/svgs/*.svg',
 		// 	// sprite 이미지 출력 폴더
 		// 	outputDir: 'public/icons',
 		// 	// 옵션 : https://bit.ly/3EuIYDR
