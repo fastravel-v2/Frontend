@@ -23,12 +23,21 @@ interface IPlaceInfo {
 	address: string
 }
 
+interface ILikePlace {
+	spot_id: string;
+	name: string;
+	address: string;
+	image_url: string;
+	memo: string;
+}
+
 const LocationDetail = () => {
   const [locationData, setLocationData] = useState<LocationDetailType | undefined>(undefined)
   const [recommendLocal, setRecommendLocal] = useState<IPlaceInfo[]>([])
   const [recommendGlobal, setRecommendGlobal] = useState<IPlaceInfo[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const [memo, setMemo] = useState("")
+  const [likedLocation, setLikedLocation] = useState<ILikePlace | undefined>(undefined)
+  // const [memo, setMemo] = useState("")
   const [isLiked, setIsLiked] = useState(false)
   const {id} = useParams()
   const router = useRouter()
@@ -43,10 +52,7 @@ const LocationDetail = () => {
       const fetchLikeLocations = await getLikeLocations()
 
       setIsLiked(fetchLikeLocations.some(location => location.spot_id === id))
-      const likedLocation = fetchLikeLocations.find(location => location.spot_id === id)
-      if (likedLocation) {
-        setMemo(myLocationMemoList[id])
-      }
+      setLikedLocation(fetchLikeLocations.find(location => location.spot_id === id))
       setLocationData(fetchedData)
       setRecommendLocal(fetchRecommendLocal)
       setRecommendGlobal(fetchRecommendGlobal)
@@ -88,7 +94,7 @@ const LocationDetail = () => {
 
   return (
     <WithHeaderLayout headerMenu={headerMenu} headerFunc={headerFunc}>
-      <Header name={locationData.name} address={locationData.address} locationId={id} memo={memo} />
+      <Header name={locationData.name} address={locationData.address} locationId={id} memo={likedLocation ? myLocationMemoList[id] : ''} />
       {locationData.image_urls.length
         ? locationData.image_urls.length === 1
           ? <div className="flex justify-center">
@@ -103,7 +109,7 @@ const LocationDetail = () => {
         : <div className="flex justify-center"><div className="h-44 min-h-44 w-full bg-lightGray3 flex justify-center items-center"><span className="text-darkGray3">No image...</span></div></div>
       }
       <div className="flex justify-between w-full gap-4">
-        <LikeButton locationId={id} locationMemo={memo} likeProps={isLiked} />
+        <LikeButton locationId={id} locationMemo={likedLocation ? myLocationMemoList[id] : ''} likeProps={isLiked} />
         <AddToPlanButton locationId={id} />
       </div>
       <Description description={locationData.description} />
