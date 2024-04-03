@@ -5,7 +5,7 @@ import { useUrlStore } from '../store'
 import UrlItem from './UrlItem'
 import { IUrlItem } from '../types'
 import useFetchUrlList from '../hooks/useFetchUrlList'
-import { useCheckedUrlsLogger } from '../hooks/useCheckedUrlsLoger'
+// import { useCheckedUrlsLogger } from '../hooks/useCheckedUrlsLoger'
 import SelectAllPendingButton from './SelectAllPendingBtn'
 import UnselectAllButton from './UnselectAllButton' // UnselectAllButton을 임포트합니다.
 
@@ -26,7 +26,7 @@ const UrlList: React.FC = () => {
 		}
 	}, [data, setUrls])
 
-	useCheckedUrlsLogger()
+	// useCheckedUrlsLogger()
 
 	const checkedCount = urls.filter((url) => url.checked).length // 현재 선택된 URL의 개수를 계산합니다.
 	const completedUrls = data?.filter((url) => url.status === 'True') || []

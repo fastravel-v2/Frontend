@@ -48,7 +48,7 @@ export const useUrlStore = create<UrlStore>((set) => ({
 		// 로그확인용
 		set((state) => {
 			const updatedCompletedUrls = [...state.completed_urls, urlItem]
-			console.log('완료URL추가중 : ', updatedCompletedUrls)
+			// console.log('완료URL추가중 : ', updatedCompletedUrls)
 			return { completed_urls: updatedCompletedUrls }
 		})
 	},
