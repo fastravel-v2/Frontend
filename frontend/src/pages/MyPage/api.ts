@@ -116,7 +116,7 @@ export const postLikeLocation = async (
 	memoText: string
 ): Promise<'success' | 'fail'> => {
 	// :: For production api
-	const editRes = await tokenInstance.post(`/core/my_spot`, {
+	const editRes = await tokenInstance.post(`/core/my_spot/`, {
 		spot_id: locationId,
 		memo: memoText,
 	})
