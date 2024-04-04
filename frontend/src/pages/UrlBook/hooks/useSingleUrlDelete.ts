@@ -10,10 +10,10 @@ const useSingleUrlDelete = () => {
 
     const mutation = useMutation({
         mutationFn: deleteUrl, // URL 삭제 API 호출
-        onSuccess: (_, variables) => {
+        onSuccess: (_, urlId) => {
             queryClient.invalidateQueries({ queryKey: ['urls'] });
             // URL 삭제 성공 시, completed_urls에서 해당 URL 제거
-            removeCompletedUrl(variables);
+            removeCompletedUrl(urlId);
         },
     });
 
