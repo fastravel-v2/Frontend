@@ -10,14 +10,15 @@ import UnselectAllButton from './UnselectAllButton'
 
 const UrlList: React.FC = () => {
 	const setUrls = useUrlStore((state) => state.setUrls)
-	const { urls } = useUrlStore()
+	const { urls, completed_urls } = useUrlStore()
 	const { data, isLoading, isError } = useFetchUrlList()
-
+	console.log(completed_urls)
+	
 	React.useEffect(() => {
 		if (data) {
 			setUrls(data)
 		}
-	}, [data, setUrls])
+	}, [data, setUrls, completed_urls])
 
 	const checkedCount = urls.filter((url) => url.checked).length
 	const completedUrls = data?.filter((url) => url.status === 'True') || []
