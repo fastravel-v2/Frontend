@@ -3,7 +3,7 @@ import { isLoginTokenType } from 'src/utility/utils/typefilter'
 import { useEffect } from 'react'
 import { getToken } from '../service'
 import { LoginTokenType } from '../type'
-import { getUserInfo } from 'src/utility/apis/user'
+import { getHasValidToken } from 'src/utility/apis/user'
 
 export const useDoLogin = async (
 	loginType: string | undefined,
@@ -20,7 +20,7 @@ export const useDoLogin = async (
 		}
 
 		// 2. 로그인이 성공하면 설문 조사 여부에 따라 설문 조사 페이지 및 메인 페이지로 이동한다.
-		const isSurvey = await getUserInfo()
+		const isSurvey = await getHasValidToken()
 		if (!isSurvey) {
 			routeTo('/survey')
 			return
