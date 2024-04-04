@@ -11,10 +11,14 @@ export const useUrlStore = create<UrlStore>((set) => ({
 	removeUrl: (urlId) =>
 		set((state) => ({
 			urls: state.urls.filter((url) => url.url_id !== urlId),
-			completed_urls: state.completed_urls.filter((url) => url.url_id !== urlId),
-
 		})), // 특정 URL을 제거하는 로직
-
+		
+	removeCompletedUrl: (urlId) =>
+		set((state) => ({
+			completed_urls: state.completed_urls.filter(
+				(url) => url.url_id !== urlId
+			),
+		})),
 	setUrls: (newUrls) => {
 		set(() => ({ urls: newUrls }))
 	},

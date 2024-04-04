@@ -235,7 +235,7 @@ const EditTravelPlan = ({toggleIsEdit, cityLat, cityLong}: EditTravelPlanProps) 
                     </div>
                 </DragDropContext>
             </div>
-            <div className="fixed bottom-0 h-11 w-full z-20 bg-green3 text-white px-[52px] flex justify-between items-center">
+            <div className="fixed bottom-[60px] h-11 w-full z-20 bg-green3 text-white px-[52px] flex justify-between items-center">
                 <button className="flex">
                     <LuArrowUpDown />
                     <span className="text-xs">날짜 이동</span>

@@ -1,30 +1,32 @@
 //src/pages/UrlBook/hooks/useSingleUrlDelete.tsx
-
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteUrl } from '../api'
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteUrl } from '../api';
+import { useUrlStore } from '../store';
 
 const useSingleUrlDelete = () => {
-	const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
+    // Zustand 스토어에서 removeCompletedUrl 함수를 가져옵니다.
+    const { removeCompletedUrl } = useUrlStore();
 
-	// useMutation의 첫 번째 인자로 deleteUrl 함수를 직접 전달합니다.
-	const mutation = useMutation({
-		mutationFn: (urlId: number) => deleteUrl(urlId), // 여기에서 deleteUrl 함수를 호출합니다.
-		onSuccess: () => {
-			// 'urls'에 대한 쿼리를 무효화합니다.
-			// 쿼리 키가 단일 문자열이나 배열이어야 합니다. 여기서는 단일 문자열 'urls'를 사용합니다.
-			queryClient.invalidateQueries({ queryKey: ['urls'] })
-		},
-	})
+    const mutation = useMutation({
+        mutationFn: deleteUrl, // URL 삭제 API 호출
+        onSuccess: (_, urlId) => {
+            queryClient.invalidateQueries({ queryKey: ['urls'] });
+            // URL 삭제 성공 시, completed_urls에서 해당 URL 제거
+            removeCompletedUrl(urlId);
+        },
+    });
 
-	const handleDelete = async (urlId: number) => {
-		try {
-			await mutation.mutateAsync(urlId)
-		} catch (error) {
-			console.error('Error deleting URL:', error)
-		}
-	}
+    const handleDelete = async (urlId: number) => {
+        try {
+            // mutateAsync를 호출하여 URL 삭제를 시도하고, 변수로 URL ID를 전달합니다.
+            await mutation.mutateAsync(urlId);
+        } catch (error) {
+            console.error('Error deleting URL:', error);
+        }
+    };
 
-	return { handleDelete }
-}
+    return { handleDelete };
+};
 
-export default useSingleUrlDelete
+export default useSingleUrlDelete;

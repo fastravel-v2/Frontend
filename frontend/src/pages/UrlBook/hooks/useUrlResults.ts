@@ -9,7 +9,9 @@ interface IUrlResultWithTitles extends IPlaceSectionProps {
 	title: string // 각 URL 섹션의 제목
 }
 const useUrlResult = () => {
+
 	const { completed_urls } = useUrlStore()
+	console.log(completed_urls)
 	const [urlResultData, setUrlResultData] = useState<IUrlResultWithTitles[]>([])
 	const fetchedUrlIdsRef = useRef<number[]>([])
 
