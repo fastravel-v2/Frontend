@@ -13,7 +13,7 @@ export const getHasValidToken = async (): Promise<boolean> => {
 		}
 	)
 
-	return checkTokenRes.data.isSurvey
+	return checkTokenRes.data.isServey
 }
 
 export const getUserInfo = async (): Promise<UserInfo> => {
