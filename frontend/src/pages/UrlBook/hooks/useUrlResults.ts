@@ -29,21 +29,27 @@ const useUrlResult = () => {
 			if (newUrls.length === 0) {
 				return
 			}
-
 			try {
 				const responses = await Promise.all(
 					newUrls.map(async (url) => {
-						const response = await fetchUrlResults(url.url_id)
-						return {
-							title: url.title || '',
-							places: response.data,
+						try {
+							const response = await fetchUrlResults(url.url_id)
+							return {
+								title: url.title || '',
+								places: response.data,
+							}
+						} catch (error) {
+							console.error('데이터를 불러오는 중 오류 발생:', error)
+							return null // 오류 발생 시 null 반환
 						}
 					})
 				)
 
-				// 기존 데이터에 새로운 데이터를 추가합니다.
-				setUrlResultData(responses) // 수정: 누적 대신 새 데이터로 설정
-
+				// null이 아닌 응답만 필터링하고, 타입을 IUrlResultWithTitles[]로 명확히 지정합니다.
+				const validResponses = responses.filter(
+					(response): response is IUrlResultWithTitles => response !== null
+				)
+				setUrlResultData(validResponses)
 				fetchedUrlIdsRef.current = newUrls.map((url) => url.url_id)
 			} catch (error) {
 				console.error('데이터를 불러오는 중 오류 발생:', error)
