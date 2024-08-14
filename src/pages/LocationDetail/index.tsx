@@ -59,6 +59,10 @@ const LocationDetail = () => {
 			setLikedLocation(
 				fetchLikeLocations.find((location) => location.spotId === id)
 			)
+
+			if (fetchedData === undefined) {
+				router.routeTo('/notFound')
+			}
 			setLocationData(fetchedData)
 			setRecommendLocal(fetchRecommendLocal)
 			setRecommendGlobal(fetchRecommendGlobal)
@@ -91,7 +95,6 @@ const LocationDetail = () => {
 	}
 
 	if (!id || !locationData) {
-		router.routeTo('/notFound')
 		return
 	}
 

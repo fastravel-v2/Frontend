@@ -1,14 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=pnnien3iwt"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite + React + TS</title>
+		<!-- naver map -->
+		<script
+			type="text/javascript"
+			src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=pnnien3iwt"
+		></script>
+		<!-- kakao map -->
+		<script
+			type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9b553e527705821ae75ca65d8b35618e&libraries=services,clusterer,drawing"
+		></script>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.tsx"></script>
+	</body>
 </html>

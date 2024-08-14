@@ -12,22 +12,23 @@ const MapComponent = ({ lat, long }: MapComponentProps) => {
 
 	// 지도 생성 + 마커 생성
 	useEffect(() => {
-		if (mapRef.current) {
-			const mapOptions = {
-				center: new window.naver.maps.LatLng(lat, long),
-				zoom: 13,
-				scaleControl: false,
-			}
-			const map = new window.naver.maps.Map(mapRef.current, mapOptions)
-
-			new window.naver.maps.Marker({
-				position: new window.naver.maps.LatLng(lat, long),
-				map: map,
-			})
+		if (!window.kakao || !mapRef.current) {
+			return
 		}
+
+		const mapOptions = {
+			center: new kakao.maps.LatLng(lat, long),
+			level: 5,
+		}
+		const map = new kakao.maps.Map(mapRef.current, mapOptions)
+
+		const marker = new kakao.maps.Marker({
+			position: new kakao.maps.LatLng(lat, long),
+		})
+		marker.setMap(map)
 	}, [lat, long])
 
-	return <div ref={mapRef} className="min-w-80 min-h-40"></div>
+	return <div id="map" ref={mapRef} className="min-w-80 min-h-40"></div>
 }
 
 export default MapComponent
