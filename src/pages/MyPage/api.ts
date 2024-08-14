@@ -165,7 +165,28 @@ export const getMyLocationMemoList = async (): Promise<
 	LikeLocationItemRes[]
 > => {
 	// :: For production api
-	const myLikeRes = await tokenInstance.get('/core/my_spot/list')
+	// const myLikeRes = await tokenInstance.get('/core/my_spot/list')
+	// return myLikeRes.data
+
+	// dummy data
+	return [
+		{
+			spotId: '1000981',
+			name: '김춘수 유품전시관',
+			address: '경상남도 통영시 해평5길 142-16',
+			imageUrl:
+				'http://tong.visitkorea.or.kr/cms/resource/25/2367625_image2_1.jpg',
+			memo: '방문 시 김춘수 시인의 유품을 가까이에서 볼 수 있습니다.',
+		},
+		{
+			spotId: '1001011',
+			name: '윤이상 기념공원(도천테마파크)',
+			address: '경상남도 통영시 중앙로 27',
+			imageUrl:
+				'http://tong.visitkorea.or.kr/cms/resource/62/1002462_image2_1.jpg',
+			memo: '윤이상 선생의 유품을 볼 수 있는 멋진 공원입니다.',
+		},
+	]
 
 	// :: For development api
 	// const myLikeRes = await axios.get(
@@ -178,8 +199,6 @@ export const getMyLocationMemoList = async (): Promise<
 	// 		withCredentials: true,
 	// 	}
 	// )
-
-	return myLikeRes.data
 }
 
 export const putMyLocationMemo = async ({

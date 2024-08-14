@@ -23,21 +23,6 @@ import { useMyLocationMemoListQuery } from '../MyPage/query'
 import { IoHomeOutline } from 'react-icons/io5'
 import NavbarLayout from 'src/components/layout/NavbarLayout'
 
-interface IPlaceInfo {
-	spot_id: string
-	image_url: string
-	name: string
-	address: string
-}
-
-interface ILikePlace {
-	spot_id: string
-	name: string
-	address: string
-	image_url: string
-	memo: string
-}
-
 const LocationDetail = () => {
 	const [locationData, setLocationData] = useState<
 		LocationDetailType | undefined
@@ -45,7 +30,7 @@ const LocationDetail = () => {
 	const [recommendLocal, setRecommendLocal] = useState<IPlaceInfo[]>([])
 	const [recommendGlobal, setRecommendGlobal] = useState<IPlaceInfo[]>([])
 	const [isLoading, setIsLoading] = useState(false)
-	// const [memo, setMemo] = useState("")
+	const [memo, setMemo] = useState('')
 	const [likedLocation, setLikedLocation] = useState<ILikePlace | undefined>(
 		undefined
 	)
@@ -53,6 +38,8 @@ const LocationDetail = () => {
 	const { id } = useParams()
 	const router = useRouter()
 	const { myLocationMemoList } = useMyLocationMemoListQuery()
+
+	console.log(memo)
 
 	const refetch = async () => {
 		if (id) {
@@ -62,13 +49,15 @@ const LocationDetail = () => {
 			const fetchRecommendGlobal = await getRecommendationGlobal(id)
 			const fetchLikeLocations = await getLikeLocations()
 
-			setIsLiked(fetchLikeLocations.some((location) => location.spot_id === id))
-			// const likedLocation = fetchLikeLocations.find(location => location.spot_id === id)
-			// if (likedLocation) {
-			//   setMemo(likedLocation.memo)
-			// }
+			setIsLiked(fetchLikeLocations.some((location) => location.spotId === id))
+			const likedLocation = fetchLikeLocations.find(
+				(location) => location.spotId === id
+			)
+			if (likedLocation) {
+				setMemo(likedLocation.memo)
+			}
 			setLikedLocation(
-				fetchLikeLocations.find((location) => location.spot_id === id)
+				fetchLikeLocations.find((location) => location.spotId === id)
 			)
 			setLocationData(fetchedData)
 			setRecommendLocal(fetchRecommendLocal)
@@ -109,67 +98,67 @@ const LocationDetail = () => {
 	const {
 		address,
 		tel,
-		credit_card,
+		creditCard,
 		parking,
-		open_time,
-		pets_available,
-		baby_equipment_rental,
-		closed_for_the_day,
-		play_area_for_children,
-		best_menu,
-		rest_date,
-		time_available,
-		sale_items,
-		take_out,
-		fair_day,
-		smoking_section_available,
+		openTime,
+		petsAvailable,
+		babyEquipmentRental,
+		closedForTheDay,
+		playAreaForChildren,
+		bestMenu,
+		restDate,
+		timeAvailable,
+		saleItems,
+		takeOut,
+		fairDay,
+		smokingSectionAvailable,
 		reservation,
 		fee,
 		occupancy,
-		age_limit,
+		ageLimit,
 		scale,
-		start_date,
-		end_date,
-		show_time,
-		parking_fee,
-		travel_time,
+		startDate,
+		endDate,
+		showTime,
+		parkingFee,
+		travelTime,
 		discount,
-		age_available,
+		ageAvailable,
 		seasons,
-		time_required,
+		timeRequired,
 		program,
 	} = locationData
 	const properties = {
 		address,
 		tel,
-		credit_card,
+		creditCard,
 		parking,
-		open_time,
-		pets_available,
-		baby_equipment_rental,
-		closed_for_the_day,
-		play_area_for_children,
-		best_menu,
-		rest_date,
-		time_available,
-		sale_items,
-		take_out,
-		fair_day,
-		smoking_section_available,
+		openTime,
+		petsAvailable,
+		babyEquipmentRental,
+		closedForTheDay,
+		playAreaForChildren,
+		bestMenu,
+		restDate,
+		timeAvailable,
+		saleItems,
+		takeOut,
+		fairDay,
+		smokingSectionAvailable,
 		reservation,
 		fee,
 		occupancy,
-		age_limit,
+		ageLimit,
 		scale,
-		start_date,
-		end_date,
-		show_time,
-		parking_fee,
-		travel_time,
+		startDate,
+		endDate,
+		showTime,
+		parkingFee,
+		travelTime,
 		discount,
-		age_available,
+		ageAvailable,
 		seasons,
-		time_required,
+		timeRequired,
 		program,
 	}
 
@@ -182,8 +171,8 @@ const LocationDetail = () => {
 					locationId={id}
 					memo={likedLocation ? myLocationMemoList[id] : ''}
 				/>
-				{locationData.image_urls.length ? (
-					locationData.image_urls.length === 1 ? (
+				{locationData.imageUrls.length ? (
+					locationData.imageUrls.length === 1 ? (
 						<div className="flex justify-center">
 							<div className="relative rounded-xl h-44 w-full">
 								<div className="h-5 absolute top-2 right-4 px-3 z-10 rounded-full text-white bg-darkGray1 flex justify-center items-center">
@@ -192,7 +181,7 @@ const LocationDetail = () => {
 									</p>
 								</div>
 								<img
-									src={locationData.image_urls[0]}
+									src={locationData.imageUrls[0]}
 									alt={`image number ${1}`}
 									className="rounded-xl px-1 h-44 w-full"
 								/>
@@ -200,7 +189,7 @@ const LocationDetail = () => {
 						</div>
 					) : (
 						<div className="flex justify-center">
-							<CarouselComponent images={locationData.image_urls} />
+							<CarouselComponent images={locationData.imageUrls} />
 						</div>
 					)
 				) : (

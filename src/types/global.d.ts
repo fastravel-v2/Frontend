@@ -4,3 +4,18 @@ declare module '*.svg' {
 	const src: string
 	export default src
 }
+
+interface IPlaceInfo {
+	spotId: string
+	imageUrl: string
+	name: string
+	address: string
+}
+
+interface ILikePlace {
+	spotId: string
+	name: string
+	address: string
+	imageUrl: string
+	memo: string
+}

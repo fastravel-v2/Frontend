@@ -33,10 +33,10 @@ export interface MyTravel {
 }
 
 export interface LikeLocationItemRes {
-	spot_id: string
+	spotId: string
 	name: string
 	address: string | null
-	image_url: string | null
+	imageUrl: string | null
 	memo: string | null
 }
 

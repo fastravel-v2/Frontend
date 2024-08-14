@@ -42,7 +42,7 @@ export const useDeleteTravelMutation = () => {
 // :: Like Location List
 export const useLikeLocationListQuery = () => {
 	const { isLoading, data } = useQuery({
-		queryKey: ['likeLocation'], 
+		queryKey: ['likeLocation'],
 		queryFn: getLikeLocation,
 		refetchOnWindowFocus: false,
 		refetchOnReconnect: false,
@@ -54,10 +54,10 @@ export const useLikeLocationListQuery = () => {
 		}
 
 		return data.map((likeLocationInfo) => ({
-			locationId: likeLocationInfo.spot_id,
+			locationId: likeLocationInfo.spotId,
 			locationName: likeLocationInfo.name,
 			locationAddress: likeLocationInfo.address || '',
-			locationImage: likeLocationInfo.image_url || '',
+			locationImage: likeLocationInfo.imageUrl || '',
 			locationMemo: likeLocationInfo.memo || null,
 		}))
 	}, [data])
@@ -81,7 +81,7 @@ export const useMyLocationMemoListQuery = () => {
 		}
 
 		data.forEach((likeLocationInfo) => {
-			const locationId = likeLocationInfo.spot_id
+			const locationId = likeLocationInfo.spotId
 			result[locationId] = likeLocationInfo.memo ?? ''
 		})
 		return result
